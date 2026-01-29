@@ -8,9 +8,15 @@
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content="#F7F7F7" />
 
-    <title>Liana Web Studios — Conversion-Focused Web Systems</title>
+    <title>Web Girl Studio — Conversion-Focused Web Systems</title>
     <meta name="description"
-        content="Liana Web Studios fixes websites that leak customers. Conversion-focused web systems for service businesses. Request a free website audit." />
+        content="Web Girl Studio fixes websites that leak customers. Conversion-focused web systems for service businesses. Request a free website audit." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
 
     <!-- You said main.css is already linked -->
     <link rel="stylesheet" href="main.css" />
@@ -22,15 +28,14 @@
     <!-- Header / Nav -->
     <header class="header" data-header>
         <div class="container header__inner">
-            <a class="brand" href="#top" aria-label="Liana Web Studios home">
+            <a class="brand" href="#top" aria-label="Web Girl Studio home">
                 <span class="brand__mark" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" class="brand__icon" role="presentation">
-                        <path d="M5 12c3.5-6 10.5-6 14 0c-3.5 6-10.5 6-14 0Z" fill="none" stroke="currentColor"
-                            stroke-width="2" />
-                        <path d="M12 9v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                    </svg>
+                    <img class="brand__logo" src="img/logo.png" alt="" />
                 </span>
-                <span class="brand__text">Liana Web Studios</span>
+                <span class="brand__text-wrap">
+                    <span class="brand__text">Web Girl Studio</span>
+                    <span class="brand__tag">Conversion Systems</span>
+                </span>
             </a>
 
             <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false"
@@ -52,7 +57,7 @@
 
     <main id="main">
         <!-- Hero (#top) -->
-        <section class="hero section" aria-label="Hero">
+        <section class="hero section section--marks" aria-label="Hero">
             <div class="hero__bg" aria-hidden="true">
                 <div class="hero__mesh"></div>
                 <div class="hero__grain"></div>
@@ -85,15 +90,24 @@
 
             <div class="container hero__inner">
                 <div class="hero__content" data-reveal>
+                    <div class="hero__labels">
+                        <span class="label-chip label-chip--outline">Section 01</span>
+                        <span class="label-chip">No fluff</span>
+                        <span class="label-chip label-chip--acid">Fast delivery</span>
+                    </div>
                     <p class="eyebrow">
                         <span class="pill">
                             <span class="pill__dot" aria-hidden="true"></span>
-                            Conversion-first web studio
+                            Web Girl Studio · Conversion systems
                         </span>
                     </p>
 
-                    <h1 class="hero__title">We fix websites that leak customers.</h1>
+                    <div class="hero__title-wrap">
+                        <img class="hero__star" src="img/red-star-vector.svg" alt="" aria-hidden="true" />
+                        <h1 class="hero__title">We fix websites that leak customers.</h1>
+                    </div>
                     <p class="hero__subtitle">Conversion-focused web systems for service businesses.</p>
+                    <p class="hero__tagline">Pretty sites don’t book clients. Systems do.</p>
 
                     <div class="hero__actions">
                         <a class="btn btn--primary" href="#audit">Get a free website audit</a>
@@ -128,11 +142,13 @@
                 </div>
 
                 <aside class="hero__aside" data-reveal aria-label="Quick scan card">
-                    <div class="panel">
+                    <div class="panel panel--scan">
                         <div class="panel__top">
-                            <p class="panel__kicker">Quick scan</p>
-                            <h2 class="panel__title">What we look for</h2>
+                            <span class="label-chip label-chip--mono">Quick scan</span>
+                            <h2 class="panel__title">Audit snapshot</h2>
                         </div>
+
+                        <div class="panel__barcode" aria-hidden="true"></div>
 
                         <ul class="panel__list">
                             <li class="panel__item">
@@ -160,8 +176,9 @@
         <!-- The Problem -->
         <section class="section problem" aria-label="The Problem">
             <div class="container">
+                <div class="barcode" aria-hidden="true"></div>
                 <header class="section__head" data-reveal>
-                    <h2 class="section__title">Your site might look fine. That’s not the point.</h2>
+                    <h2 class="section__title" data-section="01">Your site might look fine. That’s not the point.</h2>
                     <p class="section__lead">
                         If people land on your site but don’t act, design isn’t the issue. <strong>Conversion
                             is.</strong>
@@ -224,7 +241,7 @@
         <section class="section shift" aria-label="Positioning">
             <div class="container shift__inner" data-reveal>
                 <div class="shift__copy">
-                    <h2 class="section__title">Most agencies sell visuals. We sell outcomes.</h2>
+                    <h2 class="section__title" data-section="02">Most agencies sell visuals. We sell outcomes.</h2>
                     <p class="section__lead">More enquiries/bookings from the traffic you already get.</p>
                 </div>
 
@@ -242,7 +259,7 @@
         <section class="section how" id="how" aria-label="How it works">
             <div class="container">
                 <header class="section__head" data-reveal>
-                    <h2 class="section__title">How it works</h2>
+                    <h2 class="section__title" data-section="03">How it works</h2>
                     <p class="section__lead">A compact system: diagnose first, reset what matters, then ship.</p>
                 </header>
 
@@ -310,8 +327,9 @@
         <!-- What We Deliver (#deliver) -->
         <section class="section deliver" id="deliver" aria-label="What we deliver">
             <div class="container">
+                <div class="barcode" aria-hidden="true"></div>
                 <header class="section__head" data-reveal>
-                    <h2 class="section__title">What we deliver</h2>
+                    <h2 class="section__title" data-section="04">What we deliver</h2>
                     <p class="section__lead">A tight scope that fixes conversion, without overbuilding.</p>
                 </header>
 
@@ -364,7 +382,7 @@
         <section class="section industries" id="industries" aria-label="Industries we work with">
             <div class="container">
                 <header class="section__head" data-reveal>
-                    <h2 class="section__title">Industries we work with</h2>
+                    <h2 class="section__title" data-section="05">Industries we work with</h2>
                     <p class="section__lead">Different industries convert differently. Our approach adapts accordingly.
                     </p>
                 </header>
@@ -394,7 +412,7 @@
         <section class="section why" aria-label="Why this works">
             <div class="container">
                 <header class="section__head" data-reveal>
-                    <h2 class="section__title">Why this works</h2>
+                    <h2 class="section__title" data-section="06">Why this works</h2>
                     <p class="section__lead">The method is simple: research, remove friction, ship the right thing.</p>
                 </header>
 
@@ -444,11 +462,12 @@
         </section>
 
         <!-- Primary CTA (#audit) -->
-        <section class="section audit" id="audit" aria-label="Free audit">
+        <section class="section audit section--marks" id="audit" aria-label="Free audit">
             <div class="container">
+                <div class="barcode" aria-hidden="true"></div>
                 <div class="audit__grid">
                     <header class="audit__head" data-reveal>
-                        <h2 class="section__title">Want to know what’s costing you customers?</h2>
+                        <h2 class="section__title" data-section="07">Want to know what’s costing you customers?</h2>
                         <p class="section__lead">We’ll review your site and send a clear breakdown.</p>
 
                         <ul class="audit__list" aria-label="What we review" data-reveal>
@@ -553,7 +572,7 @@
         <section class="section studio" id="studio" aria-label="Studio">
             <div class="container studio__inner" data-reveal>
                 <div class="studio__copy">
-                    <h2 class="section__title">Studio</h2>
+                    <h2 class="section__title" data-section="08">Studio</h2>
                     <p class="section__lead">Hi, I’m Liana. I run a conversion-focused web studio.</p>
 
                     <ul class="studio__bullets" aria-label="Studio bullets">
@@ -572,7 +591,7 @@
                 <div class="studio__card" aria-label="Studio values">
                     <div class="stamp" aria-hidden="true">
                         <span class="stamp__ring"></span>
-                        <span class="stamp__center">LW</span>
+                        <span class="stamp__center">WG</span>
                     </div>
                     <h3 class="studio__card-title">What you can expect</h3>
                     <ul class="mini-list">
@@ -591,14 +610,12 @@
             <div class="footer__top">
                 <a class="brand brand--footer" href="#top" aria-label="Back to top">
                     <span class="brand__mark" aria-hidden="true">
-                        <svg viewBox="0 0 24 24" class="brand__icon" role="presentation">
-                            <path d="M5 12c3.5-6 10.5-6 14 0c-3.5 6-10.5 6-14 0Z" fill="none" stroke="currentColor"
-                                stroke-width="2" />
-                            <path d="M12 9v6" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" />
-                        </svg>
+                        <img class="brand__logo" src="img/logo.png" alt="" />
                     </span>
-                    <span class="brand__text">Liana Web Studios</span>
+                    <span class="brand__text-wrap">
+                        <span class="brand__text">Web Girl Studio</span>
+                        <span class="brand__tag">Studio</span>
+                    </span>
                 </a>
 
                 <nav class="footer__nav" aria-label="Footer navigation">
@@ -615,7 +632,8 @@
                     Sydney, Australia · <span class="footer__contact">Contact: hello@yourdomain.com</span>
                 </p>
                 <p class="footer__meta">
-                    © <span id="year">2026</span> Liana Web Studios. All rights reserved.
+                    <img class="footer__star" src="img/red-star-vector.svg" alt="" aria-hidden="true" />
+                    © <span id="year">2026</span> Web Girl Studio. All rights reserved.
                 </p>
             </div>
         </div>
