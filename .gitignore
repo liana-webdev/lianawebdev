@@ -1,2 +1,4 @@
-main.scss
+# Build output
+main.css
 main.css.map
+*.map
