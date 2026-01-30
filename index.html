@@ -8,11 +8,9 @@
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content="#F7F7F7" />
 
-    <title>Web Girl Studio � Conversion-Focused Web Systems</title>
+    <title>Web Girl Studio | Conversion-Focused Web Systems</title>
     <meta name="description"
-        content="Web Girl Studio � Conversion-Focused Web Systems for service businesses. Request a free website audit." />
-
-    <!-- You said main.css is already linked -->
+        content="Web Girl Studio | Conversion-Focused Web Systems for service businesses. Request a free website audit." />
     <link rel="stylesheet" href="main.css" />
 </head>
 
@@ -93,17 +91,17 @@
                         <p class="eyebrow">
                             <span class="pill">
                                 <span class="pill__dot" aria-hidden="true"></span>
-                                Web Girl Studio � Conversion systems
+                                Web Girl Studio | Conversion systems
                             </span>
                         </p>
 
                         <div class="hero__title-wrap">
-                            <img class="hero__star" src="img/red-star-vector.svg" alt="" aria-hidden="true" />
+                            <img class="hero__star" src="img/red star vector.svg" alt="" aria-hidden="true" />
                             <h1 class="hero__title">We fix websites that leak customers.</h1>
                         </div>
                         <p class="hero__subtitle">Conversion-focused web systems for service businesses.</p>
-                        <p class="hero__founder">Founder-led. Strategy &amp; delivery by Liana.</p>
-                        <p class="hero__tagline">Pretty sites don't book clients. Systems do.</p>
+                        <p class="hero__founder">Founder-led. Strategy &amp; delivery.</p>
+                        <p class="hero__tagline">Pretty sites don't book clients - systems do.</p>
 
                         <div class="hero__actions">
                             <a class="btn btn--primary" href="#audit">Get a free website audit</a>
@@ -163,18 +161,18 @@
                         </ul>
 
                         <a class="text-link underline-ink" href="#audit">
-                            Request the audit <span aria-hidden="true">&rarr;</span>
+                            Request the audit <span aria-hidden="true">|</span>
                         </a>
                     </div>
                     <div class="hero__flow" aria-label="Leak points flow">
                         <p class="flow__label">Leak points (example)</p>
                         <div class="flow" aria-hidden="true">
                             <span class="flow__item">Traffic</span>
-                            <span class="flow__arrow">&rarr;</span>
+                            <span class="flow__arrow">|</span>
                             <span class="flow__item">Clarity</span>
-                            <span class="flow__arrow flow__arrow--alert">&rarr;</span>
+                            <span class="flow__arrow flow__arrow--alert">|</span>
                             <span class="flow__item flow__item--alert">CTA</span>
-                            <span class="flow__arrow">&rarr;</span>
+                            <span class="flow__arrow">|</span>
                             <span class="flow__item">Booking</span>
                         </div>
                     </div>
@@ -331,7 +329,7 @@
 
                 <p class="how__cta" data-reveal>
                     <a class="text-link underline-ink" href="#audit">See the process <span
-                            aria-hidden="true">&rarr;</span></a>
+                            aria-hidden="true">|</span></a>
                 </p>
             </div>
         </section>
@@ -517,7 +515,7 @@
                     </header>
 
                     <div class="form-card" data-reveal>
-                        <form class="form" action="#" method="post" aria-label="Audit request form">
+                        <form class="form" action="send_form.php" method="post" aria-label="Audit request form">
                             <div class="form__row">
                                 <label class="form__label" for="name">Name</label>
                                 <input class="form__input" id="name" name="name" type="text" autocomplete="name"
@@ -656,6 +654,56 @@
         </section>
     </main>
 
+    <!-- Success overlay -->
+    <div id="form-success-overlay" class="overlay" aria-hidden="true" style="display:none;">
+        <div class="overlay__panel">
+            <div class="overlay__icon" aria-hidden="true">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#1E7F34" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6L9 17l-5-5" />
+                </svg>
+            </div>
+            <h3>Thanks — message sent</h3>
+            <p>Thanks for your message. I will reply shortly.</p>
+            <button id="overlay-ok" class="btn btn--primary">OK</button>
+        </div>
+    </div>
+
+    <style>
+        .overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 9999
+        }
+
+        .overlay__panel {
+            background: #fff;
+            padding: 28px 24px;
+            border-radius: 12px;
+            max-width: 360px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15)
+        }
+
+        .overlay__icon {
+            margin-bottom: 8px
+        }
+
+        .overlay h3 {
+            margin: 6px 0 4px;
+            font-size: 18px
+        }
+
+        .overlay p {
+            margin: 0 0 14px;
+            color: #444
+        }
+    </style>
+
     <!-- Footer -->
     <footer class="footer" aria-label="Footer">
         <div class="container footer__inner">
@@ -681,11 +729,11 @@
 
             <div class="footer__bottom">
                 <p class="footer__meta">
-                    Sydney, Australia � <span class="footer__contact">Contact: hello@yourdomain.com</span>
+                    Sydney, Australia | <span class="footer__contact">Contact: liana.webdev@gmail.com</span>
                 </p>
                 <p class="footer__meta">
                     <img class="footer__star" src="img/red-star-vector.svg" alt="" aria-hidden="true" />
-                    � <span id="year">2026</span> Web Girl Studio. All rights reserved.
+                    | ABN: 98117712543 | <span id="year">2026</span> Web Girl Studio. All rights reserved.
                 </p>
             </div>
         </div>
@@ -767,6 +815,38 @@
             } else {
                 revealEls.forEach((el) => el.classList.add("is-in"));
             }
+
+            // Form success overlay handling
+            const overlay = document.getElementById('form-success-overlay');
+            const overlayOk = document.getElementById('overlay-ok');
+
+            function showOverlay() {
+                if (!overlay) return;
+                overlay.style.display = 'flex';
+                overlay.setAttribute('aria-hidden', 'false');
+                overlayOk && overlayOk.focus();
+            }
+
+            function hideOverlay() {
+                if (!overlay) return;
+                overlay.style.display = 'none';
+                overlay.setAttribute('aria-hidden', 'true');
+                // remove success param from URL
+                const params = new URLSearchParams(location.search);
+                params.delete('success');
+                const newQs = params.toString();
+                history.replaceState(null, '', location.pathname + (newQs ? '?' + newQs : ''));
+            }
+
+            if (overlayOk) overlayOk.addEventListener('click', hideOverlay);
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideOverlay(); });
+
+            // Show overlay if redirected with ?success=1
+            try {
+                const params = new URLSearchParams(location.search);
+                if (params.get('success') === '1') showOverlay();
+                if (params.get('success') === '0') alert('Sorry, there was an error submitting the form. Please try again.');
+            } catch (e) {/* noop */ }
         })();
     </script>
 </body>
