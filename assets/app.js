@@ -31,10 +31,11 @@
   }, { threshold: 0.12, rootMargin: "0px 0px -7% 0px" });
   reveals.forEach((element) => observer.observe(element));
 
+  let pageScrollMax = 1;
   let ticking = false;
   const updateScroll = () => {
-    const max = Math.max(document.documentElement.scrollHeight - innerHeight, 1);
-    document.documentElement.style.setProperty("--page-progress", String(scrollY / max));
+    pageScrollMax = Math.max(document.documentElement.scrollHeight - innerHeight, 1);
+    document.documentElement.style.setProperty("--page-progress", String(scrollY / pageScrollMax));
     header?.classList.toggle("is-scrolled", scrollY > 24);
     parallax.forEach((element) => {
       const speed = Number(element.dataset.parallax || 0.08);
@@ -100,10 +101,105 @@
     });
   });
 
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine)");
+  const iridescentCard = document.querySelector("[data-iridescent-card]");
+
+  if (iridescentCard) {
+    const revealFoil = (entryObserver) => {
+      if (!reduceMotion.matches) iridescentCard.classList.add("is-foil-revealed");
+      entryObserver?.unobserve(iridescentCard);
+    };
+
+    if ("IntersectionObserver" in window) {
+      const foilObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) revealFoil(foilObserver);
+      }, { threshold: 0.22 });
+      foilObserver.observe(iridescentCard);
+    } else {
+      revealFoil();
+    }
+
+    if (finePointer.matches && !reduceMotion.matches) {
+      let bounds = null;
+      let materialFrame = 0;
+      let pointerInside = false;
+      const current = { x: 0.5, y: 0.5, rotateX: 0, rotateY: 0 };
+      const target = { x: 0.5, y: 0.5, rotateX: 0, rotateY: 0 };
+
+      const queueMaterialFrame = () => {
+        if (!materialFrame) materialFrame = requestAnimationFrame(updateMaterial);
+      };
+
+      const updateMaterial = () => {
+        materialFrame = 0;
+        const ease = pointerInside ? 0.12 : 0.09;
+        current.x += (target.x - current.x) * ease;
+        current.y += (target.y - current.y) * ease;
+        current.rotateX += (target.rotateX - current.rotateX) * ease;
+        current.rotateY += (target.rotateY - current.rotateY) * ease;
+
+        iridescentCard.style.setProperty("--ir-x", `${(current.x * 100).toFixed(2)}%`);
+        iridescentCard.style.setProperty("--ir-y", `${(current.y * 100).toFixed(2)}%`);
+        iridescentCard.style.setProperty("--ir-rotate-x", `${current.rotateX.toFixed(3)}deg`);
+        iridescentCard.style.setProperty("--ir-rotate-y", `${current.rotateY.toFixed(3)}deg`);
+        iridescentCard.style.setProperty("--ir-shift-x", `${((current.x - 0.5) * 18).toFixed(2)}px`);
+        iridescentCard.style.setProperty("--ir-shift-y", `${((current.y - 0.5) * 12).toFixed(2)}px`);
+
+        const moving =
+          Math.abs(target.x - current.x) > 0.002 ||
+          Math.abs(target.y - current.y) > 0.002 ||
+          Math.abs(target.rotateX - current.rotateX) > 0.01 ||
+          Math.abs(target.rotateY - current.rotateY) > 0.01;
+
+        if (moving) {
+          queueMaterialFrame();
+        } else if (!pointerInside) {
+          iridescentCard.classList.remove("is-iridescent-active");
+        }
+      };
+
+      const updateMaterialTarget = (event) => {
+        if (!bounds) bounds = iridescentCard.getBoundingClientRect();
+        const x = Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width));
+        const y = Math.min(1, Math.max(0, (event.clientY - bounds.top) / bounds.height));
+        target.x = x;
+        target.y = y;
+        target.rotateX = (0.5 - y) * 2.2;
+        target.rotateY = (x - 0.5) * 2.2;
+        queueMaterialFrame();
+      };
+
+      iridescentCard.addEventListener("pointerenter", (event) => {
+        bounds = iridescentCard.getBoundingClientRect();
+        pointerInside = true;
+        iridescentCard.classList.add("is-iridescent-active");
+        updateMaterialTarget(event);
+      }, { passive: true });
+
+      iridescentCard.addEventListener("pointermove", updateMaterialTarget, { passive: true });
+
+      iridescentCard.addEventListener("pointerleave", () => {
+        pointerInside = false;
+        target.x = 0.5;
+        target.y = 0.5;
+        target.rotateX = 0;
+        target.rotateY = 0;
+        queueMaterialFrame();
+      }, { passive: true });
+
+      addEventListener("resize", () => {
+        bounds = null;
+      }, { passive: true });
+    }
+  }
+
   const canvas = document.querySelector(".signal-canvas");
-  const gl = canvas?.getContext("webgl", { alpha: true, antialias: false, powerPreference: "high-performance" });
-  if (!canvas || !gl) {
-    if (canvas) canvas.dataset.failed = "true";
+  if (!canvas) return;
+
+  const gl = canvas.getContext("webgl", { alpha: true, antialias: false, powerPreference: "high-performance" });
+  if (!gl) {
+    canvas.dataset.failed = "true";
     return;
   }
 
@@ -118,6 +214,14 @@
     uniform float u_time;
     uniform float u_scroll;
     mat2 rot(float a) { float s = sin(a), c = cos(a); return mat2(c, -s, s, c); }
+    float ribbonNoise(vec3 p) {
+      float broad = sin(dot(p, vec3(3.7, 5.1, 4.3)) * 1.7 + sin(p.y * 4.6 - u_time * .12));
+      float broken = sin(dot(p, vec3(-5.2, 2.8, 4.7)) * 2.4 - cos(p.x * 5.3 + u_time * .09));
+      return .5 + broad * .28 + broken * .22;
+    }
+    vec3 thinFilm(float phase) {
+      return .5 + .5 * cos(phase + vec3(0.0, 2.12, 4.24));
+    }
     float field(vec3 p) {
       p.xz *= rot(u_time * .09 + u_scroll * 1.2);
       p.xy *= rot(-u_time * .06);
@@ -155,24 +259,39 @@
       float alpha = 0.0;
       if (distanceTravelled < 6.0) {
         vec3 n = normalAt(p);
-        vec3 lightDirection = normalize(vec3(-.45, .8, 1.0));
+        vec3 viewDirection = normalize(-rd);
+        vec3 lightDirection = normalize(vec3(-.48, .82, 1.0));
         float diffuse = max(dot(n, lightDirection), 0.0);
-        float rim = pow(1.0 - max(dot(n, -rd), 0.0), 2.2);
-        float bands = smoothstep(.76, .98, abs(sin((p.y + p.x * .18) * 24.0 + u_time * .35)));
-        float longitude = smoothstep(.82, .99, abs(sin(atan(p.z, p.x) * 13.0)));
-        vec3 red = vec3(1.0, .015, .12);
-        vec3 hot = vec3(1.0, .34, .22);
-        colour = red * (.12 + diffuse * .52) + hot * rim * 1.1;
-        colour += red * (bands * .21 + longitude * .12) * (diffuse + .2);
-        alpha = .78 + rim * .22;
+        float facing = clamp(dot(n, viewDirection), 0.0, 1.0);
+        float fresnel = pow(1.0 - facing, 3.25);
+        vec3 reflection = reflect(-lightDirection, n);
+        float clearcoat = pow(max(dot(reflection, viewDirection), 0.0), 48.0);
+        float softSpecular = pow(max(dot(reflection, viewDirection), 0.0), 12.0);
+        float ribbon = smoothstep(.7, .97, abs(sin((p.y + p.x * .31 - p.z * .18) * 13.0 + u_time * .13)));
+        float broken = smoothstep(.55, .83, ribbonNoise(p));
+        float fold = smoothstep(.35, .88, 1.0 - abs(dot(n, normalize(vec3(.2, .92, -.34)))));
+        float spectralMask = smoothstep(.045, .68, fresnel) * ribbon * broken * (.28 + fold * .72);
+        float phase = 4.8 + p.y * 2.1 + p.x * .7 - p.z * 1.2 + fresnel * 7.2 + u_time * .035;
+        vec3 film = thinFilm(phase);
+        film = mix(film, vec3(1.0, .83, .54), smoothstep(.88, 1.0, ribbonNoise(p + vec3(1.7))));
+
+        vec3 obsidian = vec3(.0045, .005, .0065);
+        obsidian += vec3(.022, .023, .026) * (.12 + diffuse * .32);
+        colour = obsidian;
+        colour += vec3(1.0, .965, .86) * clearcoat * .72;
+        colour += vec3(.16, .19, .22) * softSpecular * .14;
+        colour += film * spectralMask * .7;
+        colour += vec3(1.0, .015, .09) * fresnel * ribbon * (1.0 - broken) * .065;
+        colour = 1.0 - exp(-colour * 1.08);
+        alpha = .86 + fresnel * .14;
       } else {
         float flare = .0026 / max(abs(uv.x * uv.y), .002);
         float halo = .016 / max(length(uv) - .04, .04);
-        colour = vec3(1.0, .01, .08) * min(flare * .018 + halo * .022, .18);
+        colour = vec3(1.0, .01, .075) * min(flare * .014 + halo * .017, .12);
         alpha = max(colour.r * .85, 0.0);
       }
       float grain = fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 78.233))) * 43758.5453);
-      colour += (grain - .5) * .018;
+      colour += (grain - .5) * .012;
       gl_FragColor = vec4(colour, alpha);
     }
   `;
@@ -186,12 +305,18 @@
   };
   const vertexShader = compile(gl.VERTEX_SHADER, vertexSource);
   const fragmentShader = compile(gl.FRAGMENT_SHADER, fragmentSource);
-  if (!vertexShader || !fragmentShader) return;
+  if (!vertexShader || !fragmentShader) {
+    canvas.dataset.failed = "true";
+    return;
+  }
   const program = gl.createProgram();
   gl.attachShader(program, vertexShader);
   gl.attachShader(program, fragmentShader);
   gl.linkProgram(program);
-  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    canvas.dataset.failed = "true";
+    return;
+  }
 
   const buffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -204,34 +329,102 @@
   gl.enableVertexAttribArray(position);
   gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
 
+  let canvasBounds = null;
+  let canvasFrame = 0;
+  let canvasVisible = true;
+  let pageVisible = !document.hidden;
+  let contextLost = false;
+  let sizeDirty = true;
+  let elapsed = reduceMotion.matches ? 1.2 : 0;
+  let previousFrame = performance.now();
   const pointerTarget = { x: 0.5, y: 0.5 };
   const pointerCurrent = { x: 0.5, y: 0.5 };
-  canvas.addEventListener("pointermove", (event) => {
-    const rect = canvas.getBoundingClientRect();
-    pointerTarget.x = (event.clientX - rect.left) / rect.width;
-    pointerTarget.y = 1 - (event.clientY - rect.top) / rect.height;
-  }, { passive: true });
 
-  const started = performance.now();
-  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const draw = (now) => {
-    const dpr = Math.min(devicePixelRatio || 1, 1.6);
-    const width = Math.max(1, Math.floor(canvas.clientWidth * dpr));
-    const height = Math.max(1, Math.floor(canvas.clientHeight * dpr));
-    if (canvas.width !== width || canvas.height !== height) {
-      canvas.width = width;
-      canvas.height = height;
-      gl.viewport(0, 0, width, height);
+  const queueCanvasFrame = () => {
+    if (!canvasFrame && canvasVisible && pageVisible && !contextLost) {
+      previousFrame = performance.now();
+      canvasFrame = requestAnimationFrame(draw);
     }
+  };
+
+  const updateCanvasPointer = (event) => {
+    if (!canvasBounds) canvasBounds = canvas.getBoundingClientRect();
+    pointerTarget.x = Math.min(1, Math.max(0, (event.clientX - canvasBounds.left) / canvasBounds.width));
+    pointerTarget.y = 1 - Math.min(1, Math.max(0, (event.clientY - canvasBounds.top) / canvasBounds.height));
+  };
+
+  canvas.addEventListener("pointerenter", (event) => {
+    canvasBounds = canvas.getBoundingClientRect();
+    updateCanvasPointer(event);
+  }, { passive: true });
+  canvas.addEventListener("pointermove", updateCanvasPointer, { passive: true });
+  canvas.addEventListener("pointerleave", () => {
+    pointerTarget.x = 0.5;
+    pointerTarget.y = 0.5;
+  }, { passive: true });
+  canvas.addEventListener("webglcontextlost", () => {
+    contextLost = true;
+    if (canvasFrame) cancelAnimationFrame(canvasFrame);
+    canvasFrame = 0;
+    canvas.dataset.failed = "true";
+  });
+
+  if ("ResizeObserver" in window) {
+    new ResizeObserver(() => {
+      sizeDirty = true;
+      canvasBounds = null;
+      queueCanvasFrame();
+    }).observe(canvas);
+  } else {
+    addEventListener("resize", () => {
+      sizeDirty = true;
+      canvasBounds = null;
+      queueCanvasFrame();
+    }, { passive: true });
+  }
+
+  if ("IntersectionObserver" in window) {
+    const canvasObserver = new IntersectionObserver((entries) => {
+      canvasVisible = entries.some((entry) => entry.isIntersecting);
+      if (canvasVisible) queueCanvasFrame();
+    }, { threshold: 0.01 });
+    canvasObserver.observe(canvas);
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    pageVisible = !document.hidden;
+    if (pageVisible) queueCanvasFrame();
+  });
+
+  const draw = (now) => {
+    canvasFrame = 0;
+    if (!canvasVisible || !pageVisible || contextLost) return;
+
+    if (sizeDirty) {
+      const pixelRatioCap = innerWidth < 600 ? 1.25 : 1.5;
+      const dpr = Math.min(devicePixelRatio || 1, pixelRatioCap);
+      const width = Math.max(1, Math.floor(canvas.clientWidth * dpr));
+      const height = Math.max(1, Math.floor(canvas.clientHeight * dpr));
+      if (canvas.width !== width || canvas.height !== height) {
+        canvas.width = width;
+        canvas.height = height;
+        gl.viewport(0, 0, width, height);
+      }
+      sizeDirty = false;
+    }
+
+    const delta = Math.min(Math.max((now - previousFrame) / 1000, 0), 0.05);
+    previousFrame = now;
+    if (!reduceMotion.matches) elapsed += delta;
     pointerCurrent.x += (pointerTarget.x - pointerCurrent.x) * 0.045;
     pointerCurrent.y += (pointerTarget.y - pointerCurrent.y) * 0.045;
     gl.useProgram(program);
-    gl.uniform2f(resolution, width, height);
+    gl.uniform2f(resolution, canvas.width, canvas.height);
     gl.uniform2f(pointer, pointerCurrent.x, pointerCurrent.y);
-    gl.uniform1f(time, reduceMotion ? 1.2 : (now - started) / 1000);
-    gl.uniform1f(scroll, scrollY / Math.max(document.body.scrollHeight - innerHeight, 1));
+    gl.uniform1f(time, reduceMotion.matches ? 1.2 : elapsed);
+    gl.uniform1f(scroll, scrollY / pageScrollMax);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
-    if (!reduceMotion) requestAnimationFrame(draw);
+    if (!reduceMotion.matches) queueCanvasFrame();
   };
-  requestAnimationFrame(draw);
+  queueCanvasFrame();
 })();

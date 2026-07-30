@@ -141,7 +141,7 @@ $formMessage = match ($formStatus) {
                     memorable systems that move people from attention to enquiry.
                 </p>
                 <div class="hero-actions reveal delay-4">
-                    <a class="button button-red" href="#contact">Start a project <span>↗</span></a>
+                    <a class="button button-red button-diffraction" href="#contact">Start a project <span>↗</span></a>
                     <a class="text-link" href="#diagnosis">Find your website leak <span>↓</span></a>
                 </div>
             </div>
@@ -319,7 +319,7 @@ $formMessage = match ($formStatus) {
             </div>
             <div class="package-grid">
                 <?php foreach ($packages as [$name, $price, $label, $description, $items, $featured]): ?>
-                    <article class="package-card reveal<?= $featured ? ' is-featured' : '' ?>">
+                    <article class="package-card reveal<?= $featured ? ' is-featured' : '' ?>"<?= $featured ? ' data-iridescent-card' : '' ?>>
                         <?php if ($featured): ?><span class="popular-label">Most complete</span><?php endif; ?>
                         <div class="package-top"><p><?= e($label) ?></p><h3><?= e($name) ?></h3><strong>AUD <?= e($price) ?></strong><span>Project range</span></div>
                         <p class="package-description"><?= e($description) ?></p>
