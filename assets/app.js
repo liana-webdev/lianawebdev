@@ -267,23 +267,24 @@
         vec3 reflection = reflect(-lightDirection, n);
         float clearcoat = pow(max(dot(reflection, viewDirection), 0.0), 48.0);
         float softSpecular = pow(max(dot(reflection, viewDirection), 0.0), 12.0);
-        float ribbon = smoothstep(.7, .97, abs(sin((p.y + p.x * .31 - p.z * .18) * 13.0 + u_time * .13)));
-        float broken = smoothstep(.55, .83, ribbonNoise(p));
+        float ribbon = smoothstep(.82, .985, abs(sin((p.y + p.x * .31 - p.z * .18) * 13.0 + u_time * .13)));
+        float broken = smoothstep(.64, .88, ribbonNoise(p));
         float fold = smoothstep(.35, .88, 1.0 - abs(dot(n, normalize(vec3(.2, .92, -.34)))));
-        float spectralMask = smoothstep(.045, .68, fresnel) * ribbon * broken * (.28 + fold * .72);
+        float spectralMask = smoothstep(.18, .82, fresnel) * ribbon * broken * (.2 + fold * .8);
         float phase = 4.8 + p.y * 2.1 + p.x * .7 - p.z * 1.2 + fresnel * 7.2 + u_time * .035;
         vec3 film = thinFilm(phase);
         film = mix(film, vec3(1.0, .83, .54), smoothstep(.88, 1.0, ribbonNoise(p + vec3(1.7))));
 
-        vec3 obsidian = vec3(.0045, .005, .0065);
-        obsidian += vec3(.022, .023, .026) * (.12 + diffuse * .32);
-        colour = obsidian;
-        colour += vec3(1.0, .965, .86) * clearcoat * .72;
-        colour += vec3(.16, .19, .22) * softSpecular * .14;
-        colour += film * spectralMask * .7;
-        colour += vec3(1.0, .015, .09) * fresnel * ribbon * (1.0 - broken) * .065;
-        colour = 1.0 - exp(-colour * 1.08);
-        alpha = .86 + fresnel * .14;
+        float redBody = .42 + diffuse * .78;
+        vec3 signalRed = vec3(.96, .004, .032) * redBody;
+        signalRed += vec3(.2, 0.0, .012) * (1.0 - facing) * .32;
+        colour = signalRed;
+        colour += vec3(1.0, .93, .82) * clearcoat * .54;
+        colour += vec3(1.0, .19, .22) * softSpecular * .1;
+        colour += film * spectralMask * .22;
+        colour += vec3(1.0, .012, .045) * fresnel * ribbon * (1.0 - broken) * .16;
+        colour = 1.0 - exp(-colour * 1.22);
+        alpha = .94 + fresnel * .06;
       } else {
         float flare = .0026 / max(abs(uv.x * uv.y), .002);
         float halo = .016 / max(length(uv) - .04, .04);

@@ -588,9 +588,80 @@ button {
   isolation: isolate;
 }
 
+.signal-canvas-wrap::before,
+.signal-canvas-wrap::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.signal-canvas-wrap::before {
+  top: 50%;
+  left: 52%;
+  z-index: 0;
+  width: min(82%, 650px);
+  aspect-ratio: 1;
+  padding: 2px;
+  border: 1px solid rgba(255, 247, 222, 0.1);
+  border-radius: 46% 54% 51% 49% / 53% 45% 55% 47%;
+  background:
+    radial-gradient(circle at 20% 34%, rgba(25, 230, 255, 0.78) 0 1.1%, rgba(101, 70, 255, 0.4) 3%, transparent 10%),
+    radial-gradient(circle at 82% 68%, rgba(255, 44, 183, 0.68) 0 1%, rgba(255, 189, 72, 0.34) 3.5%, transparent 10%),
+    conic-gradient(
+      from 206deg,
+      transparent 0 9%,
+      rgba(255, 247, 222, 0.62) 10%,
+      rgba(25, 230, 255, 0.92) 11.3%,
+      rgba(101, 70, 255, 0.72) 12.4%,
+      transparent 14% 42%,
+      rgba(255, 44, 183, 0.8) 43%,
+      rgba(255, 189, 72, 0.66) 44.2%,
+      transparent 46% 76%,
+      rgba(185, 255, 91, 0.38) 77%,
+      rgba(25, 230, 255, 0.72) 78.2%,
+      transparent 80% 100%
+    );
+  box-shadow: 0 0 55px rgba(251, 12, 38, 0.07);
+  filter:
+    drop-shadow(-9px -5px 10px rgba(25, 230, 255, 0.13))
+    drop-shadow(10px 8px 12px rgba(255, 44, 183, 0.12));
+  opacity: 0.9;
+  transform: translate(-50%, -50%) rotate(-13deg);
+}
+
+@supports ((-webkit-mask: linear-gradient(#000 0 0)) or (mask: linear-gradient(#000 0 0))) {
+  .signal-canvas-wrap::before {
+    border: 0;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+}
+
+.signal-canvas-wrap::after {
+  top: 50%;
+  left: 53%;
+  z-index: 0;
+  width: min(74%, 580px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 24% 30%, rgba(25, 230, 255, 0.13), transparent 19%),
+    radial-gradient(circle at 78% 67%, rgba(255, 44, 183, 0.12), transparent 18%),
+    radial-gradient(circle, transparent 53%, rgba(251, 12, 38, 0.14) 73%, transparent 78%);
+  filter: blur(12px);
+  opacity: 0.95;
+  transform: translate(-50%, -50%);
+}
+
 .signal-canvas {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   height: 100%;
 }
@@ -603,21 +674,20 @@ button {
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 0;
-  width: min(34vw, 510px);
+  z-index: 1;
+  width: min(64%, 510px);
   aspect-ratio: 1;
-  border: 1px solid rgba(255, 254, 249, 0.16);
+  border: 1px solid rgba(255, 254, 249, 0.18);
   border-radius: 42% 58% 61% 39% / 43% 39% 61% 57%;
   background:
-    radial-gradient(circle at 72% 24%, rgba(25, 230, 255, 0.24), transparent 13%),
-    radial-gradient(circle at 80% 36%, rgba(101, 70, 255, 0.2), transparent 18%),
-    radial-gradient(circle at 23% 73%, rgba(255, 44, 183, 0.15), transparent 16%),
-    radial-gradient(circle at 31% 28%, rgba(255, 247, 222, 0.12), transparent 12%),
-    radial-gradient(circle at 50% 48%, #121214 0, #060607 58%, #020203 100%);
+    radial-gradient(circle at 72% 24%, rgba(25, 230, 255, 0.22), transparent 7%),
+    radial-gradient(circle at 23% 73%, rgba(255, 44, 183, 0.16), transparent 8%),
+    radial-gradient(circle at 31% 28%, rgba(255, 247, 222, 0.26), transparent 11%),
+    radial-gradient(circle at 42% 38%, #ff1730 0, #db061f 36%, #840012 74%, #2c0008 100%);
   box-shadow:
-    inset 18px -14px 58px rgba(101, 70, 255, 0.08),
-    inset -20px 15px 64px rgba(25, 230, 255, 0.06),
-    0 0 70px rgba(251, 12, 38, 0.08);
+    inset 18px -14px 58px rgba(69, 0, 11, 0.38),
+    inset -20px 15px 64px rgba(255, 118, 131, 0.15),
+    0 0 70px rgba(251, 12, 38, 0.18);
   transform: translate(-50%, -50%) rotate(14deg);
 }
 
@@ -637,7 +707,7 @@ button {
 
 .signal-caption,
 .signal-crosshair {
-  z-index: 2;
+  z-index: 3;
 }
 
 .signal-caption::before {
@@ -2762,8 +2832,9 @@ button {
   }
 
   .signal-caption {
-    right: 1%;
+    right: 18%;
     bottom: 7%;
+    max-width: 120px;
   }
 
   .hero-bottom {
@@ -2954,6 +3025,8 @@ button {
 
 @media (forced-colors: active) {
   .button-diffraction::before,
+  .signal-canvas-wrap::before,
+  .signal-canvas-wrap::after,
   .package-card.is-featured::before,
   .package-card.is-featured::after {
     display: none;
