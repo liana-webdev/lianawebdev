@@ -91,6 +91,7 @@ $formMessage = match ($formStatus) {
     <meta property="og:title" content="Web Girl Studio | Websites with a pulse">
     <meta property="og:description" content="Sharp, memorable website systems built to move people from attention to enquiry.">
     <meta property="og:type" content="website">
+    <link rel="preload" as="image" href="img/wgs-liana-founder-red-signal-closeup.jpg" fetchpriority="high">
     <link rel="stylesheet" href="assets/styles.css">
     <script defer src="assets/app.js"></script>
     <script type="application/ld+json">
@@ -129,67 +130,28 @@ $formMessage = match ($formStatus) {
     <section class="hero section-dark" id="top">
         <div class="hero-grid" id="main-content">
             <div class="hero-copy">
-                <p class="eyebrow reveal">Sydney web design + digital growth</p>
+                <p class="eyebrow reveal">Founder-led creative technology studio</p>
                 <h1 class="hero-title">
-                    <span class="hero-line reveal">Websites with</span>
-                    <span class="hero-line reveal delay-1">a <em>pulse.</em></span>
-                    <span class="hero-line reveal delay-2">Systems with</span>
-                    <span class="hero-line reveal delay-3">a point.<sup>✦</sup></span>
+                    <span class="hero-line reveal">Digital worlds</span>
+                    <span class="hero-line reveal delay-1">people <em>remember</em></span>
+                    <span class="hero-line reveal delay-2">— and know how</span>
+                    <span class="hero-line reveal delay-3">to use.</span>
                 </h1>
                 <p class="hero-intro reveal delay-3">
-                    Web Girl Studio turns unclear offers and underperforming websites into sharp,
-                    memorable systems that move people from attention to enquiry.
+                    Strategy, art direction, UX, design and development — built to be felt, structured to work.
                 </p>
                 <div class="hero-actions reveal delay-4">
-                    <a class="button button-red button-diffraction" href="#contact">Start a project <span>↗</span></a>
-                    <a class="text-link" href="#diagnosis">Find your website leak <span>↓</span></a>
+                    <a class="button button-red button-diffraction" href="#work">Explore selected work <span>↘</span></a>
+                    <a class="button button-outline" href="#contact">Start a project <span>↗</span></a>
                 </div>
             </div>
-            <div class="hero-visual reveal delay-2">
-                <div class="signal-canvas-wrap" aria-hidden="true">
-                    <div class="signal-engine">
-                        <svg class="signal-network" viewBox="0 0 100 100" preserveAspectRatio="none">
-                            <path d="M50 50 Q31 28 17 18"></path>
-                            <path d="M50 50 Q67 26 83 20"></path>
-                            <path d="M50 50 Q72 64 85 79"></path>
-                            <path d="M50 50 Q28 68 16 82"></path>
-                            <circle cx="50" cy="50" r="31"></circle>
-                        </svg>
-                        <div class="signal-scan"></div>
-                        <div class="signal-ring signal-ring-outer"></div>
-                        <div class="signal-ring signal-ring-inner"></div>
-                        <div class="signal-core">
-                            <span>Live system</span>
-                            <strong>WGS</strong>
-                            <small>Human-directed</small>
-                        </div>
-                        <div class="signal-node signal-node-strategy"><i></i><span>01</span><strong>Strategy</strong></div>
-                        <div class="signal-node signal-node-identity"><i></i><span>02</span><strong>Identity</strong></div>
-                        <div class="signal-node signal-node-code"><i></i><span>03</span><strong>Code</strong></div>
-                        <div class="signal-node signal-node-growth"><i></i><span>04</span><strong>Growth</strong></div>
-                    </div>
-                    <span class="signal-caption">Strategy → identity → code → growth</span>
-                </div>
-            </div>
+            <?php require __DIR__ . '/components/art-system-composer.php'; ?>
             <div class="hero-bottom reveal delay-4">
-                <p>For service businesses, educators, artists, musicians and creative founders.</p>
-                <div class="hero-meta"><span>Strategy</span><span>Identity</span><span>Code</span><span>AI systems</span></div>
+                <p>Strategy / Art direction / UX / Development</p>
+                <p>Sydney / Worldwide</p>
             </div>
         </div>
-        <div class="hero-orbit orbit-one" aria-hidden="true"></div>
-        <div class="hero-orbit orbit-two" aria-hidden="true"></div>
     </section>
-
-    <div class="ticker" aria-label="Web Girl Studio capabilities">
-        <div class="ticker-track">
-            <?php for ($set = 0; $set < 2; $set++): ?>
-                <div class="ticker-group"<?= $set === 1 ? ' aria-hidden="true"' : '' ?>>
-                    <span>STRATEGY</span><i>✦</i><span>WEB DESIGN</span><i>✦</i><span>BRAND SYSTEMS</span>
-                    <i>✦</i><span>CODE</span><i>✦</i><span>HUMAN DIRECTION</span><i>✦</i>
-                </div>
-            <?php endfor; ?>
-        </div>
-    </div>
 
     <section class="problem-section section-light">
         <div class="section-shell">

@@ -1,7 +1,7 @@
 # Web Girl Studio PHP edition
 
 This folder is the classic-hosting version of the Web Girl Studio landing page.
-It uses PHP 8+, semantic HTML, standalone CSS, vanilla JavaScript and WebGL.
+It uses PHP 8+, semantic HTML, standalone CSS and vanilla JavaScript.
 
 ## Deploy
 
