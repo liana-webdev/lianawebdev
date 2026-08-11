@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 session_start();
+header('Cache-Control: no-cache, must-revalidate');
 
 if (empty($_SESSION['wgs_csrf'])) {
     $_SESSION['wgs_csrf'] = bin2hex(random_bytes(24));
@@ -9,6 +10,14 @@ if (empty($_SESSION['wgs_csrf'])) {
 function e(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+function asset_url(string $path): string
+{
+    $cleanPath = ltrim($path, '/');
+    $absolutePath = __DIR__ . '/' . $cleanPath;
+    $version = is_file($absolutePath) ? substr((string) hash_file('sha256', $absolutePath), 0, 12) : '1';
+    return e($cleanPath . '?v=' . $version);
 }
 
 function brand_mark(bool $light = false): void
@@ -91,9 +100,9 @@ $formMessage = match ($formStatus) {
     <meta property="og:title" content="Web Girl Studio | Websites with a pulse">
     <meta property="og:description" content="Sharp, memorable website systems built to move people from attention to enquiry.">
     <meta property="og:type" content="website">
-    <link rel="preload" as="image" href="img/wgs-liana-founder-red-signal-closeup.jpg" fetchpriority="high">
-    <link rel="stylesheet" href="assets/styles.css">
-    <script defer src="assets/app.js"></script>
+    <link rel="preload" as="image" href="<?= asset_url('img/wgs-liana-founder-red-signal-closeup.jpg') ?>" fetchpriority="high">
+    <link rel="stylesheet" href="<?= asset_url('assets/styles.css') ?>">
+    <script defer src="<?= asset_url('assets/app.js') ?>"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",

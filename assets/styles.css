@@ -309,7 +309,7 @@ button {
 
 .hero {
   position: relative;
-  min-height: 100svh;
+  min-height: min(100svh, 1080px);
   overflow: hidden;
 }
 
@@ -332,7 +332,7 @@ button {
   grid-template-columns: minmax(0, 0.46fr) minmax(0, 0.54fr);
   grid-template-rows: 1fr auto;
   width: min(calc(100% - 64px), var(--max));
-  min-height: 100svh;
+  min-height: min(100svh, 1080px);
   margin-inline: auto;
   padding-top: 108px;
 }
