@@ -147,11 +147,28 @@ $formMessage = match ($formStatus) {
             </div>
             <div class="hero-visual reveal delay-2">
                 <div class="signal-canvas-wrap" aria-hidden="true">
-                    <canvas class="signal-canvas"></canvas>
-                    <div class="signal-fallback"></div>
-                    <div class="signal-crosshair signal-crosshair-a"></div>
-                    <div class="signal-crosshair signal-crosshair-b"></div>
-                    <span class="signal-caption">Human direction / machine precision</span>
+                    <div class="signal-engine">
+                        <svg class="signal-network" viewBox="0 0 100 100" preserveAspectRatio="none">
+                            <path d="M50 50 Q31 28 17 18"></path>
+                            <path d="M50 50 Q67 26 83 20"></path>
+                            <path d="M50 50 Q72 64 85 79"></path>
+                            <path d="M50 50 Q28 68 16 82"></path>
+                            <circle cx="50" cy="50" r="31"></circle>
+                        </svg>
+                        <div class="signal-scan"></div>
+                        <div class="signal-ring signal-ring-outer"></div>
+                        <div class="signal-ring signal-ring-inner"></div>
+                        <div class="signal-core">
+                            <span>Live system</span>
+                            <strong>WGS</strong>
+                            <small>Human-directed</small>
+                        </div>
+                        <div class="signal-node signal-node-strategy"><i></i><span>01</span><strong>Strategy</strong></div>
+                        <div class="signal-node signal-node-identity"><i></i><span>02</span><strong>Identity</strong></div>
+                        <div class="signal-node signal-node-code"><i></i><span>03</span><strong>Code</strong></div>
+                        <div class="signal-node signal-node-growth"><i></i><span>04</span><strong>Growth</strong></div>
+                    </div>
+                    <span class="signal-caption">Strategy → identity → code → growth</span>
                 </div>
             </div>
             <div class="hero-bottom reveal delay-4">
@@ -254,18 +271,17 @@ $formMessage = match ($formStatus) {
                 <p class="about-copy reveal">That makes WGS especially useful to creative people and service businesses: the work can be commercially clear without becoming cold, and expressive without becoming self-indulgent.</p>
                 <a class="text-link text-link-dark reveal" href="#method">See how I think <span>↓</span></a>
             </div>
-            <figure class="about-portraits reveal" aria-label="Portraits of Liana, founder of Web Girl Studio">
-                <div class="about-portrait about-portrait-main">
-                    <img src="img/me-at-street.webp" alt="Liana, founder of Web Girl Studio" width="1200" height="1600" loading="lazy" decoding="async">
+            <div class="identity-object reveal" data-parallax="0.055">
+                <div class="identity-disc">
+                    <div class="identity-ring ring-a"></div><div class="identity-ring ring-b"></div>
+                    <div class="identity-core"><span>ART</span><i>×</i><span>TECH</span></div>
                 </div>
-                <div class="about-portrait about-portrait-top">
-                    <img src="img/me-at-top-view.webp" alt="Liana outdoors beneath a dramatic sky" width="900" height="1200" loading="lazy" decoding="async">
-                </div>
-                <div class="about-portrait about-portrait-red">
-                    <img src="img/me-red-hair.webp" alt="Liana by the water" width="900" height="1200" loading="lazy" decoding="async">
-                </div>
-                <figcaption><span>Founder / designer / developer</span><strong>Liana</strong></figcaption>
-            </figure>
+                <div class="identity-label label-a"><span>01</span> Artist</div>
+                <div class="identity-label label-b"><span>02</span> Designer</div>
+                <div class="identity-label label-c"><span>03</span> Developer</div>
+                <div class="identity-label label-d"><span>04</span> Strategist</div>
+                <p>Not divided disciplines.<br>One point of view.</p>
+            </div>
         </div>
     </section>
 
