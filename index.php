@@ -102,6 +102,7 @@ $formMessage = match ($formStatus) {
     <meta property="og:type" content="website">
     <link rel="preload" as="image" href="<?= asset_url('img/wgs-liana-founder-red-signal-closeup.jpg') ?>" fetchpriority="high">
     <link rel="stylesheet" href="<?= asset_url('assets/styles.css') ?>">
+    <link rel="stylesheet" href="<?= asset_url('assets/clarity-engine.css') ?>">
     <script defer src="<?= asset_url('assets/app.js') ?>"></script>
     <script type="application/ld+json">
     {
@@ -139,26 +140,21 @@ $formMessage = match ($formStatus) {
     <section class="hero section-dark" id="top">
         <div class="hero-grid" id="main-content">
             <div class="hero-copy">
-                <p class="eyebrow reveal">Founder-led creative technology studio</p>
-                <h1 class="hero-title">
-                    <span class="hero-line reveal">Digital worlds</span>
-                    <span class="hero-line reveal delay-1">people <em>remember</em></span>
-                    <span class="hero-line reveal delay-2">— and know how</span>
-                    <span class="hero-line reveal delay-3">to use.</span>
+                <p class="eyebrow reveal">Founder-led strategy, design + development</p>
+                <h1 class="hero-title" aria-label="Websites with a pulse. Built to turn attention into action.">
+                    <span class="hero-line reveal">Websites</span>
+                    <span class="hero-line reveal delay-1">with a <em>pulse.</em></span>
+                    <span class="hero-line reveal delay-2">Built to turn</span>
+                    <span class="hero-line reveal delay-3">attention</span>
+                    <span class="hero-line reveal delay-3">into action.</span>
                 </h1>
-                <p class="hero-intro reveal delay-3">
-                    Strategy, art direction, UX, design and development — built to be felt, structured to work.
-                </p>
+                <p class="hero-intro reveal delay-3">I diagnose what is losing people, clarify the offer and journey, then design and build the website that makes the business easier to understand, trust and choose.</p>
                 <div class="hero-actions reveal delay-4">
-                    <a class="button button-red button-diffraction" href="#work">Explore selected work <span>↘</span></a>
-                    <a class="button button-outline" href="#contact">Start a project <span>↗</span></a>
+                    <a class="button button-red button-diffraction" href="#contact">Start a project</a>
+                    <a class="button button-outline" href="#method">See how I work</a>
                 </div>
             </div>
-            <?php require __DIR__ . '/components/art-system-composer.php'; ?>
-            <div class="hero-bottom reveal delay-4">
-                <p>Strategy / Art direction / UX / Development</p>
-                <p>Sydney / Worldwide</p>
-            </div>
+            <?php require __DIR__ . '/components/hero-clarity-engine.php'; ?>
         </div>
     </section>
 
@@ -233,25 +229,31 @@ $formMessage = match ($formStatus) {
         </div>
     </section>
 
-    <section class="about-section section-light" id="about">
+    <section class="about-section section-dark" id="about">
         <div class="section-shell about-grid">
-            <div class="about-statement">
-                <p class="section-index reveal">04 / The human layer</p>
-                <h2 class="reveal">AI can make more.<br><em>Human judgment</em><br>decides what matters.</h2>
-                <p class="about-copy reveal">I’m Liana—designer, developer, artist and founder of Web Girl Studio. I work where business structure meets visual instinct, using contemporary tools without letting the tool become the author.</p>
-                <p class="about-copy reveal">That makes WGS especially useful to creative people and service businesses: the work can be commercially clear without becoming cold, and expressive without becoming self-indulgent.</p>
-                <a class="text-link text-link-dark reveal" href="#method">See how I think <span>↓</span></a>
+            <div class="about-portraits reveal">
+                <span class="about-axis about-axis-art">Art / instinct / culture</span>
+                <figure class="about-portrait about-portrait-primary">
+                    <img src="<?= asset_url('img/wgs-liana-founder-red-signal-closeup.jpg') ?>" alt="Liana, founder and creative director of Web Girl Studio" width="959" height="1280" loading="lazy" decoding="async">
+                </figure>
+                <figure class="about-portrait about-portrait-secondary">
+                    <img src="<?= asset_url('img/wgs-liana-strategy-founder-portrait-hands-together-looking-at-camera.jpg') ?>" alt="Liana working between creative direction and strategy" width="853" height="1280" loading="lazy" decoding="async">
+                </figure>
+                <figure class="about-portrait about-portrait-detail">
+                    <img src="<?= asset_url('img/wgs-liana-founder-red-signal-closeup-looking-right-sideview.jpg') ?>" alt="Close editorial portrait of Liana under red signal light" width="959" height="1280" loading="lazy" decoding="async">
+                </figure>
+                <span class="about-axis about-axis-system">System / logic / code</span>
+                <strong class="about-human-directed">Human-directed</strong>
             </div>
-            <div class="identity-object reveal" data-parallax="0.055">
-                <div class="identity-disc">
-                    <div class="identity-ring ring-a"></div><div class="identity-ring ring-b"></div>
-                    <div class="identity-core"><span>ART</span><i>×</i><span>TECH</span></div>
-                </div>
-                <div class="identity-label label-a"><span>01</span> Artist</div>
-                <div class="identity-label label-b"><span>02</span> Designer</div>
-                <div class="identity-label label-c"><span>03</span> Developer</div>
-                <div class="identity-label label-d"><span>04</span> Strategist</div>
-                <p>Not divided disciplines.<br>One point of view.</p>
+            <div class="about-statement">
+                <p class="section-index reveal">Art x tech / one mind</p>
+                <h2 class="reveal">Creative <em>instinct.</em><br>Strategic logic.<br>Built by the<br>same person.</h2>
+                <div class="about-rule"></div>
+                <strong class="about-founder-label reveal">Liana - Founder / Creative Director</strong>
+                <p class="about-copy reveal">I move between strategy, art direction, UX, design and development, so the idea does not get diluted as it passes from one discipline to another. The work stays visually distinctive, commercially clear and technically real.</p>
+                <ul class="about-disciplines reveal" aria-label="Liana's disciplines">
+                    <li>Strategy</li><li>Art direction</li><li>UX</li><li>Design</li><li>Development</li>
+                </ul>
             </div>
         </div>
     </section>

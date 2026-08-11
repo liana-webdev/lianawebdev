@@ -194,106 +194,73 @@
     }
   }
 
-  const composer = document.querySelector("[data-art-system-composer]");
-  const composerStage = composer?.querySelector("[data-composer-stage]");
-  const composerRange = composer?.querySelector("[data-composer-range]");
+  const clarityEngine = document.querySelector("[data-clarity-engine]");
+  const clarityStage = clarityEngine?.querySelector("[data-clarity-stage]");
 
-  if (composer && composerStage && composerRange) {
-    const updateComposerSplit = () => {
-      composer.style.setProperty("--composer-split", `${composerRange.value}%`);
+  if (clarityEngine && clarityStage) {
+    const setClarityActivity = (active) => {
+      clarityEngine.classList.toggle("is-active", active && !document.hidden);
     };
 
-    composerRange.addEventListener("input", updateComposerSplit);
-    composerRange.addEventListener("keydown", (event) => {
-      const minimum = Number(composerRange.min);
-      const maximum = Number(composerRange.max);
-      const step = Number(composerRange.step) || 1;
-      let nextValue = Number(composerRange.value);
+    let engineInView = false;
+    const engineObserver = new IntersectionObserver((entries) => {
+      engineInView = entries[0]?.isIntersecting ?? false;
+      setClarityActivity(engineInView);
+    }, { threshold: 0.08 });
+    engineObserver.observe(clarityEngine);
 
-      if (event.key === "ArrowLeft" || event.key === "ArrowDown") nextValue -= step;
-      else if (event.key === "ArrowRight" || event.key === "ArrowUp") nextValue += step;
-      else if (event.key === "Home") nextValue = minimum;
-      else if (event.key === "End") nextValue = maximum;
-      else return;
-
-      event.preventDefault();
-      composerRange.value = String(Math.min(maximum, Math.max(minimum, nextValue)));
-      updateComposerSplit();
-    });
-
-    const updateComposerFromPointer = (event) => {
-      const bounds = composerStage.getBoundingClientRect();
-      const progress = Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width));
-      const minimum = Number(composerRange.min);
-      const maximum = Number(composerRange.max);
-      composerRange.value = String(Math.round(minimum + progress * (maximum - minimum)));
-      updateComposerSplit();
-    };
-
-    composerRange.addEventListener("pointerdown", (event) => {
-      event.preventDefault();
-      composerRange.focus({ preventScroll: true });
-      composerRange.setPointerCapture(event.pointerId);
-      updateComposerFromPointer(event);
-    });
-
-    composerRange.addEventListener("pointermove", (event) => {
-      if (composerRange.hasPointerCapture(event.pointerId)) updateComposerFromPointer(event);
-    });
-    updateComposerSplit();
+    document.addEventListener("visibilitychange", () => setClarityActivity(engineInView));
 
     if (finePointer.matches && !reduceMotion.matches) {
-      let composerBounds = null;
-      let composerFrame = 0;
-      const current = { x: 0, y: 0, rotateX: 0, rotateY: 0 };
-      const target = { x: 0, y: 0, rotateX: 0, rotateY: 0 };
+      let bounds = null;
+      let frame = 0;
+      const current = { x: 0, y: 0, rx: 0, ry: 0 };
+      const target = { x: 0, y: 0, rx: 0, ry: 0 };
 
-      const renderComposerDepth = () => {
-        composerFrame = 0;
-        current.x += (target.x - current.x) * 0.14;
-        current.y += (target.y - current.y) * 0.14;
-        current.rotateX += (target.rotateX - current.rotateX) * 0.14;
-        current.rotateY += (target.rotateY - current.rotateY) * 0.14;
+      const renderClarityDepth = () => {
+        frame = 0;
+        current.x += (target.x - current.x) * 0.16;
+        current.y += (target.y - current.y) * 0.16;
+        current.rx += (target.rx - current.rx) * 0.16;
+        current.ry += (target.ry - current.ry) * 0.16;
 
-        composer.style.setProperty("--composer-shift-x", `${current.x.toFixed(2)}px`);
-        composer.style.setProperty("--composer-shift-y", `${current.y.toFixed(2)}px`);
-        composer.style.setProperty("--composer-rotate-x", `${current.rotateX.toFixed(3)}deg`);
-        composer.style.setProperty("--composer-rotate-y", `${current.rotateY.toFixed(3)}deg`);
+        clarityEngine.style.setProperty("--clarity-x", `${current.x.toFixed(2)}px`);
+        clarityEngine.style.setProperty("--clarity-y", `${current.y.toFixed(2)}px`);
+        clarityEngine.style.setProperty("--clarity-rx", `${current.rx.toFixed(3)}deg`);
+        clarityEngine.style.setProperty("--clarity-ry", `${current.ry.toFixed(3)}deg`);
 
         const moving =
           Math.abs(target.x - current.x) > 0.02 ||
           Math.abs(target.y - current.y) > 0.02 ||
-          Math.abs(target.rotateX - current.rotateX) > 0.005 ||
-          Math.abs(target.rotateY - current.rotateY) > 0.005;
-        if (moving) composerFrame = requestAnimationFrame(renderComposerDepth);
+          Math.abs(target.rx - current.rx) > 0.004 ||
+          Math.abs(target.ry - current.ry) > 0.004;
+        if (moving) frame = requestAnimationFrame(renderClarityDepth);
       };
 
-      const queueComposerFrame = () => {
-        if (!composerFrame) composerFrame = requestAnimationFrame(renderComposerDepth);
+      const queueClarityFrame = () => {
+        if (!frame && engineInView && !document.hidden) frame = requestAnimationFrame(renderClarityDepth);
       };
 
-      composerStage.addEventListener("pointermove", (event) => {
-        if (!composerBounds) composerBounds = composerStage.getBoundingClientRect();
-        const x = Math.min(1, Math.max(0, (event.clientX - composerBounds.left) / composerBounds.width));
-        const y = Math.min(1, Math.max(0, (event.clientY - composerBounds.top) / composerBounds.height));
+      clarityStage.addEventListener("pointermove", (event) => {
+        if (!bounds) bounds = clarityStage.getBoundingClientRect();
+        const x = Math.min(1, Math.max(0, (event.clientX - bounds.left) / bounds.width));
+        const y = Math.min(1, Math.max(0, (event.clientY - bounds.top) / bounds.height));
         target.x = (x - 0.5) * 12;
         target.y = (y - 0.5) * 8;
-        target.rotateX = (0.5 - y) * 1.4;
-        target.rotateY = (x - 0.5) * 1.4;
-        queueComposerFrame();
+        target.rx = (0.5 - y) * 1.0;
+        target.ry = (x - 0.5) * 1.0;
+        queueClarityFrame();
       }, { passive: true });
 
-      composerStage.addEventListener("pointerleave", () => {
+      clarityStage.addEventListener("pointerleave", () => {
         target.x = 0;
         target.y = 0;
-        target.rotateX = 0;
-        target.rotateY = 0;
-        queueComposerFrame();
+        target.rx = 0;
+        target.ry = 0;
+        queueClarityFrame();
       }, { passive: true });
 
-      addEventListener("resize", () => {
-        composerBounds = null;
-      }, { passive: true });
+      addEventListener("resize", () => { bounds = null; }, { passive: true });
     }
   }
 

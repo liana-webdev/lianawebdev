@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1000" viewBox="0 0 1200 1000" fill="none">
+  <defs>
+    <linearGradient id="glass" x1="166" y1="133" x2="957" y2="794" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#242428" stop-opacity=".96"/>
+      <stop offset=".58" stop-color="#101012" stop-opacity=".98"/>
+      <stop offset="1" stop-color="#080809"/>
+    </linearGradient>
+
+    <linearGradient id="ivory" x1="391" y1="217" x2="802" y2="684" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F4EFE5"/>
+      <stop offset="1" stop-color="#DCD5C8"/>
+    </linearGradient>
+
+    <linearGradient id="spectral" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#31D5F4"/>
+      <stop offset=".34" stop-color="#8D63FF"/>
+      <stop offset=".64" stop-color="#FF3A75"/>
+      <stop offset="1" stop-color="#FF3B24"/>
+    </linearGradient>
+
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="36" stdDeviation="30" flood-color="#000" flood-opacity=".65"/>
+    </filter>
+
+    <filter id="softGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="3" seed="18" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+      <feComponentTransfer in="mono" result="faded">
+        <feFuncA type="table" tableValues="0 .055"/>
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" in2="faded" mode="soft-light"/>
+    </filter>
+
+    <clipPath id="clarityClip">
+      <rect x="350" y="171" width="510" height="610" rx="7"/>
+    </clipPath>
+  </defs>
+
+  <g opacity=".5">
+    <ellipse cx="610" cy="488" rx="488" ry="355" stroke="#9C9690" stroke-opacity=".28"/>
+    <ellipse cx="610" cy="488" rx="438" ry="410" transform="rotate(-17 610 488)" stroke="#FE3B29" stroke-opacity=".24"/>
+    <path d="M132 581C187 759 365 894 592 913" stroke="#2DD7F6" stroke-opacity=".17"/>
+  </g>
+
+  <ellipse cx="492" cy="514" rx="328" ry="242" fill="#FF271B" fill-opacity=".12" filter="url(#softGlow)"/>
+
+  <g filter="url(#shadow)" transform="rotate(-8 369 480)">
+    <rect x="102" y="282" width="426" height="405" rx="7" fill="#111113" stroke="#4C4B4D"/>
+    <rect x="125" y="306" width="380" height="357" rx="3" fill="#151517" stroke="#302F31"/>
+
+    <text x="151" y="348" fill="#817C76" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="3">
+      RAW BUSINESS INPUT
+    </text>
+
+    <line x1="151" y1="371" x2="478" y2="371" stroke="#39383A"/>
+
+    <circle cx="159" cy="420" r="4" fill="#F43A2D"/>
+    <text x="178" y="425" fill="#EAE4DA" font-family="Arial, Helvetica, sans-serif" font-size="18">
+      Too much to explain
+    </text>
+
+    <circle cx="159" cy="475" r="4" fill="#F43A2D"/>
+    <text x="178" y="480" fill="#EAE4DA" font-family="Arial, Helvetica, sans-serif" font-size="18">
+      Mixed audience
+    </text>
+
+    <circle cx="159" cy="530" r="4" fill="#F43A2D"/>
+    <text x="178" y="535" fill="#EAE4DA" font-family="Arial, Helvetica, sans-serif" font-size="18">
+      Unclear offer
+    </text>
+
+    <circle cx="159" cy="585" r="4" fill="#F43A2D"/>
+    <text x="178" y="590" fill="#EAE4DA" font-family="Arial, Helvetica, sans-serif" font-size="18">
+      No obvious next step
+    </text>
+
+    <path d="M151 625H359" stroke="#4B494A"/>
+    <path d="M151 641H302" stroke="#353436"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="350" y="171" width="510" height="610" rx="7" fill="url(#ivory)"/>
+
+    <g clip-path="url(#clarityClip)" filter="url(#grain)">
+      <rect x="350" y="171" width="510" height="610" fill="url(#ivory)"/>
+      <path d="M350 171H860V262H350z" fill="#0B0B0C"/>
+      <path d="M388 234H817" stroke="url(#spectral)" stroke-width="3"/>
+
+      <text x="388" y="214" fill="#F2ECE1" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="3.4">
+        THE CLARITY ENGINE
+      </text>
+
+      <circle cx="816" cy="214" r="5" fill="#F43A2D"/>
+
+      <text x="388" y="314" fill="#F43A2D" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="2.6">
+        01 / WHAT
+      </text>
+
+      <text x="388" y="359" fill="#111113" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" letter-spacing="-1.4">
+        A CLEAR OFFER
+      </text>
+
+      <path d="M388 384H818" stroke="#BFB8AC"/>
+
+      <text x="388" y="431" fill="#F43A2D" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="2.6">
+        02 / WHO
+      </text>
+
+      <text x="388" y="476" fill="#111113" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" letter-spacing="-1.4">
+        THE RIGHT PEOPLE
+      </text>
+
+      <path d="M388 501H818" stroke="#BFB8AC"/>
+
+      <text x="388" y="548" fill="#F43A2D" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="2.6">
+        03 / WHY
+      </text>
+
+      <text x="388" y="593" fill="#111113" font-family="Arial, Helvetica, sans-serif" font-size="33" font-weight="800" letter-spacing="-1.2">
+        A REASON TO CHOOSE
+      </text>
+
+      <path d="M388 618H818" stroke="#BFB8AC"/>
+      <path d="M388 670H640" stroke="#242426" stroke-width="2"/>
+      <path d="M388 690H578" stroke="#8B847B"/>
+      <path d="M388 709H608" stroke="#8B847B"/>
+
+      <rect x="675" y="664" width="143" height="53" rx="27" fill="#F43A2D"/>
+
+      <text x="709" y="696" fill="#0A0A0B" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="800" letter-spacing="1.2">
+        CHOOSE
+      </text>
+    </g>
+
+    <rect x="350.5" y="171.5" width="509" height="609" rx="6.5" stroke="#FFFFFF" stroke-opacity=".22"/>
+  </g>
+
+  <g filter="url(#shadow)" transform="rotate(7 902 568)">
+    <rect x="770" y="397" width="324" height="343" rx="7" fill="url(#glass)" stroke="#575255"/>
+
+    <text x="801" y="439" fill="#8C8680" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="3">
+      DECISION PATH
+    </text>
+
+    <circle cx="818" cy="495" r="8" fill="#F43A2D"/>
+
+    <path d="M818 503V635C818 659 838 679 862 679H922" stroke="#F43A2D" stroke-width="2"/>
+
+    <circle cx="922" cy="679" r="6" fill="#F43A2D"/>
+
+    <text x="845" y="500" fill="#EFE9DF" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700">
+      ATTENTION
+    </text>
+
+    <text x="845" y="549" fill="#B5AEA7" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      UNDERSTAND
+    </text>
+
+    <text x="845" y="596" fill="#B5AEA7" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      TRUST
+    </text>
+
+    <text x="845" y="644" fill="#B5AEA7" font-family="Arial, Helvetica, sans-serif" font-size="15">
+      CHOOSE
+    </text>
+
+    <rect x="801" y="688" width="251" height="1" fill="url(#spectral)" opacity=".75"/>
+
+    <text x="801" y="718" fill="#F43A2D" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="2.4">
+      ONE CLEAR NEXT STEP
+    </text>
+  </g>
+
+  <g>
+    <path d="M128 574C189 842 478 977 748 877C929 810 1051 641 1077 458" stroke="#E8E1D7" stroke-opacity=".46" stroke-width="1.5"/>
+    <path d="M150 632C241 842 484 930 704 862" stroke="#F43A2D" stroke-opacity=".74" stroke-width="2"/>
+    <path d="M818 83C1016 158 1126 347 1078 532" stroke="url(#spectral)" stroke-opacity=".62" stroke-width="2"/>
+
+    <circle cx="150" cy="632" r="4" fill="#F43A2D"/>
+    <circle cx="1078" cy="532" r="4" fill="#E7E1D8"/>
+  </g>
+
+  <g font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="2.8" fill="#B5AEA7">
+    <text x="142" y="787" transform="rotate(29 142 787)">DIAGNOSE</text>
+    <text x="349" y="918" transform="rotate(8 349 918)">CLARIFY</text>
+    <text x="787" y="868" transform="rotate(-23 787 868)">STRUCTURE</text>
+    <text x="1016" y="699" transform="rotate(-57 1016 699)">BUILD</text>
+  </g>
+</svg>
