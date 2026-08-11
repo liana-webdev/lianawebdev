@@ -254,17 +254,18 @@ $formMessage = match ($formStatus) {
                 <p class="about-copy reveal">That makes WGS especially useful to creative people and service businesses: the work can be commercially clear without becoming cold, and expressive without becoming self-indulgent.</p>
                 <a class="text-link text-link-dark reveal" href="#method">See how I think <span>↓</span></a>
             </div>
-            <div class="identity-object reveal" data-parallax="0.055">
-                <div class="identity-disc">
-                    <div class="identity-ring ring-a"></div><div class="identity-ring ring-b"></div>
-                    <div class="identity-core"><span>ART</span><i>×</i><span>TECH</span></div>
+            <figure class="about-portraits reveal" aria-label="Portraits of Liana, founder of Web Girl Studio">
+                <div class="about-portrait about-portrait-main">
+                    <img src="img/me-at-street.webp" alt="Liana, founder of Web Girl Studio" width="1200" height="1600" loading="lazy" decoding="async">
                 </div>
-                <div class="identity-label label-a"><span>01</span> Artist</div>
-                <div class="identity-label label-b"><span>02</span> Designer</div>
-                <div class="identity-label label-c"><span>03</span> Developer</div>
-                <div class="identity-label label-d"><span>04</span> Strategist</div>
-                <p>Not divided disciplines.<br>One point of view.</p>
-            </div>
+                <div class="about-portrait about-portrait-top">
+                    <img src="img/me-at-top-view.webp" alt="Liana outdoors beneath a dramatic sky" width="900" height="1200" loading="lazy" decoding="async">
+                </div>
+                <div class="about-portrait about-portrait-red">
+                    <img src="img/me-red-hair.webp" alt="Liana by the water" width="900" height="1200" loading="lazy" decoding="async">
+                </div>
+                <figcaption><span>Founder / designer / developer</span><strong>Liana</strong></figcaption>
+            </figure>
         </div>
     </section>
 
