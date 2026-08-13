@@ -103,7 +103,7 @@ $formMessage = match ($formStatus) {
     <meta property="og:title" content="Web Girl Studio | Websites with a pulse">
     <meta property="og:description" content="Sharp, memorable website systems built to move people from attention to enquiry.">
     <meta property="og:type" content="website">
-    <link rel="preload" as="image" href="<?= asset_url('img/wgs-liana-founder-red-signal-closeup.jpg') ?>" fetchpriority="high">
+    <link rel="preload" as="image" href="<?= asset_url('img/wgs-liana-founder-red-signal-closeup-looking-right-sideview.jpg') ?>" fetchpriority="high">
     <link rel="stylesheet" href="<?= asset_url('assets/styles.css') ?>">
     <link rel="stylesheet" href="<?= asset_url('assets/clarity-engine.css') ?>">
     <link rel="stylesheet" href="<?= asset_url('assets/portfolio.css') ?>">
@@ -146,12 +146,11 @@ $formMessage = match ($formStatus) {
         <div class="hero-grid" id="main-content">
             <div class="hero-copy">
                 <p class="eyebrow reveal">Founder-led strategy, design + development</p>
-                <h1 class="hero-title hero-title--plain" aria-label="Websites that look like you—and make sense to the people you want to reach.">
+                <h1 class="hero-title hero-title--plain" aria-label="Websites that look like you—and make sense to the right people.">
                     <span class="hero-line reveal">Websites that</span>
                     <span class="hero-line reveal delay-1">look like <em>you—</em></span>
                     <span class="hero-line reveal delay-2">and make sense</span>
-                    <span class="hero-line reveal delay-3">to the people you</span>
-                    <span class="hero-line reveal delay-3">want to reach.</span>
+                    <span class="hero-line reveal delay-3">to the right people.</span>
                 </h1>
                 <p class="hero-intro reveal delay-3">I design and build websites for artists, cultural brands and growing businesses. The work can be expressive, practical or both. What matters is that people understand who you are, trust the experience and know what to do next.</p>
                 <div class="hero-actions reveal delay-4">
@@ -237,24 +236,16 @@ $formMessage = match ($formStatus) {
     <section class="about-section section-dark" id="about">
         <div class="section-shell about-grid">
             <div class="about-portraits reveal">
-                <span class="about-axis about-axis-art">Art / instinct / culture</span>
                 <figure class="about-portrait about-portrait-primary">
-                    <img src="<?= asset_url('img/wgs-liana-founder-red-signal-closeup.jpg') ?>" alt="Liana, founder and creative director of Web Girl Studio" width="959" height="1280" loading="lazy" decoding="async">
+                    <img src="<?= asset_url('img/wgs-liana-founder-red-signal-closeup-looking-right-sideview.jpg') ?>" alt="Liana, founder and creative director of Web Girl Studio, looking to the right under red light" width="960" height="1280" loading="eager" decoding="async">
+                    <figcaption><strong>Liana / Founder / Creative Director</strong><span>Web Girl Studio / Sydney</span></figcaption>
                 </figure>
-                <figure class="about-portrait about-portrait-secondary">
-                    <img src="<?= asset_url('img/wgs-liana-strategy-founder-portrait-hands-together-looking-at-camera.jpg') ?>" alt="Liana working between creative direction and strategy" width="853" height="1280" loading="lazy" decoding="async">
-                </figure>
-                <figure class="about-portrait about-portrait-detail">
-                    <img src="<?= asset_url('img/wgs-liana-founder-red-signal-closeup-looking-right-sideview.jpg') ?>" alt="Close editorial portrait of Liana under red signal light" width="959" height="1280" loading="lazy" decoding="async">
-                </figure>
-                <span class="about-axis about-axis-system">System / logic / code</span>
-                <strong class="about-human-directed">Human-directed</strong>
             </div>
             <div class="about-statement">
-                <p class="section-index reveal">Art x tech / one mind</p>
+                <p class="section-index reveal">04 / Founder-led studio</p>
                 <h2 class="reveal">Creative <em>instinct.</em><br>Strategic logic.<br>Built by the<br>same person.</h2>
                 <div class="about-rule"></div>
-                <strong class="about-founder-label reveal">Liana - Founder / Creative Director</strong>
+                <strong class="about-founder-label reveal">Liana / Founder / Creative Director</strong>
                 <p class="about-copy reveal">I move between strategy, art direction, UX, design and development, so the idea does not get diluted as it passes from one discipline to another. The work stays visually distinctive, commercially clear and technically real.</p>
                 <ul class="about-disciplines reveal" aria-label="Liana's disciplines">
                     <li>Strategy</li><li>Art direction</li><li>UX</li><li>Design</li><li>Development</li>

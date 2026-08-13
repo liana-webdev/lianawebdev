@@ -53,8 +53,9 @@
 .portfolio-hero h1 { font-size: clamp(44px, 6vw, 96px); max-width: 1180px; line-height: .94; }
 
 .hero-title--plain {
-  font-size: clamp(40px, 5.7vw, 88px);
-  line-height: .92;
+  max-width: 620px;
+  font-size: clamp(38px, 4.4vw, 66px);
+  line-height: .96;
 }
 
 .hero-title--plain .hero-line { white-space: normal; }
@@ -475,7 +476,7 @@
 .home-featured-project h3 {
   margin: 18px 0 0;
   font-family: Arial Black, Arial, sans-serif;
-  font-size: clamp(42px, 5.2vw, 76px);
+  font-size: clamp(38px, 4.4vw, 64px);
   letter-spacing: -.07em;
   line-height: .86;
   text-transform: uppercase;

@@ -150,6 +150,12 @@ async function auditImageRatios(page, label, errors) {
       await page.keyboard.press("Escape");
       await page.goto(base + "/", { waitUntil: "networkidle" });
       await settleMedia(page);
+      const founderPortraits = await page.locator(".about-portrait img").count();
+      if (founderPortraits !== 1) errors.push(`Homepage has ${founderPortraits} founder portraits instead of 1 at ${viewport.width}px`);
+      const founderSource = await page.locator(".about-portrait img").getAttribute("src");
+      if (!founderSource?.includes("wgs-liana-founder-red-signal-closeup-looking-right-sideview.jpg")) errors.push(`Homepage does not use the right-facing founder portrait at ${viewport.width}px`);
+      const founderLabel = await page.locator(".about-portrait figcaption strong").textContent();
+      if (founderLabel?.trim() !== "Liana / Founder / Creative Director") errors.push(`Homepage founder portrait label is unclear at ${viewport.width}px`);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `homepage-plain-language-${viewport.width}.png`), fullPage: true });
       await context.close();
     }

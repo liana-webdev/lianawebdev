@@ -587,7 +587,7 @@ button {
 .faq-grid h2 {
   margin: 0;
   font-family: Arial Black, Arial, sans-serif;
-  font-size: clamp(48px, 6.25vw, 94px);
+  font-size: clamp(42px, 5.1vw, 76px);
   font-weight: 950;
   letter-spacing: -0.075em;
   line-height: 0.94;
@@ -695,7 +695,7 @@ button {
 .diagnosis-header h2 {
   margin: 0;
   font-family: Arial Black, Arial, sans-serif;
-  font-size: clamp(54px, 7.4vw, 110px);
+  font-size: clamp(46px, 6.1vw, 88px);
   font-weight: 950;
   letter-spacing: -0.08em;
   line-height: 0.8;
@@ -981,7 +981,7 @@ button {
 }
 
 .about-section {
-  padding: 170px 0;
+  padding: 145px 0;
 }
 
 .about-grid {
@@ -1239,7 +1239,7 @@ button {
 .process-step h3 {
   margin: 0;
   font-family: Arial Black, Arial, sans-serif;
-  font-size: clamp(32px, 4.4vw, 66px);
+  font-size: clamp(28px, 3.55vw, 52px);
   letter-spacing: -0.07em;
   line-height: 0.9;
   text-transform: uppercase;
@@ -1611,7 +1611,7 @@ button {
   max-width: 1270px;
   margin: 80px 0 100px;
   font-family: Arial Black, Arial, sans-serif;
-  font-size: clamp(55px, 8.2vw, 125px);
+  font-size: clamp(46px, 6.4vw, 96px);
   font-weight: 950;
   letter-spacing: -0.08em;
   line-height: 0.86;
@@ -1754,7 +1754,7 @@ button {
 .contact-heading h2 {
   margin: 0;
   font-family: Arial Black, Arial, sans-serif;
-  font-size: clamp(54px, 7.6vw, 116px);
+  font-size: clamp(46px, 6.25vw, 92px);
   font-weight: 950;
   letter-spacing: -0.08em;
   line-height: 0.82;
@@ -2394,7 +2394,7 @@ button {
   .about-statement h2,
   .method-sticky h2,
   .faq-grid h2 {
-    font-size: clamp(42px, 13vw, 62px);
+    font-size: clamp(36px, 10.5vw, 48px);
   }
 
   .leak-item {
@@ -2469,7 +2469,7 @@ button {
 
   .manifesto-section blockquote {
     margin: 60px 0 80px;
-    font-size: clamp(45px, 15.3vw, 70px);
+    font-size: clamp(38px, 11.5vw, 52px);
   }
 
   .faq-item button {
@@ -2491,7 +2491,7 @@ button {
   }
 
   .contact-heading h2 {
-    font-size: clamp(45px, 14vw, 66px);
+    font-size: clamp(38px, 11vw, 52px);
   }
 
   .form-row {
