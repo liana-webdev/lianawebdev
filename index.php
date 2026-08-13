@@ -29,6 +29,9 @@ function brand_mark(bool $light = false): void
     echo '<span class="brand-studio">studio</span></span>';
 }
 
+require __DIR__ . '/content/projects.php';
+require __DIR__ . '/components/portfolio.php';
+
 $services = [
     ['01', 'Website systems', 'New builds and strategic redesigns that make the offer obvious and the next step natural.', ['Business diagnosis', 'Conversion architecture', 'Custom UI + code', 'Mobile, speed + launch']],
     ['02', 'Brand + interface identity', 'A visual language that makes the business recognisable, credible and consistent everywhere.', ['Positioning direction', 'Logo refinement', 'Colour + typography', 'Digital design system']],
@@ -97,13 +100,16 @@ $formMessage = match ($formStatus) {
     <title>Web Girl Studio | Sydney Web Design &amp; Digital Growth</title>
     <meta name="description" content="Conversion-led websites, brand systems, SEO foundations and AI-assisted digital growth for service businesses and creative founders in Sydney and across Australia.">
     <meta name="theme-color" content="#080808">
+    <link rel="icon" href="<?= asset_url('assets/favicon.svg') ?>" type="image/svg+xml">
     <meta property="og:title" content="Web Girl Studio | Websites with a pulse">
     <meta property="og:description" content="Sharp, memorable website systems built to move people from attention to enquiry.">
     <meta property="og:type" content="website">
     <link rel="preload" as="image" href="<?= asset_url('img/wgs-liana-founder-red-signal-closeup.jpg') ?>" fetchpriority="high">
     <link rel="stylesheet" href="<?= asset_url('assets/styles.css') ?>">
     <link rel="stylesheet" href="<?= asset_url('assets/clarity-engine.css') ?>">
+    <link rel="stylesheet" href="<?= asset_url('assets/portfolio.css') ?>">
     <script defer src="<?= asset_url('assets/app.js') ?>"></script>
+    <script defer src="<?= asset_url('assets/portfolio.js') ?>"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -126,8 +132,8 @@ $formMessage = match ($formStatus) {
     <nav class="site-nav" aria-label="Primary navigation">
         <a href="#services">Services</a>
         <a href="#method">Method</a>
-        <a href="#work">Work</a>
-        <a href="#packages">Packages</a>
+        <a href="/work/">Work</a>
+        <a href="/culture/">Culture</a>
         <a href="#about">About</a>
     </nav>
     <a class="header-cta" href="#contact">Request diagnosis <span>↗</span></a>
@@ -261,8 +267,25 @@ $formMessage = match ($formStatus) {
     <section class="work-section section-offwhite" id="work">
         <div class="section-shell">
             <div class="section-heading reveal">
-                <div><p class="section-index">05 / Selected work</p><h2>Proof begins with<br><em>the system itself.</em></h2></div>
-                <p>Strategy is only credible when it survives contact with the real website: the words, the interface, the build and the business behind it.</p>
+                <div><p class="section-index">05 / Selected work</p><h2>Worlds with a reason<br><em>to exist.</em></h2></div>
+                <p>Identity is only half the work. Each project begins with what the audience needs to feel, understand and do - then builds the visual world and technical system around that.</p>
+            </div>
+            <div class="home-selected-grid">
+                <?php foreach (['mira-silt', 'ninth-form'] as $selectedSlug): $selected = $projects[$selectedSlug]; ?>
+                    <article class="home-featured-project reveal" style="<?= project_palette_style($selected) ?>">
+                        <a href="<?= e(wgs_project_url($selectedSlug)) ?>" aria-label="View <?= e($selected['name']) ?> case study">
+                            <div class="home-featured-project__media"><?php project_art($selected, 'home-cover', true); ?></div>
+                            <div class="home-featured-project__copy">
+                                <p class="project-kicker"><?= e($selected['status']) ?> / <?= e($selected['industry']) ?></p>
+                                <h3><?= e($selected['name']) ?></h3>
+                                <p><?= e($selected['transformation']) ?></p>
+                                <span><?= e($selected['proof']) ?></span>
+                                <ul class="project-tags"><?php foreach (array_slice($selected['capabilities'], 0, 4) as $capability): ?><li><?= e($capability) ?></li><?php endforeach; ?></ul>
+                                <b>View case study ↗</b>
+                            </div>
+                        </a>
+                    </article>
+                <?php endforeach; ?>
             </div>
             <a class="case-study reveal" href="https://fortepianoacademy.au" target="_blank" rel="noreferrer" aria-label="Visit Fortepiano Academy website">
                 <div class="case-meta"><span>Education / Founder-built brand</span><span>2026 ↗</span></div>
@@ -282,6 +305,8 @@ $formMessage = match ($formStatus) {
                     <ul><li>Strategy</li><li>Identity</li><li>Copy</li><li>Custom build</li><li>SEO foundation</li></ul>
                 </div>
             </a>
+            <!-- Selected-work slot 04 is reserved for Marlow & Tide Dental. Copy and assets were not supplied, so no public card is fabricated. -->
+            <div class="home-work-footer reveal"><p>Five independent cultural concepts, one founder-built education system, and more work as it becomes ready to prove something specific.</p><a class="button button-dark" href="/work/">Explore all work ↗</a></div>
         </div>
     </section>
 

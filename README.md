@@ -17,3 +17,24 @@ It uses PHP 8+, semantic HTML, standalone CSS and vanilla JavaScript.
 
 The form includes server-side validation, a CSRF token, a honeypot, basic
 session rate limiting, mail delivery and a locked JSONL fallback.
+
+## Portfolio routes
+
+- `/work/` - filterable portfolio index with a route-aware desktop case-study viewer
+- `/culture/` - culture and creators market page
+- `/projects/mira-silt/`
+- `/projects/ninth-form/`
+- `/projects/second-weather/`
+- `/projects/sasha-mirev/`
+- `/projects/quiet-signal/`
+
+Portfolio copy and metadata live in `content/projects.php`. Project media slots
+use ratio-stable art-direction placeholders until final source imagery and
+interface captures are supplied. WGS Lab actions remain intentionally disabled.
+
+Run the local smoke test after starting the PHP development server on port 8099:
+
+```powershell
+$env:WGS_NODE_MODULES = 'path-to-bundled-node_modules'
+node scripts/portfolio-smoke.cjs
+```
