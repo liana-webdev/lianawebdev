@@ -14,6 +14,7 @@ const routes = [
   "/projects/quiet-signal/",
   "/projects/mira-silt/site/",
   "/projects/ninth-form/site/",
+  "/snapshot/?business=bramelle-partners&utm_source=cold_email&utm_medium=email&utm_campaign=2026-08-accountants&utm_content=bramelle-partners",
 ];
 
 const fail = (message) => {
