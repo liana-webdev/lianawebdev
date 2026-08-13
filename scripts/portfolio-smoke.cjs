@@ -22,6 +22,29 @@ async function settleMedia(page) {
   await page.waitForTimeout(100);
 }
 
+async function auditImageRatios(page, label, errors) {
+  const stretched = await page.locator("img").evaluateAll((images) => images.flatMap((image) => {
+    const box = image.getBoundingClientRect();
+    if (box.width < 1 || box.height < 1 || image.naturalWidth < 1 || image.naturalHeight < 1) return [];
+
+    const objectFit = getComputedStyle(image).objectFit;
+    if (objectFit !== "fill") return [];
+
+    const renderedRatio = box.width / box.height;
+    const naturalRatio = image.naturalWidth / image.naturalHeight;
+    const ratioDrift = Math.abs(Math.log(renderedRatio / naturalRatio));
+    if (ratioDrift <= 0.025) return [];
+
+    return [{
+      source: new URL(image.currentSrc || image.src, location.href).pathname,
+      rendered: `${Math.round(box.width)}x${Math.round(box.height)}`,
+      natural: `${image.naturalWidth}x${image.naturalHeight}`,
+    }];
+  }));
+
+  stretched.forEach((image) => errors.push(`${label} stretches ${image.source} from ${image.natural} to ${image.rendered}`));
+}
+
 (async () => {
   const browser = await chromium.launch({
     headless: true,
@@ -52,6 +75,7 @@ async function settleMedia(page) {
         await page.locator("[data-viewer-link]:visible").first().click();
         await page.locator(".case-viewer__close").waitFor({ state: "visible" });
         if (!page.url().includes("/projects/")) errors.push("viewer did not update canonical URL");
+        await auditImageRatios(page, `Desktop case viewer at ${viewport.width}px`, errors);
         await page.keyboard.press("Escape");
         await page.waitForURL(/\/work\/?/);
       } else {
@@ -63,6 +87,7 @@ async function settleMedia(page) {
       const shot = path.join(process.cwd(), "artifacts", `portfolio-work-${viewport.width}.png`);
       await page.goto(base + "/work/", { waitUntil: "networkidle" });
       await settleMedia(page);
+      await auditImageRatios(page, `Work at ${viewport.width}px`, errors);
       if (viewport.width <= 560) {
         for (const slug of ["mira-silt", "ninth-form"]) {
           const currentSource = await page.locator(`[data-project-card][style*="--project-bg"] a[href*="${slug}"] img`).evaluate((image) => image.currentSrc);
@@ -72,19 +97,23 @@ async function settleMedia(page) {
       await page.screenshot({ path: shot, fullPage: true });
       await page.goto(base + "/culture/", { waitUntil: "networkidle" });
       await settleMedia(page);
+      await auditImageRatios(page, `Culture at ${viewport.width}px`, errors);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `portfolio-culture-${viewport.width}.png`), fullPage: true });
       await page.goto(base + "/projects/mira-silt/", { waitUntil: "networkidle" });
       await settleMedia(page);
+      await auditImageRatios(page, `Mira case study at ${viewport.width}px`, errors);
       const finalMedia = await page.locator('img[src*="/img/portfolio/mira-silt/"]').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0));
       if (!finalMedia) errors.push(`Mira media did not fully decode at ${viewport.width}px`);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `case-study-mira-silt-${viewport.width}.png`), fullPage: true });
       await page.goto(base + "/projects/ninth-form/", { waitUntil: "networkidle" });
       await settleMedia(page);
+      await auditImageRatios(page, `Ninth Form case study at ${viewport.width}px`, errors);
       const ninthMedia = await page.locator('img[src*="/img/portfolio/ninth-form/"]').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0));
       if (!ninthMedia) errors.push(`Ninth Form media did not fully decode at ${viewport.width}px`);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `case-study-ninth-form-${viewport.width}.png`), fullPage: true });
       await page.goto(base + "/projects/mira-silt/site/", { waitUntil: "networkidle" });
       await settleMedia(page);
+      await auditImageRatios(page, `Mira site at ${viewport.width}px`, errors);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `lab-mira-silt-${viewport.width}.png`), fullPage: true });
       await page.locator('[data-era="tour"]').click();
       if ((await page.locator("[data-era-label]").textContent()) !== "Salt Memory — Live") errors.push("Mira campaign switcher failed");
@@ -92,13 +121,19 @@ async function settleMedia(page) {
       if ((await page.locator("[data-player]").getAttribute("aria-label")) !== "Pause album preview") errors.push("Mira player failed");
       await page.locator('[data-open-dialog="mira-epk"]:visible').first().click();
       if (!(await page.locator("#mira-epk").isVisible())) errors.push("Mira EPK failed to open");
+      await auditImageRatios(page, `Mira EPK at ${viewport.width}px`, errors);
+      const epkColumns = await page.locator(".epk-grid").evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(/\s+/).length);
+      const expectedEpkColumns = viewport.width <= 900 ? 1 : 2;
+      if (epkColumns !== expectedEpkColumns) errors.push(`Mira EPK uses ${epkColumns} columns instead of ${expectedEpkColumns} at ${viewport.width}px`);
       await page.keyboard.press("Escape");
       if (await page.locator("#mira-epk").isVisible()) errors.push("Mira EPK failed to close with Escape");
       await page.goto(base + "/projects/ninth-form/site/", { waitUntil: "networkidle" });
       await settleMedia(page);
+      await auditImageRatios(page, `Ninth Form World at ${viewport.width}px`, errors);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `lab-ninth-form-${viewport.width}.png`), fullPage: true });
       await page.locator('[data-mode="shop"]').click();
       if (!(await page.locator("[data-shop-view]").isVisible())) errors.push("Ninth Form Shop mode failed");
+      await auditImageRatios(page, `Ninth Form Shop at ${viewport.width}px`, errors);
       const shopOverflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
       if (shopOverflow) errors.push(`Ninth Form Shop mode overflows at ${viewport.width}px`);
       await page.locator('[data-size="S"]').click();
