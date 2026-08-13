@@ -27,15 +27,17 @@ session rate limiting, mail delivery and a locked JSONL fallback.
 - `/projects/second-weather/`
 - `/projects/sasha-mirev/`
 - `/projects/quiet-signal/`
+- `/projects/mira-silt/site/` - complete interactive fictional artist website
+- `/projects/ninth-form/site/` - complete interactive fictional fashion store
 
 Portfolio copy and metadata live in `content/projects.php`. Project media slots
 use ratio-stable art-direction placeholders until final source imagery and
 interface captures are supplied. WGS Lab actions remain intentionally disabled.
 
 Mira Silt and Ninth Form campaign/editorial assets are integrated under their
-respective `img/portfolio/` directories. Their real interface-capture filenames
-remain deferred until the interactive experiences exist; no generated image is
-used as a fake interface screenshot.
+respective `img/portfolio/` directories. Both now have classic-PHP interactive
+concept websites. Their controls remain honest demonstrations: no music service,
+ticketing, payment, mailing-list or wholesale submission is connected.
 
 Run the local smoke test after starting the PHP development server on port 8099:
 

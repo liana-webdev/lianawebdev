@@ -6,6 +6,7 @@ const base = "http://127.0.0.1:8099";
 const routes = [
   "/", "/work/", "/culture/", "/projects/mira-silt/", "/projects/ninth-form/",
   "/projects/second-weather/", "/projects/sasha-mirev/", "/projects/quiet-signal/",
+  "/projects/", "/projects/mira-silt/site/", "/projects/ninth-form/site/",
 ];
 
 async function settleMedia(page) {
@@ -28,7 +29,7 @@ async function settleMedia(page) {
   });
   const errors = [];
   try {
-    for (const viewport of [{ width: 390, height: 844 }, { width: 1440, height: 900 }]) {
+    for (const viewport of [{ width: 390, height: 844 }, { width: 768, height: 1024 }, { width: 1440, height: 900 }]) {
       const context = await browser.newContext({ viewport, reducedMotion: "reduce" });
       const page = await context.newPage();
       page.on("console", (message) => {
@@ -45,9 +46,9 @@ async function settleMedia(page) {
 
       await page.goto(base + "/work/", { waitUntil: "networkidle" });
       if (viewport.width >= 820) {
-        await page.locator('[data-project-filter="culture"]').click();
+        await page.locator('[data-project-filter="all"]').click();
         const visible = await page.locator("[data-project-card]:visible").count();
-        if (visible !== 5) errors.push(`culture filter showed ${visible} projects`);
+        if (visible !== 5) errors.push(`all-projects filter showed ${visible} projects`);
         await page.locator("[data-viewer-link]:visible").first().click();
         await page.locator(".case-viewer__close").waitFor({ state: "visible" });
         if (!page.url().includes("/projects/")) errors.push("viewer did not update canonical URL");
@@ -60,7 +61,7 @@ async function settleMedia(page) {
       }
 
       const shot = path.join(process.cwd(), "artifacts", `portfolio-work-${viewport.width}.png`);
-      await page.goto(base + "/work/?filter=culture", { waitUntil: "networkidle" });
+      await page.goto(base + "/work/", { waitUntil: "networkidle" });
       await settleMedia(page);
       if (viewport.width <= 560) {
         for (const slug of ["mira-silt", "ninth-form"]) {
@@ -82,6 +83,39 @@ async function settleMedia(page) {
       const ninthMedia = await page.locator('img[src*="/img/portfolio/ninth-form/"]').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0));
       if (!ninthMedia) errors.push(`Ninth Form media did not fully decode at ${viewport.width}px`);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `case-study-ninth-form-${viewport.width}.png`), fullPage: true });
+      await page.goto(base + "/projects/mira-silt/site/", { waitUntil: "networkidle" });
+      await settleMedia(page);
+      await page.screenshot({ path: path.join(process.cwd(), "artifacts", `lab-mira-silt-${viewport.width}.png`), fullPage: true });
+      await page.locator('[data-era="tour"]').click();
+      if ((await page.locator("[data-era-label]").textContent()) !== "Salt Memory — Live") errors.push("Mira campaign switcher failed");
+      await page.locator("[data-player]").click();
+      if ((await page.locator("[data-player]").getAttribute("aria-label")) !== "Pause album preview") errors.push("Mira player failed");
+      await page.locator('[data-open-dialog="mira-epk"]:visible').first().click();
+      if (!(await page.locator("#mira-epk").isVisible())) errors.push("Mira EPK failed to open");
+      await page.keyboard.press("Escape");
+      if (await page.locator("#mira-epk").isVisible()) errors.push("Mira EPK failed to close with Escape");
+      await page.goto(base + "/projects/ninth-form/site/", { waitUntil: "networkidle" });
+      await settleMedia(page);
+      await page.screenshot({ path: path.join(process.cwd(), "artifacts", `lab-ninth-form-${viewport.width}.png`), fullPage: true });
+      await page.locator('[data-mode="shop"]').click();
+      if (!(await page.locator("[data-shop-view]").isVisible())) errors.push("Ninth Form Shop mode failed");
+      const shopOverflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+      if (shopOverflow) errors.push(`Ninth Form Shop mode overflows at ${viewport.width}px`);
+      await page.locator('[data-size="S"]').click();
+      await page.locator("[data-add-bag]").click();
+      if (!(await page.locator("#bag-drawer").isVisible())) errors.push("Ninth Form bag failed to open");
+      if ((await page.locator("[data-bag-count]").textContent()) !== "1") errors.push("Ninth Form bag count failed");
+      await page.locator("[data-qty-plus]").click();
+      if ((await page.locator("[data-bag-count]").textContent()) !== "2") errors.push("Ninth Form bag quantity failed");
+      await page.keyboard.press("Escape");
+      if (await page.locator("#bag-drawer").isVisible()) errors.push("Ninth Form bag failed to close with Escape");
+      await page.locator("[data-open-drawer=\"fit-drawer\"]").click();
+      const expectedFitSurface = viewport.width <= 600 ? ".measurement-cards" : ".measurements";
+      if (!(await page.locator(expectedFitSurface).isVisible())) errors.push(`Ninth Form fit guide is not mobile-safe at ${viewport.width}px`);
+      await page.keyboard.press("Escape");
+      await page.goto(base + "/", { waitUntil: "networkidle" });
+      await settleMedia(page);
+      await page.screenshot({ path: path.join(process.cwd(), "artifacts", `homepage-plain-language-${viewport.width}.png`), fullPage: true });
       await context.close();
     }
   } finally {
@@ -92,5 +126,5 @@ async function settleMedia(page) {
     console.error(errors.join("\n"));
     process.exit(1);
   }
-  console.log(`Portfolio smoke test passed for ${routes.length} routes at mobile and desktop widths.`);
+  console.log(`Portfolio smoke test passed for ${routes.length} routes at phone, tablet and desktop widths.`);
 })();
