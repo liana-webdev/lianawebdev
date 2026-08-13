@@ -32,6 +32,11 @@ Portfolio copy and metadata live in `content/projects.php`. Project media slots
 use ratio-stable art-direction placeholders until final source imagery and
 interface captures are supplied. WGS Lab actions remain intentionally disabled.
 
+Mira Silt campaign/editorial assets are integrated under
+`img/portfolio/mira-silt/`. Its real interface-capture filenames remain deferred
+until the interactive experience exists; no generated image is used as a fake
+interface screenshot.
+
 Run the local smoke test after starting the PHP development server on port 8099:
 
 ```powershell

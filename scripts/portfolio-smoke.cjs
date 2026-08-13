@@ -8,6 +8,19 @@ const routes = [
   "/projects/second-weather/", "/projects/sasha-mirev/", "/projects/quiet-signal/",
 ];
 
+async function settleMedia(page) {
+  await page.evaluate(async () => {
+    const step = Math.max(window.innerHeight * 0.8, 500);
+    for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((resolve) => setTimeout(resolve, 35));
+    }
+    window.scrollTo(0, 0);
+    await Promise.all([...document.images].filter((image) => image.currentSrc).map((image) => image.decode?.().catch(() => {})));
+  });
+  await page.waitForTimeout(100);
+}
+
 (async () => {
   const browser = await chromium.launch({
     headless: true,
@@ -48,10 +61,15 @@ const routes = [
 
       const shot = path.join(process.cwd(), "artifacts", `portfolio-work-${viewport.width}.png`);
       await page.goto(base + "/work/?filter=culture", { waitUntil: "networkidle" });
+      await settleMedia(page);
       await page.screenshot({ path: shot, fullPage: true });
       await page.goto(base + "/culture/", { waitUntil: "networkidle" });
+      await settleMedia(page);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `portfolio-culture-${viewport.width}.png`), fullPage: true });
       await page.goto(base + "/projects/mira-silt/", { waitUntil: "networkidle" });
+      await settleMedia(page);
+      const finalMedia = await page.locator('img[src*="/img/portfolio/mira-silt/"]').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0));
+      if (!finalMedia) errors.push(`Mira media did not fully decode at ${viewport.width}px`);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `case-study-mira-silt-${viewport.width}.png`), fullPage: true });
       await context.close();
     }

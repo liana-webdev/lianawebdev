@@ -15,6 +15,72 @@ $projects = [
         'capabilities' => ['Strategy', 'Art direction', 'UX', 'Artist platform', 'Campaign system'],
         'scope' => 'Strategy, audience journeys, information architecture, art direction, responsive web system, release campaign, EPK and measurement plan',
         'palette' => ['#090A0B', '#EEECE6', '#A8ABA9', '#4E345C', '#D82335'],
+        'mediaCredit' => 'Creative direction and AI-generated concept imagery: Web Girl Studio.',
+        'media' => [
+            'home-cover' => [
+                'src' => '/img/portfolio/mira-silt/cover-home-8x5.webp',
+                'fallback' => '/img/portfolio/mira-silt/cover-home-8x5.jpg',
+                'width' => 2400, 'height' => 1500,
+                'alt' => 'Mira Silt seated in dark water among salt formations for the Salt Memory album era.',
+                'position' => 'center center',
+            ],
+            'work-cover' => [
+                'src' => '/img/portfolio/mira-silt/cover-work-4x3.webp',
+                'mobileSrc' => '/img/portfolio/mira-silt/cover-work-mobile-4x5.webp',
+                'width' => 1600, 'height' => 1200,
+                'mobileWidth' => 1200, 'mobileHeight' => 1500,
+                'alt' => 'Mira Silt in a mineral-black flooded studio with salt bloom and a red light signal.',
+                'mobileAlt' => 'Vertical portrait of Mira Silt beside a salt-covered black surface.',
+                'position' => 'left center',
+                'mobilePosition' => 'center center',
+            ],
+            'case-hero' => [
+                'src' => '/img/portfolio/mira-silt/case-hero-8x5.webp',
+                'width' => 2880, 'height' => 1800,
+                'alt' => 'Mira Silt in the dark-water visual world of her fictional debut album Salt Memory.',
+                'position' => 'center center',
+            ],
+            'world-01' => [
+                'src' => '/img/portfolio/mira-silt/world-01-16x9.webp',
+                'width' => 2400, 'height' => 1350,
+                'alt' => 'A black piano keyboard, translucent film and salt crystals partly submerged in dark water.',
+                'caption' => 'Album-world material study: piano lacquer, translucent film, salt bloom and dark water.',
+                'purpose' => 'Album world',
+            ],
+            'world-02' => [
+                'src' => '/img/portfolio/mira-silt/world-02-live-16x9.webp',
+                'width' => 2400, 'height' => 1350,
+                'alt' => 'Mira Silt performing at a black grand piano on an intimate flooded stage.',
+                'caption' => 'Live-performance direction designed to connect the album world to professional credibility.',
+                'purpose' => 'Live world',
+            ],
+            'product-detail' => [
+                'src' => '/img/portfolio/mira-silt/detail-01-product-square.webp',
+                'width' => 1600, 'height' => 1600,
+                'alt' => 'A blank oxidised-silver record sleeve, smoke-grey vinyl and salt-paper booklet on wet black lacquer.',
+                'caption' => 'A limited physical edition extends the material system without inventing a live product.',
+                'purpose' => 'Physical edition',
+            ],
+            'portrait-detail' => [
+                'src' => '/img/portfolio/mira-silt/detail-02-portrait-square.webp',
+                'width' => 1600, 'height' => 1600,
+                'alt' => 'Close portrait of Mira Silt with damp black hair and an oxidised-silver ear cuff.',
+                'caption' => 'Press portrait detail preserves the same fictional artist identity across the campaign system.',
+                'purpose' => 'Press portrait',
+            ],
+            'press-portrait' => [
+                'src' => '/img/portfolio/mira-silt/press-portrait-3x4.webp',
+                'width' => 1800, 'height' => 2400,
+                'alt' => 'Portrait of Mira Silt in black silk beside a salt-covered piano-black surface.',
+                'caption' => 'Portrait-oriented media for EPK and editorial use.',
+                'purpose' => 'EPK portrait',
+            ],
+            'og' => [
+                'src' => '/img/portfolio/mira-silt/og-1200x630.jpg',
+                'width' => 1200, 'height' => 630,
+                'alt' => 'Mira Silt in the Salt Memory album world.',
+            ],
+        ],
         'seoTitle' => 'Mira Silt - Music Website Concept | Web Girl Studio',
         'seoDescription' => 'A Web Girl Studio independent concept exploring how an album release becomes an owned world, campaign system, EPK and direct fan journey.',
         'reality' => ['Mira is a songwriter and keyboardist preparing her first full album after two independent EPs. Her audience discovers her through intimate rehearsal footage, cinematic fragments and platform recommendations. The attention is real; the context is not hers.', 'Streaming services are excellent listening destinations, but they place the artist inside someone else’s product. Social media creates discovery, then resets the story with every post. Promoters, press, collaborators and serious fans encounter different fragments and must assemble Mira for themselves.'],
@@ -205,4 +271,3 @@ function wgs_project_url(string $slug): string
 {
     return '/projects/' . rawurlencode($slug) . '/';
 }
-

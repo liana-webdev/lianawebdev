@@ -55,12 +55,53 @@ function project_palette_style(array $project): string
 
 function project_art(array $project, string $role = 'cover', bool $compact = false): void
 {
+    $media = $project['media'][$role] ?? null;
+    if (is_array($media)) {
+        $class = 'project-art project-art--real project-art--' . e($project['slug']) . ' project-art--' . e($role) . ($compact ? ' project-art--compact' : '');
+        $position = $media['position'] ?? 'center center';
+        echo '<picture class="' . $class . '" style="' . project_palette_style($project) . '--media-position:' . e($position) . ';">';
+        if (!empty($media['mobileSrc'])) {
+            echo '<source media="(max-width: 560px)" srcset="' . portfolio_asset($media['mobileSrc']) . '" width="' . e((string) $media['mobileWidth']) . '" height="' . e((string) $media['mobileHeight']) . '">';
+        }
+        if (!empty($media['fallback'])) {
+            echo '<source type="image/webp" srcset="' . portfolio_asset($media['src']) . '">';
+            $src = $media['fallback'];
+        } else {
+            $src = $media['src'];
+        }
+        $loading = $role === 'case-hero' ? 'eager' : 'lazy';
+        $priority = $role === 'case-hero' ? ' fetchpriority="high"' : '';
+        echo '<img src="' . portfolio_asset($src) . '" alt="' . e($media['alt']) . '" width="' . e((string) $media['width']) . '" height="' . e((string) $media['height']) . '" loading="' . $loading . '" decoding="async"' . $priority . '>';
+        echo '</picture>';
+        return;
+    }
+
     $class = 'project-art project-art--' . e($project['slug']) . ' project-art--' . e($role) . ($compact ? ' project-art--compact' : '');
     echo '<div class="' . $class . '" style="' . project_palette_style($project) . '" role="img" aria-label="Art direction placeholder for ' . e($project['name']) . '">';
     echo '<span class="project-art__index">0' . e((string) $project['order']) . ' / ' . e($project['industry']) . '</span>';
     echo '<span class="project-art__name">' . e($project['name']) . '</span>';
     echo '<span class="project-art__role">' . e(ucfirst(str_replace('-', ' ', $role))) . ' · final project media pending</span>';
     echo '<span class="project-art__shape" aria-hidden="true"></span><span class="project-art__signal" aria-hidden="true"></span></div>';
+}
+
+function project_media_frame(array $project, string $key, string $class = ''): void
+{
+    $media = $project['media'][$key] ?? null;
+    if (!is_array($media)) {
+        project_art($project, $key);
+        return;
+    }
+    $figureClass = trim('media-frame media-frame--' . $key . ' ' . $class);
+    echo '<figure class="' . e($figureClass) . '">';
+    echo '<div class="media-frame__image" style="--media-ratio:' . e((string) $media['width']) . ' / ' . e((string) $media['height']) . ';--media-position:' . e($media['position'] ?? 'center center') . ';">';
+    echo '<img src="' . portfolio_asset($media['src']) . '" alt="' . e($media['alt']) . '" width="' . e((string) $media['width']) . '" height="' . e((string) $media['height']) . '" loading="lazy" decoding="async">';
+    echo '</div>';
+    if (!empty($media['caption']) || !empty($media['purpose'])) {
+        echo '<figcaption><strong>' . e($media['purpose'] ?? 'Project media') . '</strong>';
+        if (!empty($media['caption'])) echo '<span>' . e($media['caption']) . '</span>';
+        echo '</figcaption>';
+    }
+    echo '</figure>';
 }
 
 function project_card(array $project, bool $viewer = false): void
@@ -81,4 +122,3 @@ function project_disclosure(): void
 {
     echo '<aside class="project-disclosure"><strong>Truth note</strong><p>' . e(WGS_CONCEPT_DISCLOSURE) . '</p></aside>';
 }
-

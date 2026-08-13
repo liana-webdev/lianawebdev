@@ -25,6 +25,14 @@ $canonical = 'https://webgirl.studio' . wgs_project_url($project['slug']);
     <meta property="og:title" content="<?= e($project['seoTitle']) ?>">
     <meta property="og:description" content="<?= e($project['seoDescription']) ?>">
     <meta property="og:url" content="<?= e($canonical) ?>">
+    <?php if (!empty($project['media']['og'])): $og = $project['media']['og']; ?>
+    <meta property="og:image" content="https://webgirl.studio<?= e($og['src']) ?>">
+    <meta property="og:image:width" content="<?= e((string) $og['width']) ?>">
+    <meta property="og:image:height" content="<?= e((string) $og['height']) ?>">
+    <meta property="og:image:alt" content="<?= e($og['alt']) ?>">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="preload" as="image" href="<?= portfolio_asset($project['media']['case-hero']['src']) ?>" fetchpriority="high">
+    <?php endif; ?>
     <link rel="stylesheet" href="<?= portfolio_asset('assets/styles.css') ?>">
     <link rel="stylesheet" href="<?= portfolio_asset('assets/portfolio.css') ?>">
     <script defer src="<?= portfolio_asset('assets/app.js') ?>"></script>
@@ -89,10 +97,18 @@ $canonical = 'https://webgirl.studio' . wgs_project_url($project['slug']);
         <section class="case-visual-world section-dark">
             <div class="section-shell case-visual-world__copy"><p class="section-index">07 / Visual world</p><h2>A visual language with a job.</h2><p><?= e($project['visual']) ?></p></div>
             <div class="section-shell project-proof-grid">
-                <?php project_art($project, 'desktop-system'); ?>
-                <?php project_art($project, 'mobile-system'); ?>
-                <?php project_art($project, 'interface-detail'); ?>
+                <?php if (!empty($project['media']['world-01'])): ?>
+                    <?php project_media_frame($project, 'world-01', 'media-frame--wide'); ?>
+                    <?php project_media_frame($project, 'press-portrait', 'media-frame--portrait'); ?>
+                    <?php project_media_frame($project, 'product-detail'); ?>
+                    <?php project_media_frame($project, 'portrait-detail'); ?>
+                <?php else: ?>
+                    <?php project_art($project, 'desktop-system'); ?>
+                    <?php project_art($project, 'mobile-system'); ?>
+                    <?php project_art($project, 'interface-detail'); ?>
+                <?php endif; ?>
             </div>
+            <?php if (!empty($project['mediaCredit'])): ?><p class="section-shell media-credit"><?= e($project['mediaCredit']) ?></p><?php endif; ?>
         </section>
 
         <section class="case-decisions section-light">
@@ -106,6 +122,12 @@ $canonical = 'https://webgirl.studio' . wgs_project_url($project['slug']);
         <section class="case-technical section-offwhite">
             <div class="section-shell case-technical__grid"><div><p class="section-index">09 / Responsive + technical layer</p><h2>The world still works<br><em>at 320 pixels.</em></h2></div><ul><?php foreach ($project['technical'] as $item): ?><li><?= e($item) ?></li><?php endforeach; ?></ul></div>
         </section>
+
+        <?php if (!empty($project['media']['world-02'])): ?>
+        <section class="case-world-break section-dark">
+            <div class="section-shell"><?php project_media_frame($project, 'world-02', 'media-frame--wide'); ?></div>
+        </section>
+        <?php endif; ?>
 
         <section class="case-validation section-dark">
             <div class="section-shell case-validation__grid"><div><p class="section-index">10 / Honest evidence</p><h2>Validation plan,<br><em>not invented results.</em></h2><p>These checks are planned for the interactive build. They are not presented as completed outcomes.</p></div><ol><?php foreach ($project['validation'] as $index => $item): ?><li><span>0<?= $index + 1 ?></span><?= e($item) ?></li><?php endforeach; ?></ol></div>
