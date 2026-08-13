@@ -536,18 +536,18 @@
 
 /* Case studies */
 .project-body { background: var(--project-bg); }
-.project-hero { padding: 155px 0 90px; color: var(--project-paper); background: var(--project-bg); }
+.project-hero { padding: 155px 0 90px; color: var(--project-text, var(--project-paper)); background: var(--project-bg); }
 .project-hero__grid { display: grid; grid-template-columns: .32fr 1fr; gap: 28px; }
 .project-hero .project-kicker { color: var(--project-signal); }
 .project-hero h1 { grid-column: 1 / -1; max-width: 1350px; margin: 64px 0 0; font-family: Arial Black, Arial, sans-serif; font-size: clamp(62px, 9vw, 144px); letter-spacing: -.08em; line-height: .84; text-transform: uppercase; }
-.project-hero__preview { grid-column: 2; max-width: 720px; margin: 42px 0; color: color-mix(in srgb, var(--project-paper) 72%, transparent); font-size: clamp(19px, 1.7vw, 25px); line-height: 1.5; }
-.project-snapshot { grid-column: 1 / -1; display: grid; grid-template-columns: .7fr 1fr .5fr 2.2fr; margin: 38px 0 0; border-top: 1px solid color-mix(in srgb, var(--project-paper) 24%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--project-paper) 24%, transparent); }
+.project-hero__preview { grid-column: 2; max-width: 720px; margin: 42px 0; color: color-mix(in srgb, var(--project-text, var(--project-paper)) 72%, transparent); font-size: clamp(19px, 1.7vw, 25px); line-height: 1.5; }
+.project-snapshot { grid-column: 1 / -1; display: grid; grid-template-columns: .7fr 1fr .5fr 2.2fr; margin: 38px 0 0; border-top: 1px solid color-mix(in srgb, var(--project-text, var(--project-paper)) 24%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--project-text, var(--project-paper)) 24%, transparent); }
 .project-snapshot div { padding: 18px 20px 22px 0; }
-.project-snapshot dt { color: color-mix(in srgb, var(--project-paper) 55%, transparent); font-family: var(--font-geist-mono), monospace; font-size: 8px; letter-spacing: .15em; text-transform: uppercase; }
+.project-snapshot dt { color: color-mix(in srgb, var(--project-text, var(--project-paper)) 55%, transparent); font-family: var(--font-geist-mono), monospace; font-size: 8px; letter-spacing: .15em; text-transform: uppercase; }
 .project-snapshot dd { margin: 9px 0 0; font-size: 13px; line-height: 1.45; }
 .project-disclosure { grid-column: 2; max-width: 740px; margin: 36px 0 46px; padding-left: 18px; border-left: 3px solid var(--project-signal); }
 .project-disclosure strong { color: var(--project-signal); font-family: var(--font-geist-mono), monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
-.project-disclosure p { margin: 9px 0 0; color: color-mix(in srgb, var(--project-paper) 65%, transparent); font-size: 13px; line-height: 1.55; }
+.project-disclosure p { margin: 9px 0 0; color: color-mix(in srgb, var(--project-text, var(--project-paper)) 65%, transparent); font-size: 13px; line-height: 1.55; }
 .project-hero__media { margin-top: 32px; }
 .case-chapter, .case-diagnosis, .case-journeys, .case-insight, .case-system, .case-visual-world, .case-decisions, .case-technical, .case-validation, .case-proves, .case-lab, .case-conversion, .next-project { padding: 140px 0; }
 .case-world-break { padding: 0 0 140px; }
@@ -628,7 +628,7 @@ body.has-case-viewer { overflow: hidden; padding-right: var(--scrollbar-width, 0
   .culture-method ol { grid-template-columns: repeat(3, 1fr); }
   .culture-method li:nth-child(4) { border-left: 1px solid var(--ink); }
   .project-snapshot { grid-template-columns: repeat(3, 1fr); }
-  .project-snapshot div:last-child { grid-column: 1 / -1; border-top: 1px solid color-mix(in srgb, var(--project-paper) 24%, transparent); }
+  .project-snapshot div:last-child { grid-column: 1 / -1; border-top: 1px solid color-mix(in srgb, var(--project-text, var(--project-paper)) 24%, transparent); }
   .case-copy-grid, .case-system__grid, .case-technical__grid, .case-validation__grid, .case-lab__grid { gap: 5vw; }
 }
 
@@ -701,7 +701,7 @@ body.has-case-viewer { overflow: hidden; padding-right: var(--scrollbar-width, 0
   .culture-method li span { margin-bottom: 30px; }
   .project-hero h1 { font-size: clamp(44px, 14vw, 68px); }
   .project-snapshot { grid-template-columns: 1fr; }
-  .project-snapshot div, .project-snapshot div:last-child { grid-column: 1; border-top: 1px solid color-mix(in srgb, var(--project-paper) 24%, transparent); }
+  .project-snapshot div, .project-snapshot div:last-child { grid-column: 1; border-top: 1px solid color-mix(in srgb, var(--project-text, var(--project-paper)) 24%, transparent); }
   .project-snapshot div:first-child { border-top: 0; }
   .case-insight h2, .case-proves h2 { font-size: 42px; }
   .decision-list article { grid-template-columns: 42px 1fr; }

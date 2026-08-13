@@ -62,6 +62,12 @@ async function settleMedia(page) {
       const shot = path.join(process.cwd(), "artifacts", `portfolio-work-${viewport.width}.png`);
       await page.goto(base + "/work/?filter=culture", { waitUntil: "networkidle" });
       await settleMedia(page);
+      if (viewport.width <= 560) {
+        for (const slug of ["mira-silt", "ninth-form"]) {
+          const currentSource = await page.locator(`[data-project-card][style*="--project-bg"] a[href*="${slug}"] img`).evaluate((image) => image.currentSrc);
+          if (!currentSource.includes("cover-work-mobile-4x5.webp")) errors.push(`${slug} did not use its art-directed mobile cover`);
+        }
+      }
       await page.screenshot({ path: shot, fullPage: true });
       await page.goto(base + "/culture/", { waitUntil: "networkidle" });
       await settleMedia(page);
@@ -71,6 +77,11 @@ async function settleMedia(page) {
       const finalMedia = await page.locator('img[src*="/img/portfolio/mira-silt/"]').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0));
       if (!finalMedia) errors.push(`Mira media did not fully decode at ${viewport.width}px`);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `case-study-mira-silt-${viewport.width}.png`), fullPage: true });
+      await page.goto(base + "/projects/ninth-form/", { waitUntil: "networkidle" });
+      await settleMedia(page);
+      const ninthMedia = await page.locator('img[src*="/img/portfolio/ninth-form/"]').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0));
+      if (!ninthMedia) errors.push(`Ninth Form media did not fully decode at ${viewport.width}px`);
+      await page.screenshot({ path: path.join(process.cwd(), "artifacts", `case-study-ninth-form-${viewport.width}.png`), fullPage: true });
       await context.close();
     }
   } finally {

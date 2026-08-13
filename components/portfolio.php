@@ -50,7 +50,8 @@ function portfolio_footer(): void
 function project_palette_style(array $project): string
 {
     $palette = $project['palette'];
-    return '--project-bg:' . e($palette[0]) . ';--project-paper:' . e($palette[1]) . ';--project-mid:' . e($palette[2]) . ';--project-accent:' . e($palette[3]) . ';--project-signal:' . e($palette[4]) . ';';
+    $textColor = $project['textColor'] ?? $palette[1];
+    return '--project-bg:' . e($palette[0]) . ';--project-paper:' . e($palette[1]) . ';--project-text:' . e($textColor) . ';--project-mid:' . e($palette[2]) . ';--project-accent:' . e($palette[3]) . ';--project-signal:' . e($palette[4]) . ';';
 }
 
 function project_art(array $project, string $role = 'cover', bool $compact = false): void
