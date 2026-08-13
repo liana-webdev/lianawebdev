@@ -34,6 +34,21 @@ Portfolio copy and metadata live in `content/projects.php`. Project media slots
 use ratio-stable art-direction placeholders until final source imagery and
 interface captures are supplied. WGS Lab actions remain intentionally disabled.
 
+## Outreach snapshots
+
+Personalised cold-outreach value pages render at `/snapshot/?business=<slug>`.
+Snapshot content lives in `content/outreach-snapshots.php`; unknown slugs return
+an unlisted 404 page and all snapshot pages carry `noindex` directives. Use one
+first-party link in each email and append the GA4 campaign parameters:
+
+```text
+https://webgirl.studio/snapshot/?business=bramelle-partners&utm_source=cold_email&utm_medium=email&utm_campaign=2026-08-accountants&utm_content=bramelle-partners
+```
+
+The free snapshot is intentionally limited to one existing strength, three
+specific conversion leaks and one repair direction. Full diagnosis, copy,
+architecture, competitor research and implementation planning remain paid work.
+
 Mira Silt and Ninth Form campaign/editorial assets are integrated under their
 respective `img/portfolio/` directories. Both now have classic-PHP interactive
 concept websites. Their controls remain honest demonstrations: no music service,
