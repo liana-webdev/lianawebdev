@@ -110,13 +110,15 @@ function project_card(array $project, bool $viewer = false): void
     $tagValue = implode(' ', $project['tags']);
     $viewerAttr = $viewer ? ' data-viewer-link' : '';
     echo '<article class="project-card reveal" data-project-card data-tags="' . e($tagValue) . '" style="' . project_palette_style($project) . '">';
-    echo '<a class="project-card__link" href="' . e(wgs_project_url($project['slug'])) . '"' . $viewerAttr . ' aria-label="View ' . e($project['name']) . ' case study">';
-    echo '<div class="project-card__media">'; project_art($project, 'work-cover', true); echo '</div>';
+    echo '<a class="project-card__media project-card__media-link" href="' . e(wgs_project_url($project['slug'])) . '"' . $viewerAttr . ' aria-label="View ' . e($project['name']) . ' case study">';
+    project_art($project, 'work-cover', true); echo '</a>';
     echo '<div class="project-card__body"><p class="project-kicker">' . e($project['status']) . ' / ' . e($project['industry']) . '</p>';
-    echo '<h2>' . e($project['name']) . '</h2><p class="project-card__starting">' . e($project['starting']) . '</p>';
+    echo '<h2><a href="' . e(wgs_project_url($project['slug'])) . '"' . $viewerAttr . '>' . e($project['name']) . '</a></h2><p class="project-card__starting">' . e($project['starting']) . '</p>';
     echo '<p class="project-card__transformation">' . e($project['transformation']) . '</p><ul class="project-tags">';
     foreach (array_slice($project['capabilities'], 0, 4) as $capability) echo '<li>' . e($capability) . '</li>';
-    echo '</ul><span class="project-card__action">View case study <b aria-hidden="true">↗</b></span></div></a></article>';
+    echo '</ul><div class="project-card__actions"><a href="' . e(wgs_project_url($project['slug'])) . '"' . $viewerAttr . '>Read the case study <b aria-hidden="true">↗</b></a>';
+    if (($project['labStatus'] ?? '') === 'live') echo '<a href="' . e($project['labRoute']) . '">' . e($project['labLabel']) . ' <b aria-hidden="true">→</b></a>';
+    echo '</div></div></article>';
 }
 
 function project_disclosure(): void

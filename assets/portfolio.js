@@ -9,7 +9,7 @@
     const validFilters = new Set(filters.map((button) => button.dataset.projectFilter));
     const params = new URLSearchParams(location.search);
     const requested = params.get("filter");
-    const initial = requested && validFilters.has(requested) ? requested : "selected";
+    const initial = requested && validFilters.has(requested) ? requested : "all";
 
     const applyFilter = (key, updateUrl = true) => {
       let visible = 0;
@@ -23,7 +23,7 @@
       if (count) count.textContent = `${visible} project${visible === 1 ? "" : "s"} shown`;
       if (updateUrl) {
         const next = new URL(location.href);
-        if (key === "selected") next.searchParams.delete("filter");
+        if (key === "all") next.searchParams.delete("filter");
         else next.searchParams.set("filter", key);
         history.replaceState({ ...(history.state || {}), gallery: true, filter: key }, "", next);
       }

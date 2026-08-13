@@ -40,12 +40,11 @@ $services = [
 ];
 
 $process = [
-    ['01', 'Diagnose', 'We find the business goal, the current leak and the real problem before prescribing a website.'],
-    ['02', 'Clarify', 'Audience, offer, objections and proof are organised until the core message can land quickly.'],
-    ['03', 'Structure', 'The sitemap, section order, user journey and calls to action are designed before visual polish.'],
-    ['04', 'Align', 'A strategic moodboard locks the visual world, image direction, typography and interface character.'],
-    ['05', 'Design + build', 'The approved logic becomes a high-fidelity, responsive website with purposeful interaction.'],
-    ['06', 'Launch + refine', 'Forms, SEO, speed, mobile and analytics are checked before a clean handover and next-step plan.'],
+    ['01', 'Understand', 'Understand the business and audience.'],
+    ['02', 'Plan', 'Plan the pages and user journey.'],
+    ['03', 'Create', 'Create the visual direction.'],
+    ['04', 'Build', 'Design and build the website.'],
+    ['05', 'Test', 'Test, launch and refine.'],
 ];
 
 $packages = [
@@ -147,17 +146,17 @@ $formMessage = match ($formStatus) {
         <div class="hero-grid" id="main-content">
             <div class="hero-copy">
                 <p class="eyebrow reveal">Founder-led strategy, design + development</p>
-                <h1 class="hero-title" aria-label="Websites with a pulse. Built to turn attention into action.">
-                    <span class="hero-line reveal">Websites</span>
-                    <span class="hero-line reveal delay-1">with a <em>pulse.</em></span>
-                    <span class="hero-line reveal delay-2">Built to turn</span>
-                    <span class="hero-line reveal delay-3">attention</span>
-                    <span class="hero-line reveal delay-3">into action.</span>
+                <h1 class="hero-title hero-title--plain" aria-label="Websites that look like you—and make sense to the people you want to reach.">
+                    <span class="hero-line reveal">Websites that</span>
+                    <span class="hero-line reveal delay-1">look like <em>you—</em></span>
+                    <span class="hero-line reveal delay-2">and make sense</span>
+                    <span class="hero-line reveal delay-3">to the people you</span>
+                    <span class="hero-line reveal delay-3">want to reach.</span>
                 </h1>
-                <p class="hero-intro reveal delay-3">I diagnose what is losing people, clarify the offer and journey, then design and build the website that makes the business easier to understand, trust and choose.</p>
+                <p class="hero-intro reveal delay-3">I design and build websites for artists, cultural brands and growing businesses. The work can be expressive, practical or both. What matters is that people understand who you are, trust the experience and know what to do next.</p>
                 <div class="hero-actions reveal delay-4">
-                    <a class="button button-red button-diffraction" href="#contact">Start a project</a>
-                    <a class="button button-outline" href="#method">See how I work</a>
+                    <a class="button button-red button-diffraction" href="#work">See selected work</a>
+                    <a class="button button-outline" href="#contact">Tell me about your project</a>
                 </div>
             </div>
             <?php require __DIR__ . '/components/hero-clarity-engine.php'; ?>
@@ -267,23 +266,24 @@ $formMessage = match ($formStatus) {
     <section class="work-section section-offwhite" id="work">
         <div class="section-shell">
             <div class="section-heading reveal">
-                <div><p class="section-index">05 / Selected work</p><h2>Worlds with a reason<br><em>to exist.</em></h2></div>
-                <p>Identity is only half the work. Each project begins with what the audience needs to feel, understand and do - then builds the visual world and technical system around that.</p>
+                <div><p class="section-index">05 / Selected work</p><h2>Selected work</h2></div>
+                <p>Two complete concept projects, built to show how creative direction and practical website thinking work together.</p>
             </div>
             <div class="home-selected-grid">
                 <?php foreach (['mira-silt', 'ninth-form'] as $selectedSlug): $selected = $projects[$selectedSlug]; ?>
                     <article class="home-featured-project reveal" style="<?= project_palette_style($selected) ?>">
-                        <a href="<?= e(wgs_project_url($selectedSlug)) ?>" aria-label="View <?= e($selected['name']) ?> case study">
-                            <div class="home-featured-project__media"><?php project_art($selected, 'home-cover', true); ?></div>
+                        <a class="home-featured-project__media" href="<?= e(wgs_project_url($selectedSlug)) ?>" aria-label="View <?= e($selected['name']) ?> case study"><?php project_art($selected, 'home-cover', true); ?></a>
                             <div class="home-featured-project__copy">
                                 <p class="project-kicker"><?= e($selected['status']) ?> / <?= e($selected['industry']) ?></p>
-                                <h3><?= e($selected['name']) ?></h3>
-                                <p><?= e($selected['transformation']) ?></p>
-                                <span><?= e($selected['proof']) ?></span>
+                                <h3><a href="<?= e(wgs_project_url($selectedSlug)) ?>"><?= e($selected['name']) ?></a></h3>
+                                <?php if ($selectedSlug === 'mira-silt'): ?>
+                                    <p>A complete digital home for an independent musician.</p><span>An interactive album and artist website that brings music, live dates, physical editions and press information into one place.</span>
+                                <?php else: ?>
+                                    <p>A fashion store that keeps the point of view—and answers buying questions.</p><span>An independent fashion store that keeps the campaign feeling strong while making products, sizing, materials and wholesale information easy to understand.</span>
+                                <?php endif; ?>
                                 <ul class="project-tags"><?php foreach (array_slice($selected['capabilities'], 0, 4) as $capability): ?><li><?= e($capability) ?></li><?php endforeach; ?></ul>
-                                <b>View case study ↗</b>
+                                <div class="home-featured-project__actions"><a href="<?= e(wgs_project_url($selectedSlug)) ?>">Read the case study ↗</a><a href="<?= e($selected['labRoute']) ?>"><?= e($selected['labLabel']) ?> →</a></div>
                             </div>
-                        </a>
                     </article>
                 <?php endforeach; ?>
             </div>
@@ -314,8 +314,8 @@ $formMessage = match ($formStatus) {
         <div class="section-shell method-grid">
             <div class="method-sticky">
                 <p class="section-index reveal">06 / The method</p>
-                <h2 class="reveal">Structure first.<br><em>Then the electricity.</em></h2>
-                <p class="reveal">Fast execution is valuable only after the right problem, message and route have been decided.</p>
+                <h2 class="reveal">Creative, but never confusing.</h2>
+                <p class="reveal">The visual idea matters, but it is only one part of the job. I also plan the pages, organise the content, design the mobile experience and build the final website. You work with one person from the first idea to launch.</p>
                 <a class="button button-outline reveal" href="#contact">Start with diagnosis <span>↗</span></a>
             </div>
             <div class="process-list">

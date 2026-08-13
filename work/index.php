@@ -24,20 +24,20 @@ require dirname(__DIR__) . '/components/portfolio.php';
     <section class="portfolio-hero section-dark">
         <div class="section-shell portfolio-hero__grid">
             <p class="section-index reveal">Work / Selected systems</p>
-            <h1 class="reveal">Work built to be felt -<br><em>and structured to work.</em></h1>
-            <p class="portfolio-hero__intro reveal">Selected client, founder-built and independent projects across cultural worlds and conversion systems. Every case study begins with the business reality, not a style preset.</p>
+            <h1 class="reveal">Website projects for artists, cultural brands and growing businesses.</h1>
+            <p class="portfolio-hero__intro reveal">Each project starts with a real problem: scattered platform links, a store that hides the quality of the clothes, or a body of work that is hard to explore. The case studies show what changed, why it changed and how the website works.</p>
         </div>
     </section>
 
     <section class="work-index section-offwhite" aria-labelledby="work-index-title">
         <div class="section-shell">
             <div class="work-index__heading">
-                <div><p class="section-index">Portfolio index</p><h2 id="work-index-title">Choose the problem,<br><em>not just the palette.</em></h2></div>
+                <div><p class="section-index">Portfolio index</p><h2 id="work-index-title">Five projects.<br><em>Five different jobs.</em></h2></div>
                 <p id="project-count" class="filter-status" aria-live="polite"><?= count($projects) ?> projects shown</p>
             </div>
             <div class="project-filters" role="group" aria-label="Filter projects">
                 <?php foreach ($filterLabels as $key => $label): ?>
-                    <button type="button" data-project-filter="<?= e($key) ?>" aria-pressed="<?= $key === 'selected' ? 'true' : 'false' ?>"><?= e($label) ?></button>
+                    <button type="button" data-project-filter="<?= e($key) ?>" aria-pressed="<?= $key === 'all' ? 'true' : 'false' ?>"><?= e($label) ?></button>
                 <?php endforeach; ?>
             </div>
             <div class="project-grid" data-project-grid>

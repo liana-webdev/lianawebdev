@@ -45,7 +45,7 @@ $canonical = 'https://webgirl.studio' . wgs_project_url($project['slug']);
         <header class="project-hero">
             <div class="section-shell project-hero__grid">
                 <p class="project-kicker reveal"><?= e($project['status']) ?> / <?= e($project['industry']) ?></p>
-                <h1 class="reveal"><?= e($project['transformation']) ?></h1>
+                <h1 class="reveal"><?= e($project['caseTitle'] ?? $project['transformation']) ?></h1>
                 <p class="project-hero__preview reveal"><?= e($project['preview']) ?></p>
                 <dl class="project-snapshot reveal">
                     <div><dt>Project</dt><dd><?= e($project['name']) ?></dd></div>
@@ -94,6 +94,13 @@ $canonical = 'https://webgirl.studio' . wgs_project_url($project['slug']);
             </div>
         </section>
 
+        <?php if (!empty($project['media']['screen-desktop-01'])): ?>
+        <section class="case-interface-proof section-dark">
+            <div class="section-shell case-section-heading"><div><p class="section-index">Built interface / opening state</p><h2>Real browser rendering,<br><em>not a generated mockup.</em></h2></div></div>
+            <div class="section-shell interface-proof-grid"><?php project_media_frame($project, 'screen-desktop-01', 'media-frame--wide'); ?><?php project_media_frame($project, 'screen-mobile-01', 'media-frame--phone'); ?></div>
+        </section>
+        <?php endif; ?>
+
         <section class="case-visual-world section-dark">
             <div class="section-shell case-visual-world__copy"><p class="section-index">07 / Visual world</p><h2>A visual language with a job.</h2><p><?= e($project['visual']) ?></p></div>
             <div class="section-shell project-proof-grid">
@@ -123,6 +130,13 @@ $canonical = 'https://webgirl.studio' . wgs_project_url($project['slug']);
             <div class="section-shell case-technical__grid"><div><p class="section-index">09 / Responsive + technical layer</p><h2>The world still works<br><em>at 320 pixels.</em></h2></div><ul><?php foreach ($project['technical'] as $item): ?><li><?= e($item) ?></li><?php endforeach; ?></ul></div>
         </section>
 
+        <?php if (!empty($project['media']['screen-desktop-02'])): ?>
+        <section class="case-interface-proof case-interface-proof--light section-light">
+            <div class="section-shell case-section-heading"><div><p class="section-index">Built interface / practical journey</p><h2>The proof is<br><em>in the interaction.</em></h2></div></div>
+            <div class="section-shell interface-proof-grid"><?php project_media_frame($project, 'screen-desktop-02', 'media-frame--wide'); ?><?php project_media_frame($project, 'screen-mobile-02', 'media-frame--phone'); ?></div>
+        </section>
+        <?php endif; ?>
+
         <?php if (!empty($project['media']['world-02'])): ?>
         <section class="case-world-break section-dark">
             <div class="section-shell"><?php project_media_frame($project, 'world-02', 'media-frame--wide'); ?></div>
@@ -130,7 +144,7 @@ $canonical = 'https://webgirl.studio' . wgs_project_url($project['slug']);
         <?php endif; ?>
 
         <section class="case-validation section-dark">
-            <div class="section-shell case-validation__grid"><div><p class="section-index">10 / Honest evidence</p><h2>Validation plan,<br><em>not invented results.</em></h2><p>These checks are planned for the interactive build. They are not presented as completed outcomes.</p></div><ol><?php foreach ($project['validation'] as $index => $item): ?><li><span>0<?= $index + 1 ?></span><?= e($item) ?></li><?php endforeach; ?></ol></div>
+            <div class="section-shell case-validation__grid"><div><p class="section-index">10 / Honest evidence</p><h2><?= ($project['labStatus'] ?? '') === 'live' ? 'Interactive QA,' : 'Validation plan,' ?><br><em>not invented results.</em></h2><p><?= ($project['labStatus'] ?? '') === 'live' ? 'The interactive concept is complete and has been checked across mobile and desktop. These are usability and technical checks, not invented business outcomes.' : 'These checks are planned for the interactive build. They are not presented as completed outcomes.' ?></p></div><ol><?php foreach ($project['validation'] as $index => $item): ?><li><span>0<?= $index + 1 ?></span><?= e($item) ?></li><?php endforeach; ?></ol></div>
         </section>
 
         <section class="case-proves section-red">
@@ -138,7 +152,11 @@ $canonical = 'https://webgirl.studio' . wgs_project_url($project['slug']);
         </section>
 
         <section class="case-lab section-light">
-            <div class="section-shell case-lab__grid"><div><p class="section-index">WGS Lab</p><h2>Interactive build<br><em>coming later.</em></h2></div><p><?= e($project['lab']) ?><br><br><span class="lab-disabled" aria-disabled="true">Interactive build coming later</span></p></div>
+            <?php if (($project['labStatus'] ?? '') === 'live'): ?>
+                <div class="section-shell case-lab__grid"><div><p class="section-index">Interactive concept website</p><h2>See how the strategy<br><em>works in the browser.</em></h2></div><div><p>This complete interactive concept lets you explore the experience directly. It is fictional and does not submit payments, ticket purchases, streams or mailing-list data.</p><a class="button button-dark case-lab__action" href="<?= e($project['labRoute']) ?>"><?= e($project['labLabel']) ?> →</a></div></div>
+            <?php else: ?>
+                <div class="section-shell case-lab__grid"><div><p class="section-index">WGS Lab</p><h2>Interactive build<br><em>coming later.</em></h2></div><p><?= e($project['lab']) ?><br><br><span class="lab-disabled" aria-disabled="true">Interactive build coming later</span></p></div>
+            <?php endif; ?>
         </section>
 
         <section class="case-conversion section-dark">
