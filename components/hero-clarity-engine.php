@@ -1,6 +1,6 @@
 <figure class="clarity-engine reveal delay-2" data-clarity-engine aria-label="The Web Girl Studio clarity process: business friction becomes a clear offer, the right audience and one useful action.">
     <div class="clarity-engine-stage" data-clarity-stage>
-        <div class="clarity-orbit clarity-orbit-a" aria-hidden="true"></div>
+        <div class="clarity-orbit clarity-orbit-a pearl-orbit-glow" aria-hidden="true"></div>
         <div class="clarity-orbit clarity-orbit-b" aria-hidden="true"></div>
         <svg class="clarity-orbit-lines" viewBox="0 0 1200 1000" aria-hidden="true">
             <ellipse cx="610" cy="488" rx="488" ry="355" />

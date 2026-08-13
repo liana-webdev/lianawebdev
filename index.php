@@ -107,8 +107,12 @@ $formMessage = match ($formStatus) {
     <link rel="stylesheet" href="<?= asset_url('assets/styles.css') ?>">
     <link rel="stylesheet" href="<?= asset_url('assets/clarity-engine.css') ?>">
     <link rel="stylesheet" href="<?= asset_url('assets/portfolio.css') ?>">
+    <link rel="stylesheet" href="<?= asset_url('assets/pearl-signal/pearl-sand.css') ?>">
+    <link rel="stylesheet" href="<?= asset_url('assets/pearl-signal/pearl-glow.css') ?>">
+    <link rel="stylesheet" href="<?= asset_url('assets/pearl-signal/pearl-integration.css') ?>">
     <script defer src="<?= asset_url('assets/app.js') ?>"></script>
     <script defer src="<?= asset_url('assets/portfolio.js') ?>"></script>
+    <script type="module" src="<?= asset_url('assets/pearl-signal/pearl-signal-init.js') ?>"></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -142,13 +146,13 @@ $formMessage = match ($formStatus) {
 </header>
 
 <main>
-    <section class="hero section-dark" id="top">
-        <div class="hero-grid" id="main-content">
+    <section class="hero section-dark pearl-sand-host" id="top" data-pearl-sand>
+        <div class="hero-grid pearl-sand-content" id="main-content">
             <div class="hero-copy">
                 <p class="eyebrow reveal">Founder-led strategy, design + development</p>
                 <h1 class="hero-title hero-title--plain" aria-label="Websites that look like you—and make sense to the right people.">
                     <span class="hero-line reveal">Websites that</span>
-                    <span class="hero-line reveal delay-1">look like <em>you—</em></span>
+                    <span class="hero-line reveal delay-1">look like <em class="pearl-signal-glow">you—</em></span>
                     <span class="hero-line reveal delay-2">and make sense</span>
                     <span class="hero-line reveal delay-3">to the right people.</span>
                 </h1>

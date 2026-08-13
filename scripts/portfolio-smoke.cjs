@@ -150,6 +150,13 @@ async function auditImageRatios(page, label, errors) {
       await page.keyboard.press("Escape");
       await page.goto(base + "/", { waitUntil: "networkidle" });
       await settleMedia(page);
+      const pearlCanvases = await page.locator("#top > .pearl-sand-canvas").count();
+      if (pearlCanvases !== 1) {
+        errors.push(`Homepage has ${pearlCanvases} Pearl Signal canvases instead of 1 at ${viewport.width}px`);
+      } else {
+        const pearlPointerEvents = await page.locator("#top > .pearl-sand-canvas").evaluate((canvas) => getComputedStyle(canvas).pointerEvents);
+        if (pearlPointerEvents !== "none") errors.push(`Pearl Signal canvas intercepts pointer events at ${viewport.width}px`);
+      }
       const founderPortraits = await page.locator(".about-portrait img").count();
       if (founderPortraits !== 1) errors.push(`Homepage has ${founderPortraits} founder portraits instead of 1 at ${viewport.width}px`);
       const founderSource = await page.locator(".about-portrait img").getAttribute("src");
@@ -159,6 +166,22 @@ async function auditImageRatios(page, label, errors) {
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `homepage-plain-language-${viewport.width}.png`), fullPage: true });
       await context.close();
     }
+
+    const fallbackContext = await browser.newContext({ viewport: { width: 768, height: 1024 }, reducedMotion: "reduce" });
+    await fallbackContext.addInitScript(() => {
+      const getContext = HTMLCanvasElement.prototype.getContext;
+      HTMLCanvasElement.prototype.getContext = function patchedGetContext(type, ...args) {
+        if (type === "webgl" || type === "experimental-webgl") return null;
+        return getContext.call(this, type, ...args);
+      };
+    });
+    const fallbackPage = await fallbackContext.newPage();
+    await fallbackPage.goto(base + "/", { waitUntil: "networkidle" });
+    const fallbackCanvases = await fallbackPage.locator("#top > .pearl-sand-canvas[data-fallback=\"true\"]").count();
+    if (fallbackCanvases !== 1) errors.push(`Pearl Signal CSS fallback rendered ${fallbackCanvases} canvases instead of 1`);
+    const fallbackOverflow = await fallbackPage.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+    if (fallbackOverflow) errors.push("Pearl Signal CSS fallback causes horizontal overflow");
+    await fallbackContext.close();
   } finally {
     await browser.close();
   }

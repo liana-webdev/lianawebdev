@@ -1,0 +1,64 @@
+:root {
+  --pearl-moon: rgba(238, 232, 218, 0.22);
+  --pearl-aqua: rgba(110, 216, 218, 0.56);
+  --pearl-violet: rgba(157, 120, 191, 0.42);
+  --pearl-signal: rgba(240, 68, 50, 0.68);
+  --pearl-amber: rgba(238, 208, 152, 0.38);
+  --pearl-surface: #0b0b0e;
+}
+
+.pearl-edge-glow {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--pearl-surface), var(--pearl-surface)) padding-box,
+    linear-gradient(
+      126deg,
+      var(--pearl-moon),
+      var(--pearl-aqua),
+      var(--pearl-violet),
+      var(--pearl-signal),
+      var(--pearl-amber),
+      rgba(238, 232, 218, 0.12)
+    ) border-box;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.42),
+    0 0 34px rgba(110, 216, 218, 0.025),
+    0 0 72px rgba(240, 68, 50, 0.035);
+}
+
+.pearl-orbit-glow {
+  border: 1px solid rgba(238, 233, 223, 0.16);
+  box-shadow:
+    0 -1px 10px rgba(110, 216, 218, 0.12),
+    1px 1px 14px rgba(240, 68, 50, 0.08);
+}
+
+.pearl-signal-glow {
+  color: #f04432;
+  text-shadow: 0 0 24px rgba(240, 68, 50, 0.16);
+}
+
+.pearl-rule-glow {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(242, 212, 165, 0.82),
+    rgba(114, 218, 221, 0.86),
+    rgba(168, 132, 199, 0.82),
+    rgba(239, 107, 86, 0.86),
+    transparent
+  );
+  box-shadow: 0 0 14px rgba(114, 218, 221, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pearl-edge-glow,
+  .pearl-orbit-glow,
+  .pearl-signal-glow,
+  .pearl-rule-glow {
+    animation: none !important;
+    transition: none !important;
+  }
+}
