@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require dirname(__DIR__) . '/content/projects.php';
 require dirname(__DIR__) . '/components/portfolio.php';
+require dirname(__DIR__) . '/components/analytics.php';
 
 if (!isset($projectSlug, $projects[$projectSlug])) {
     http_response_code(404);
@@ -21,6 +22,7 @@ $canonical = 'https://webgirl.studio' . wgs_project_url($project['slug']);
     <meta name="theme-color" content="<?= e($project['palette'][0]) ?>">
     <link rel="icon" href="<?= portfolio_asset('assets/favicon.svg') ?>" type="image/svg+xml">
     <link rel="canonical" href="<?= e($canonical) ?>">
+    <?php wgs_analytics_head(); ?>
     <meta property="og:type" content="article">
     <meta property="og:title" content="<?= e($project['seoTitle']) ?>">
     <meta property="og:description" content="<?= e($project['seoDescription']) ?>">

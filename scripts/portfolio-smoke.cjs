@@ -54,6 +54,11 @@ async function auditImageRatios(page, label, errors) {
   try {
     for (const viewport of [{ width: 390, height: 844 }, { width: 768, height: 1024 }, { width: 1440, height: 900 }]) {
       const context = await browser.newContext({ viewport, reducedMotion: "reduce" });
+      await context.route("https://www.googletagmanager.com/gtag/js**", (route) => route.fulfill({
+        status: 200,
+        contentType: "application/javascript",
+        body: "window.__wgsGoogleTagTestStub=true;",
+      }));
       const page = await context.newPage();
       page.on("console", (message) => {
         if (message.type() === "error") errors.push(`${viewport.width}px console: ${message.text()}`);
@@ -168,6 +173,11 @@ async function auditImageRatios(page, label, errors) {
     }
 
     const fallbackContext = await browser.newContext({ viewport: { width: 768, height: 1024 }, reducedMotion: "reduce" });
+    await fallbackContext.route("https://www.googletagmanager.com/gtag/js**", (route) => route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: "window.__wgsGoogleTagTestStub=true;",
+    }));
     await fallbackContext.addInitScript(() => {
       const getContext = HTMLCanvasElement.prototype.getContext;
       HTMLCanvasElement.prototype.getContext = function patchedGetContext(type, ...args) {

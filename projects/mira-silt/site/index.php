@@ -1,10 +1,11 @@
-<?php declare(strict_types=1); require dirname(__DIR__, 3) . '/components/portfolio.php'; ?>
+<?php declare(strict_types=1); require dirname(__DIR__, 3) . '/components/portfolio.php'; require dirname(__DIR__, 3) . '/components/analytics.php'; ?>
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mira Silt — Interactive Artist Website | WGS Lab</title>
 <meta name="description" content="A fictional interactive album and artist website created by Web Girl Studio.">
 <meta name="robots" content="noindex, follow"><link rel="canonical" href="https://webgirl.studio/projects/mira-silt/site/">
 <meta property="og:image" content="https://webgirl.studio/img/portfolio/mira-silt/og-1200x630.jpg">
+<?php wgs_analytics_head(); ?>
 <link rel="icon" href="<?= portfolio_asset('assets/favicon.svg') ?>" type="image/svg+xml">
 <link rel="stylesheet" href="<?= portfolio_asset('assets/culture-lab.css') ?>"><script defer src="<?= portfolio_asset('assets/culture-lab.js') ?>"></script>
 </head><body class="lab-body mira-site" data-lab-site="mira">

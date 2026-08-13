@@ -2,9 +2,13 @@
 declare(strict_types=1);
 session_start();
 
-function redirect_with_status(string $status): never
+function redirect_with_status(string $status, ?string $leadReceipt = null): never
 {
-    header('Location: ./?status=' . rawurlencode($status) . '#contact', true, 303);
+    $query = ['status' => $status];
+    if ($leadReceipt !== null) {
+        $query['lead'] = $leadReceipt;
+    }
+    header('Location: ./?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986) . '#contact', true, 303);
     exit;
 }
 
@@ -85,12 +89,15 @@ $headers = [
     'X-Mailer: PHP/' . PHP_VERSION,
 ];
 
-$mailSent = @mail($recipient, $subject, $body, implode("\r\n", $headers));
+$testMode = getenv('WGS_TEST_MODE') === '1';
+$mailSent = $testMode || @mail($recipient, $subject, $body, implode("\r\n", $headers));
 $_SESSION['wgs_last_submission'] = time();
 $_SESSION['wgs_csrf'] = bin2hex(random_bytes(24));
 
 if ($mailSent) {
-    redirect_with_status('sent');
+    $leadReceipt = bin2hex(random_bytes(16));
+    $_SESSION['wgs_lead_receipt'] = $leadReceipt;
+    redirect_with_status('sent', $leadReceipt);
 }
 
 $storageDirectory = __DIR__ . '/storage';
@@ -110,4 +117,10 @@ $saved = is_dir($storageDirectory) &&
         FILE_APPEND | LOCK_EX
     ) !== false;
 
-redirect_with_status($saved ? 'saved' : 'error');
+if ($saved) {
+    $leadReceipt = bin2hex(random_bytes(16));
+    $_SESSION['wgs_lead_receipt'] = $leadReceipt;
+    redirect_with_status('saved', $leadReceipt);
+}
+
+redirect_with_status('error');

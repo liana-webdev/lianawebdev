@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require dirname(__DIR__) . '/content/projects.php';
 require dirname(__DIR__) . '/components/portfolio.php';
+require dirname(__DIR__) . '/components/analytics.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -13,6 +14,7 @@ require dirname(__DIR__) . '/components/portfolio.php';
     <meta name="theme-color" content="#080808">
     <link rel="icon" href="<?= portfolio_asset('assets/favicon.svg') ?>" type="image/svg+xml">
     <link rel="canonical" href="https://webgirl.studio/work/">
+    <?php wgs_analytics_head(); ?>
     <link rel="stylesheet" href="<?= portfolio_asset('assets/styles.css') ?>">
     <link rel="stylesheet" href="<?= portfolio_asset('assets/portfolio.css') ?>">
     <script defer src="<?= portfolio_asset('assets/app.js') ?>"></script>

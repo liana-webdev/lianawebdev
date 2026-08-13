@@ -31,6 +31,7 @@ function brand_mark(bool $light = false): void
 
 require __DIR__ . '/content/projects.php';
 require __DIR__ . '/components/portfolio.php';
+require __DIR__ . '/components/analytics.php';
 
 $services = [
     ['01', 'Website systems', 'New builds and strategic redesigns that make the offer obvious and the next step natural.', ['Business diagnosis', 'Conversion architecture', 'Custom UI + code', 'Mobile, speed + launch']],
@@ -83,6 +84,15 @@ $faqs = [
 ];
 
 $formStatus = $_GET['status'] ?? '';
+$leadReceipt = is_string($_GET['lead'] ?? null) ? $_GET['lead'] : '';
+$sessionLeadReceipt = is_string($_SESSION['wgs_lead_receipt'] ?? null) ? $_SESSION['wgs_lead_receipt'] : '';
+$leadConfirmed = in_array($formStatus, ['sent', 'saved'], true) &&
+    $leadReceipt !== '' &&
+    $sessionLeadReceipt !== '' &&
+    hash_equals($sessionLeadReceipt, $leadReceipt);
+if ($leadConfirmed) {
+    unset($_SESSION['wgs_lead_receipt']);
+}
 $formMessage = match ($formStatus) {
     'sent' => 'Thank you. Your project enquiry has been received.',
     'saved' => 'Thank you. Your enquiry has been securely received for follow-up.',
@@ -103,6 +113,7 @@ $formMessage = match ($formStatus) {
     <meta property="og:title" content="Web Girl Studio | Websites with a pulse">
     <meta property="og:description" content="Sharp, memorable website systems built to move people from attention to enquiry.">
     <meta property="og:type" content="website">
+    <?php wgs_analytics_head(); ?>
     <link rel="preload" as="image" href="<?= asset_url('img/wgs-liana-founder-red-signal-closeup-looking-right-sideview.jpg') ?>" fetchpriority="high">
     <link rel="stylesheet" href="<?= asset_url('assets/styles.css') ?>">
     <link rel="stylesheet" href="<?= asset_url('assets/clarity-engine.css') ?>">
@@ -428,6 +439,7 @@ $formMessage = match ($formStatus) {
                     <label><span>What is not working now? *</span><textarea name="message" rows="5" minlength="20" maxlength="4000" required placeholder="The current problem, the outcome you want, and anything I should know..."></textarea></label>
                     <button class="button button-red form-submit" type="submit">Send project enquiry <span>↗</span></button>
                     <p class="form-status" aria-live="polite"><?= e($formMessage) ?></p>
+                    <?php if ($leadConfirmed): ?><span data-wgs-lead-success="<?= e($leadReceipt) ?>" hidden></span><?php endif; ?>
                     <p class="form-privacy">Your information is used only to respond to this project enquiry.</p>
                 </form>
             </div>

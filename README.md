@@ -45,3 +45,17 @@ Run the local smoke test after starting the PHP development server on port 8099:
 $env:WGS_NODE_MODULES = 'path-to-bundled-node_modules'
 node scripts/portfolio-smoke.cjs
 ```
+
+## Analytics
+
+The production pages use one direct GA4 Google tag from `components/analytics.php`.
+Analytics is automatically disabled on non-production hostnames. Custom events are
+implemented in `assets/analytics-events.js` and contain no enquiry form values.
+
+Run the analytics regression test against the same local PHP server with
+`WGS_TEST_MODE=1` set on the server process:
+
+```powershell
+$env:WGS_NODE_MODULES = 'path-to-bundled-node_modules'
+node scripts/analytics-smoke.cjs
+```

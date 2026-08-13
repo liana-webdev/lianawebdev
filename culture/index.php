@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require dirname(__DIR__) . '/content/projects.php';
 require dirname(__DIR__) . '/components/portfolio.php';
+require dirname(__DIR__) . '/components/analytics.php';
 
 $problems = [
     ['Rented attention', 'An audience can grow on social and streaming platforms without creating a durable home, a direct relationship or a coherent body of work.'],
@@ -23,6 +24,7 @@ $method = ['Diagnose', 'Structure', 'Direct', 'Design', 'Build', 'Test'];
     <meta name="theme-color" content="#080808">
     <link rel="icon" href="<?= portfolio_asset('assets/favicon.svg') ?>" type="image/svg+xml">
     <link rel="canonical" href="https://webgirl.studio/culture/">
+    <?php wgs_analytics_head(); ?>
     <link rel="stylesheet" href="<?= portfolio_asset('assets/styles.css') ?>">
     <link rel="stylesheet" href="<?= portfolio_asset('assets/portfolio.css') ?>">
     <script defer src="<?= portfolio_asset('assets/app.js') ?>"></script>
