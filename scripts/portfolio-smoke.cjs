@@ -7,6 +7,7 @@ const routes = [
   "/", "/work/", "/culture/", "/projects/mira-silt/", "/projects/ninth-form/",
   "/projects/second-weather/", "/projects/sasha-mirev/", "/projects/quiet-signal/",
   "/projects/", "/projects/mira-silt/site/", "/projects/ninth-form/site/",
+  "/snapshot/?business=bramelle-partners",
 ];
 
 async function settleMedia(page) {
