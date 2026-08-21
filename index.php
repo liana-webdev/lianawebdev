@@ -397,8 +397,8 @@ $formMessage = match ($formStatus) {
                         <a class="contact-link contact-link-phone" href="tel:+61482176777">
                             <span>Phone</span><strong>0482 176 777</strong><i>↗</i>
                         </a>
-                        <a class="contact-link" href="mailto:liana.webdev@gmail.com">
-                            <span>Email</span><strong>liana.webdev@gmail.com</strong><i>↗</i>
+                        <a class="contact-link" href="mailto:liana@webgirl.studio">
+                            <span>Email</span><strong>liana@webgirl.studio</strong><i>↗</i>
                         </a>
                         <a class="contact-link" href="https://www.instagram.com/webgirlstudio/" target="_blank" rel="noopener noreferrer">
                             <span>Instagram</span><strong>@webgirlstudio</strong><i>↗</i>
