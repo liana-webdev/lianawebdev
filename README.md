@@ -6,9 +6,7 @@ It uses PHP 8+, semantic HTML, standalone CSS and vanilla JavaScript.
 ## Deploy
 
 1. Upload the contents of this folder to the public directory of a PHP 8+ host.
-2. Set the server environment variable `WGS_RECIPIENT_EMAIL` to the private
-   inbox that should receive enquiries. If it is omitted, the supplied private
-   contact inbox is used.
+2. Contact-form enquiries are delivered to `hello@webgirl.studio`.
 3. Make `storage/` writable by PHP. It is a fallback only when the host's
    `mail()` transport is unavailable.
 4. Keep `storage/.htaccess` in place on Apache. For Nginx, deny web access to
