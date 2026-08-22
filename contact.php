@@ -62,7 +62,7 @@ if (!$valid) {
 
 $cleanName = preg_replace('/[\r\n]+/', ' ', $name) ?: 'Website lead';
 $cleanEmail = str_replace(["\r", "\n"], '', $email);
-$recipient = 'hello@webgirl.studio';
+$recipient = getenv('WGS_RECIPIENT_EMAIL') ?: 'hello@webgirl.studio';
 $subject = 'Web Girl Studio enquiry — ' . $projectType;
 $body = implode("\n", [
     'New Web Girl Studio project enquiry',
