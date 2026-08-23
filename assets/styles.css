@@ -2561,3 +2561,32 @@ button {
     box-shadow: none;
   }
 }
+
+/* Proof-led homepage additions */
+.home-proof-section, .deliverables-section { padding: 140px 0; }
+.home-proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.home-proof-grid .project-card:first-child { grid-column: 1 / -1; display: grid; grid-template-columns: 1.18fr .82fr; gap: 30px; }
+.home-proof-grid .project-card:first-child .project-card__body { padding-top: 16px; }
+.deliverables-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+.deliverables-grid > div { display: grid; min-height: 126px; grid-template-columns: 36px 1fr; align-content: center; gap: 12px; padding: 20px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.deliverables-grid span { color: var(--red); font-family: var(--font-geist-mono), monospace; font-size: 9px; }
+.deliverables-grid strong { font-size: clamp(18px, 2vw, 25px); line-height: 1.15; }
+.diagnosis-deliverables { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin: 28px 0; padding: 0; border-top: 1px solid rgba(8,8,8,.3); list-style: none; }
+.diagnosis-deliverables li { padding: 13px 4px; border-bottom: 1px solid rgba(8,8,8,.3); font-family: var(--font-geist-mono), monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.buyer-paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 54px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.buyer-paths article { padding: 34px 5vw 34px 0; }
+.buyer-paths article + article { padding-left: 5vw; border-left: 1px solid var(--ink); }
+.buyer-paths span { font-family: var(--font-geist-mono), monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
+.buyer-paths h3 { margin: 18px 0 30px; font-family: Arial Black, Arial, sans-serif; font-size: clamp(26px, 3vw, 44px); letter-spacing: -.05em; line-height: .95; text-transform: uppercase; }
+.buyer-paths a { display: inline-flex; min-height: 48px; align-items: center; padding: 0 16px; color: var(--white); background: var(--ink); font-weight: 700; }
+
+@media (max-width: 819px) {
+  .home-proof-grid .project-card:first-child { display: block; }
+  .deliverables-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  .home-proof-section, .deliverables-section { padding: 90px 0; }
+  .deliverables-grid, .buyer-paths, .diagnosis-deliverables { grid-template-columns: 1fr; }
+  .buyer-paths article + article { padding-left: 0; border-top: 1px solid var(--ink); border-left: 0; }
+}

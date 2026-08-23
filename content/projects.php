@@ -4,6 +4,50 @@ declare(strict_types=1);
 const WGS_CONCEPT_DISCLOSURE = 'Independent concept created by Web Girl Studio to explore a realistic cultural-business challenge. The business, founder and scenario are fictional; the strategy, design direction and development are original WGS work.';
 
 $projects = [
+    'fortepiano-academy' => [
+        'slug' => 'fortepiano-academy', 'name' => 'Fortepiano Academy', 'industry' => 'Education', 'status' => 'Client / Founder-built business / Live',
+        'location' => 'Sydney, Australia', 'year' => '2026', 'order' => 0,
+        'tags' => ['all', 'selected', 'client-work', 'business-services', 'education'],
+        'starting' => 'A private teaching practice without a clear digital enrolment path',
+        'transformation' => 'Turning a private teaching practice into a structured education brand, enrolment experience and digital system.',
+        'caseTitle' => 'An education brand that makes serious teaching easier to understand and join.',
+        'preview' => 'Fortepiano Academy needed to communicate rigorous music education without feeling cold or institutional. WGS shaped the positioning, identity, website and enquiry path into one clear system for families and adult students.',
+        'proof' => 'A live education website with clear program routes, founder credibility, practical enrolment information and a direct enquiry flow.',
+        'capabilities' => ['Strategy', 'Positioning', 'Identity', 'UX', 'Custom development'],
+        'scope' => 'Strategy, positioning, information architecture, copy direction, visual identity, responsive design, custom development, enquiry flow, analytics and SEO foundations',
+        'palette' => ['#111111', '#F4EFE6', '#C7BEB0', '#7B634D', '#E53B2F'],
+        'media' => [
+            'home-cover' => ['src' => '/img/fortepiano-academy-homepage.jpg', 'width' => 1440, 'height' => 1000, 'alt' => 'Fortepiano Academy live website homepage shown in a browser.', 'position' => 'center top'],
+            'work-cover' => ['src' => '/img/fortepiano-academy-homepage.jpg', 'width' => 1440, 'height' => 1000, 'alt' => 'Fortepiano Academy live website homepage shown in a browser.', 'position' => 'center top'],
+            'case-hero' => ['src' => '/img/fortepiano-academy-homepage.jpg', 'width' => 1440, 'height' => 1000, 'alt' => 'Fortepiano Academy live website homepage with program and enrolment messaging.', 'position' => 'center top'],
+            'screen-desktop-01' => ['src' => '/img/fortepiano-academy-homepage.jpg', 'width' => 1440, 'height' => 1000, 'alt' => 'Desktop view of the Fortepiano Academy live website.', 'caption' => 'The opening establishes educational credibility and a clear route into programs and enrolment.', 'purpose' => 'Live homepage'],
+        ],
+        'seoTitle' => 'Fortepiano Academy Case Study | Web Girl Studio',
+        'seoDescription' => 'How Web Girl Studio turned a private teaching practice into a structured education brand, live website and clearer enrolment experience.',
+        'reality' => ['The teaching practice had depth, experience and a serious educational point of view, but prospective students and parents needed a clearer way to understand the programs, teaching approach and next step.', 'The website needed to hold artistic credibility and practical decision-making together: who the academy is for, what students can study, what the teaching feels like and how to enquire.'],
+        'request' => 'Build a professional home for the academy and make enrolment easier to navigate.',
+        'diagnosis' => 'This was not only a visual redesign. The practice needed a defined education brand, a useful program structure and a clear path from first impression to an informed enquiry.',
+        'journeys' => [
+            ['Parent or guardian', ['Search or referral', 'Understand the teaching standard', 'Compare programs', 'Check practical fit', 'Enquire']],
+            ['Adult student', ['Discover the academy', 'See relevant study routes', 'Understand the approach', 'Ask about lessons']],
+            ['Existing community', ['Return to the site', 'Find current information', 'Share a credible academy overview']],
+        ],
+        'insight' => 'The site needed to feel as considered as the teaching while answering practical enrolment questions in plain language.',
+        'architecture' => ['Academy overview', 'Programs and pathways', 'Teaching approach', 'Founder credibility', 'Practical information', 'Enquiry flow'],
+        'visual' => 'A restrained editorial system balances serious musical education with warmth. Strong typography, generous pacing and piano-derived graphic rhythm create character without obscuring the enrolment path.',
+        'decisions' => [
+            ['Programs are organised around student decisions.', 'Visitors can identify the relevant route before reading the full teaching philosophy.', 'Check whether a new visitor can find an appropriate program and enquiry action quickly.'],
+            ['Credibility appears before the ask.', 'Teaching approach and founder experience support trust before the enquiry form.', 'Review the order with prospective students and parents.'],
+            ['Mobile keeps the next step visible.', 'Program content and enquiry controls reflow without shrinking into desktop-like density.', 'Test at common phone widths and with keyboard navigation.'],
+        ],
+        'technical' => ['Responsive custom build with deliberate mobile hierarchy.', 'Semantic headings and metadata support SEO foundations.', 'Enquiry routes use clear labels and usable touch targets.', 'Analytics can measure visits and enquiry completion without collecting form values.'],
+        'validation' => ['Verify all program and enquiry routes on mobile and desktop.', 'Check keyboard navigation, headings and focus states.', 'Confirm metadata, canonical URLs and analytics loading.', 'Track real outcomes only when sufficient live data is available.'],
+        'proves' => 'Fortepiano Academy shows how WGS can turn founder expertise into a clear operating brand, a credible live website and a practical route into enquiry without flattening the character of the work.',
+        'labStatus' => 'live-client', 'liveRoute' => 'https://fortepianoacademy.au', 'liveLabel' => 'Visit live site',
+        'closeHeading' => 'Your expertise should be easier to understand and choose.',
+        'closeBody' => 'WGS can turn a strong practice into a clear brand, website and enquiry system without sanding away what makes it distinctive.',
+        'next' => 'mira-silt',
+    ],
     'mira-silt' => [
         'slug' => 'mira-silt', 'name' => 'Mira Silt', 'industry' => 'Music', 'status' => 'Independent concept',
         'location' => 'Sydney, Australia', 'year' => '2026', 'order' => 1,
@@ -339,6 +383,26 @@ $projects = [
         'closeHeading' => 'Publishing needs somewhere for attention to become an archive.',
         'closeBody' => 'WGS builds editorial platforms where identity, reading, discovery, authorship and commercial sustainability remain part of one coherent system.',
         'next' => 'sasha-mirev',
+    ],
+];
+
+// Non-public pipeline data. Empty fields are deliberate and must be replaced
+// with approved content and real evidence before this case study is published.
+$caseStudyPipeline = [
+    'face-not-fake' => [
+        'visibility' => 'draft', 'client' => 'Face Not Fake', 'industry' => 'Wellness',
+        'problem' => '', 'strategy' => '', 'positioning' => '',
+        'offerArchitecture' => [], 'informationArchitecture' => [],
+        'visualDirection' => '', 'development' => '', 'bookingIntegration' => '',
+        'seoFoundation' => '', 'beforeAfter' => [], 'realOutcomes' => [], 'testimonial' => null,
+    ],
+];
+
+// Reusable testimonial data. Placeholder records are never rendered publicly.
+$testimonials = [
+    'fortepiano-academy' => [
+        'status' => 'placeholder', 'quote' => 'Approved client testimonial to be added here.',
+        'name' => 'Client name pending approval', 'business' => 'Fortepiano Academy',
     ],
 ];
 

@@ -778,3 +778,46 @@ body.has-case-viewer { overflow: hidden; padding-right: var(--scrollbar-width, 0
   .project-art--compact, .project-card__action b { transition: none; }
   .project-card__link:hover .project-art--compact { transform: none; }
 }
+
+/* Proof-led portfolio and condensed case studies */
+.project-card__actions .project-card__primary { margin: 8px 8px 8px 0; padding: 13px 14px; color: var(--white); background: var(--ink); }
+.project-card__actions .project-card__primary b { color: var(--white); }
+.project-grid--client { grid-template-columns: minmax(0, 1fr); }
+.project-grid--client .project-card { display: grid; grid-template-columns: 1.2fr .8fr; gap: 30px; }
+.project-grid--client .project-card__body { padding-top: 16px; }
+.work-index--studies { border-top: 1px solid var(--line); }
+.culture-single-cta { display: flex; justify-content: flex-end; margin-top: 64px; }
+.project-hero__actions { grid-column: 2; display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 42px; }
+.project-hero__media-link { display: block; }
+.project-hero__media-link:focus-visible { outline: 3px solid var(--project-signal, var(--red)); outline-offset: 6px; }
+.case-system__journeys { margin-top: 80px; }
+.case-section-heading > p { max-width: 680px; color: rgba(255,255,255,.68); font-size: 19px; line-height: 1.6; }
+.case-experience-cta { display: flex; justify-content: flex-end; margin-top: 40px; }
+.interface-proof-grid--second { margin-top: 100px; }
+.case-validation.section-offwhite { color: var(--ink); }
+.case-validation.section-offwhite .case-validation__grid > div > p { color: rgba(8,8,8,.65); }
+.case-validation.section-offwhite li { color: rgba(8,8,8,.74); border-color: var(--line); }
+.case-deep-dives { padding: 120px 0; }
+.case-deep-dives h2 { margin: 20px 0 54px; font-family: Arial Black, Arial, sans-serif; font-size: clamp(44px, 6vw, 86px); letter-spacing: -.07em; line-height: .9; text-transform: uppercase; }
+.case-deep-dives details { border-top: 1px solid var(--ink); }
+.case-deep-dives details:last-child { border-bottom: 1px solid var(--ink); }
+.case-deep-dives summary { display: flex; min-height: 72px; align-items: center; justify-content: space-between; gap: 20px; font-size: clamp(18px, 2vw, 26px); font-weight: 700; cursor: pointer; }
+.case-deep-dives summary span { color: var(--red); font-size: 28px; }
+.case-deep-dives details[open] summary span { transform: rotate(45deg); }
+.case-deep-dives details > p, .case-detail-list { max-width: 800px; margin: 0 0 40px; color: rgba(8,8,8,.68); font-size: 18px; line-height: 1.65; }
+.case-detail-list { padding-left: 22px; }
+.case-prose h3 { margin: 42px 0 10px; font-family: var(--font-geist-mono), monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.case-prose blockquote { margin: 0; font-family: Georgia, serif; font-size: clamp(25px, 3vw, 42px); line-height: 1.15; }
+
+@media (max-width: 819px) {
+  .project-grid--client .project-card { display: block; }
+  .project-hero__actions { grid-column: 1; margin-top: 32px; }
+  .case-system__journeys { margin-top: 55px; }
+}
+
+@media (max-width: 560px) {
+  .project-hero__actions { display: grid; }
+  .project-hero__actions .button { width: 100%; justify-content: center; }
+  .case-deep-dives { padding: 82px 0; }
+  .case-deep-dives summary { min-height: 64px; font-size: 17px; }
+}

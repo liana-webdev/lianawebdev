@@ -26,7 +26,7 @@ function portfolio_brand_mark(bool $light = false): void
 
 function portfolio_header(string $current = ''): void
 {
-    $links = ['work' => ['/work/', 'Work'], 'culture' => ['/culture/', 'Culture'], 'services' => ['/#services', 'Services'], 'about' => ['/#about', 'About']];
+    $links = ['work' => ['/work/', 'Work'], 'services' => ['/#services', 'Services'], 'method' => ['/#method', 'Method'], 'about' => ['/#about', 'About']];
     echo '<a class="skip-link" href="#main-content">Skip to content</a><div class="progress-line" aria-hidden="true"></div>';
     echo '<header class="site-header portfolio-header"><a href="/" class="header-brand">';
     portfolio_brand_mark(true);
@@ -81,7 +81,7 @@ function project_art(array $project, string $role = 'cover', bool $compact = fal
     echo '<div class="' . $class . '" style="' . project_palette_style($project) . '" role="img" aria-label="Art direction placeholder for ' . e($project['name']) . '">';
     echo '<span class="project-art__index">0' . e((string) $project['order']) . ' / ' . e($project['industry']) . '</span>';
     echo '<span class="project-art__name">' . e($project['name']) . '</span>';
-    echo '<span class="project-art__role">' . e(ucfirst(str_replace('-', ' ', $role))) . ' · final project media pending</span>';
+    echo '<span class="project-art__role">' . e(ucfirst(str_replace('-', ' ', $role))) . ' · Web Girl Studio study</span>';
     echo '<span class="project-art__shape" aria-hidden="true"></span><span class="project-art__signal" aria-hidden="true"></span></div>';
 }
 
@@ -116,12 +116,21 @@ function project_card(array $project, bool $viewer = false): void
     echo '<h2><a href="' . e(wgs_project_url($project['slug'])) . '"' . $viewerAttr . '>' . e($project['name']) . '</a></h2><p class="project-card__starting">' . e($project['starting']) . '</p>';
     echo '<p class="project-card__transformation">' . e($project['transformation']) . '</p><ul class="project-tags">';
     foreach (array_slice($project['capabilities'], 0, 4) as $capability) echo '<li>' . e($capability) . '</li>';
-    echo '</ul><div class="project-card__actions"><a href="' . e(wgs_project_url($project['slug'])) . '"' . $viewerAttr . '>Read the case study <b aria-hidden="true">↗</b></a>';
-    if (($project['labStatus'] ?? '') === 'live') echo '<a href="' . e($project['labRoute']) . '">' . e($project['labLabel']) . ' <b aria-hidden="true">→</b></a>';
+    echo '</ul><div class="project-card__actions">';
+    if (($project['labStatus'] ?? '') === 'live') echo '<a class="project-card__primary" href="' . e($project['labRoute']) . '">Explore interactive site <b aria-hidden="true">↗</b></a>';
+    if (($project['labStatus'] ?? '') === 'live-client') echo '<a class="project-card__primary" href="' . e($project['liveRoute']) . '" target="_blank" rel="noopener noreferrer">Visit live site <b aria-hidden="true">↗</b></a>';
+    echo '<a href="' . e(wgs_project_url($project['slug'])) . '"' . $viewerAttr . '>View case study <b aria-hidden="true">→</b></a>';
     echo '</div></div></article>';
 }
 
 function project_disclosure(): void
 {
     echo '<aside class="project-disclosure"><strong>Truth note</strong><p>' . e(WGS_CONCEPT_DISCLOSURE) . '</p></aside>';
+}
+
+function testimonial_block(array $testimonial): void
+{
+    if (($testimonial['status'] ?? '') !== 'approved') return;
+    echo '<figure class="editorial-testimonial reveal"><blockquote>“' . e($testimonial['quote']) . '”</blockquote>';
+    echo '<figcaption><strong>' . e($testimonial['name']) . '</strong><span>' . e($testimonial['business']) . '</span></figcaption></figure>';
 }

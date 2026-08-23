@@ -57,17 +57,17 @@
     none: {
       title: "Build the foundation.",
       body: "You need a clear offer, trust structure and a direct path from discovery to enquiry—without adding complexity before it earns its place.",
-      route: "Foundation or Growth System",
+      route: "$400 AUD",
     },
     weak: {
       title: "Find the leak before rebuilding.",
       body: "An audit separates surface-level visual issues from deeper problems in messaging, trust, mobile experience and conversion flow.",
-      route: "$400 Website Diagnosis → targeted rebuild",
+      route: "$400 AUD",
     },
     quiet: {
       title: "The issue may not be the design.",
       body: "A good-looking site can still fail when the offer is vague, proof arrives too late or the visitor has no compelling reason to act now.",
-      route: "Conversion + messaging diagnosis",
+      route: "$400 AUD",
     },
   };
 

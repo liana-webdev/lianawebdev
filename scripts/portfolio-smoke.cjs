@@ -4,7 +4,7 @@ const { chromium } = require(path.join(process.env.WGS_NODE_MODULES, "playwright
 
 const base = "http://127.0.0.1:8099";
 const routes = [
-  "/", "/work/", "/culture/", "/projects/mira-silt/", "/projects/ninth-form/",
+  "/", "/work/", "/culture/", "/projects/fortepiano-academy/", "/projects/mira-silt/", "/projects/ninth-form/",
   "/projects/second-weather/", "/projects/sasha-mirev/", "/projects/quiet-signal/",
   "/projects/", "/projects/mira-silt/site/", "/projects/ninth-form/site/",
 ];
@@ -74,9 +74,9 @@ async function auditImageRatios(page, label, errors) {
 
       await page.goto(base + "/work/", { waitUntil: "networkidle" });
       if (viewport.width >= 820) {
-        await page.locator('[data-project-filter="all"]').click();
         const visible = await page.locator("[data-project-card]:visible").count();
-        if (visible !== 5) errors.push(`all-projects filter showed ${visible} projects`);
+        if (visible !== 3) errors.push(`Work showed ${visible} public projects instead of 3`);
+        if (await page.locator("[data-project-filter]").count()) errors.push("Work still exposes portfolio filters");
         await page.locator("[data-viewer-link]:visible").first().click();
         await page.locator(".case-viewer__close").waitFor({ state: "visible" });
         if (!page.url().includes("/projects/")) errors.push("viewer did not update canonical URL");

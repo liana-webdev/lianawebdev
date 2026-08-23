@@ -18,8 +18,9 @@ session rate limiting, mail delivery and a locked JSONL fallback.
 
 ## Portfolio routes
 
-- `/work/` - filterable portfolio index with a route-aware desktop case-study viewer
-- `/culture/` - culture and creators market page
+- `/work/` - proof-led index split into Client Work and completed Independent Studies
+- `/culture/` - Creative Industries niche landing page (route retained for compatibility)
+- `/projects/fortepiano-academy/` - live founder-built client case study
 - `/projects/mira-silt/`
 - `/projects/ninth-form/`
 - `/projects/second-weather/`
@@ -28,9 +29,10 @@ session rate limiting, mail delivery and a locked JSONL fallback.
 - `/projects/mira-silt/site/` - complete interactive fictional artist website
 - `/projects/ninth-form/site/` - complete interactive fictional fashion store
 
-Portfolio copy and metadata live in `content/projects.php`. Project media slots
-use ratio-stable art-direction placeholders until final source imagery and
-interface captures are supplied. WGS Lab actions remain intentionally disabled.
+Portfolio copy, metadata, placeholder testimonials and the non-public Face Not
+Fake case-study pipeline live in `content/projects.php`. Only Fortepiano Academy,
+Mira Silt and Ninth Form are listed publicly. Other concept routes remain intact
+for compatibility but are deliberately absent from Work until final media exists.
 
 Mira Silt and Ninth Form campaign/editorial assets are integrated under their
 respective `img/portfolio/` directories. Both now have classic-PHP interactive

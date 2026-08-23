@@ -25,27 +25,32 @@ require dirname(__DIR__) . '/components/analytics.php';
 <main id="main-content" class="portfolio-main">
     <section class="portfolio-hero section-dark">
         <div class="section-shell portfolio-hero__grid">
-            <p class="section-index reveal">Work / Selected systems</p>
-            <h1 class="reveal">Website projects for artists, cultural brands and growing businesses.</h1>
-            <p class="portfolio-hero__intro reveal">Each project starts with a real problem: scattered platform links, a store that hides the quality of the clothes, or a body of work that is hard to explore. The case studies show what changed, why it changed and how the website works.</p>
+            <p class="section-index reveal">Work / Proof in the browser</p>
+            <h1 class="reveal">Selected Work</h1>
+            <p class="portfolio-hero__intro reveal">Live client work first. Then complete self-directed studies that show how strategy, interface and development work together.</p>
         </div>
     </section>
 
     <section class="work-index section-offwhite" aria-labelledby="work-index-title">
         <div class="section-shell">
             <div class="work-index__heading">
-                <div><p class="section-index">Portfolio index</p><h2 id="work-index-title">Five projects.<br><em>Five different jobs.</em></h2></div>
-                <p id="project-count" class="filter-status" aria-live="polite"><?= count($projects) ?> projects shown</p>
+                <div><p class="section-index">Client work</p><h2 id="work-index-title">Real businesses.<br><em>Working websites.</em></h2></div>
+                <p>Commissioned and founder-built work for operating businesses.</p>
             </div>
-            <div class="project-filters" role="group" aria-label="Filter projects">
-                <?php foreach ($filterLabels as $key => $label): ?>
-                    <button type="button" data-project-filter="<?= e($key) ?>" aria-pressed="<?= $key === 'all' ? 'true' : 'false' ?>"><?= e($label) ?></button>
-                <?php endforeach; ?>
+            <div class="project-grid project-grid--client"><?php project_card($projects['fortepiano-academy'], true); ?></div>
+        </div>
+    </section>
+
+    <section class="work-index work-index--studies section-light" aria-labelledby="study-index-title">
+        <div class="section-shell">
+            <div class="work-index__heading">
+                <div><p class="section-index">Independent studies</p><h2 id="study-index-title">Built to explore.<br><em>Finished to prove.</em></h2></div>
+                <p>Self-directed projects exploring industries, interfaces and digital systems beyond commissioned work. Only complete interactive studies are shown.</p>
             </div>
-            <div class="project-grid" data-project-grid>
-                <?php foreach ($projects as $project) project_card($project, true); ?>
+            <div class="project-grid">
+                <?php project_card($projects['mira-silt'], true); ?>
+                <?php project_card($projects['ninth-form'], true); ?>
             </div>
-            <noscript><p class="noscript-note">Filters require JavaScript. All projects remain available above.</p></noscript>
         </div>
     </section>
 
