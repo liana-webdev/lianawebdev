@@ -341,6 +341,48 @@ $formMessage = match ($formStatus) {
         </div>
     </section>
 
+    <section class="ai-pricing-note section-offwhite" id="ai-and-pricing" aria-labelledby="ai-pricing-title">
+        <div class="section-shell ai-pricing-note__grid">
+            <div class="ai-pricing-note__heading reveal">
+                <p class="section-index">Studio note / AI + value</p>
+                <h2 id="ai-pricing-title">Why WGS does not sell <em>$300 websites.</em></h2>
+                <p>WGS uses AI because it is useful. That does not make the project worth less.</p>
+            </div>
+            <article class="ai-pricing-note__article reveal">
+                <p>A professional website is not priced according to how many hours someone spends manually pushing pixels. Its value comes from the quality of the thinking, the decisions being made, the level of execution and the business problem being solved.</p>
+                <details>
+                    <summary>Read how WGS uses AI <span aria-hidden="true">+</span></summary>
+                    <div class="ai-pricing-note__content">
+                        <p>AI can accelerate research, generate alternatives, assist with production, test directions, help organise information, support development and reduce repetitive work.</p>
+                        <p>A proper WGS project still involves:</p>
+                        <ul>
+                            <li>understanding the business</li>
+                            <li>researching the market and audience</li>
+                            <li>defining the offer and message</li>
+                            <li>planning the information architecture</li>
+                            <li>designing the user journey</li>
+                            <li>developing creative directions</li>
+                            <li>establishing typography, colour, imagery and visual language</li>
+                            <li>designing responsive interfaces</li>
+                            <li>considering motion and interaction</li>
+                            <li>building and integrating the site</li>
+                            <li>setting up forms, booking, analytics, SEO and other required systems</li>
+                            <li>testing usability, responsiveness and performance</li>
+                            <li>refining the final result</li>
+                        </ul>
+                        <p>AI can make parts of this process faster. It does not remove the need for judgment.</p>
+                        <p>It does not decide what is appropriate for a specific business, what should be removed, what should be emphasised, how a brand should feel, what a user needs to understand first, or whether a creative idea is actually worth implementing. Those decisions remain the work.</p>
+                        <p>WGS uses AI in the same way a modern studio uses design software, development frameworks, 3D tools, motion libraries, analytics platforms and automation. The tool changes the workflow. It does not replace the creative direction.</p>
+                        <p>In practice, this means WGS can explore more ideas, test more possibilities and move from strategy to execution faster than a traditional process that relies on manual production at every stage.</p>
+                        <p>That efficiency benefits the client. It allows more time to be spent on the parts of the project that actually require thought: direction, judgment, refinement and execution.</p>
+                        <p>A $300 website is usually priced around speed, templates and minimal involvement. WGS is priced as a professional creative and strategic project.</p>
+                        <p><strong>The difference is not whether AI was used. The difference is how much thinking, specificity and responsibility goes into the result.</strong></p>
+                    </div>
+                </details>
+            </article>
+        </div>
+    </section>
+
     <section class="manifesto-section section-red">
         <div class="manifesto-orbit" aria-hidden="true"></div>
         <div class="section-shell">
