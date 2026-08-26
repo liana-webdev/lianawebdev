@@ -5,6 +5,7 @@ const WGS_CONCEPT_DISCLOSURE = 'Independent concept created by Web Girl Studio t
 
 $projects = [
     'fortepiano-academy' => [
+        'public' => true,
         'slug' => 'fortepiano-academy', 'name' => 'Fortepiano Academy', 'industry' => 'Education', 'status' => 'Client / Founder-built business / Live',
         'location' => 'Sydney, Australia', 'year' => '2026', 'order' => 0,
         'tags' => ['all', 'selected', 'client-work', 'business-services', 'education'],
@@ -49,6 +50,7 @@ $projects = [
         'next' => 'mira-silt',
     ],
     'mira-silt' => [
+        'public' => false,
         'slug' => 'mira-silt', 'name' => 'Mira Silt', 'industry' => 'Music', 'status' => 'Independent concept',
         'location' => 'Sydney, Australia', 'year' => '2026', 'order' => 1,
         'tags' => ['all', 'selected', 'culture', 'independent-concept', 'music-artists'],
@@ -160,6 +162,7 @@ $projects = [
         'next' => 'ninth-form',
     ],
     'ninth-form' => [
+        'public' => false,
         'slug' => 'ninth-form', 'name' => 'Ninth Form', 'industry' => 'Fashion', 'status' => 'Independent concept',
         'location' => 'Sydney / Melbourne, Australia', 'year' => '2026', 'order' => 2,
         'tags' => ['all', 'selected', 'culture', 'independent-concept', 'fashion'],

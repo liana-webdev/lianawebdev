@@ -4,12 +4,14 @@ require dirname(__DIR__) . '/content/projects.php';
 require dirname(__DIR__) . '/components/portfolio.php';
 require dirname(__DIR__) . '/components/analytics.php';
 
-if (!isset($projectSlug, $projects[$projectSlug])) {
+if (!isset($projectSlug, $projects[$projectSlug]) || ($projects[$projectSlug]['public'] ?? false) !== true) {
     http_response_code(404);
     exit('Project not found');
 }
 $project = $projects[$projectSlug];
-$nextProject = $projects[$project['next']];
+$nextProject = isset($project['next'], $projects[$project['next']]) && ($projects[$project['next']]['public'] ?? false) === true
+    ? $projects[$project['next']]
+    : null;
 $canonical = 'https://webgirl.studio' . wgs_project_url($project['slug']);
 $isInteractive = ($project['labStatus'] ?? '') === 'live';
 $isLiveClient = ($project['labStatus'] ?? '') === 'live-client';
@@ -87,7 +89,7 @@ $primaryLabel = $isInteractive ? 'Explore interactive site' : ($isLiveClient ? '
     </section>
 
     <section class="case-conversion section-dark"><div class="section-shell case-conversion__grid"><p class="section-index">Ready for a clearer website?</p><div><h2><?= e($project['closeHeading']) ?></h2><p><?= e($project['closeBody']) ?></p><a class="button button-red" href="/#contact">Start a project →</a></div></div></section>
-    <aside class="next-project section-offwhite"><div class="section-shell"><p class="section-index">Next project / <?= e($nextProject['industry']) ?></p><a href="<?= e(wgs_project_url($nextProject['slug'])) ?>"><span><?= e($nextProject['name']) ?></span><strong><?= e($nextProject['transformation']) ?></strong><b aria-hidden="true">→</b></a></div></aside>
+    <?php if ($nextProject !== null): ?><aside class="next-project section-offwhite"><div class="section-shell"><p class="section-index">Next project / <?= e($nextProject['industry']) ?></p><a href="<?= e(wgs_project_url($nextProject['slug'])) ?>"><span><?= e($nextProject['name']) ?></span><strong><?= e($nextProject['transformation']) ?></strong><b aria-hidden="true">→</b></a></div></aside><?php endif; ?>
 </article>
 </main>
 <?php portfolio_footer(); ?>

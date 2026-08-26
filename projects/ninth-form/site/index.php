@@ -1,4 +1,4 @@
-<?php declare(strict_types=1); require dirname(__DIR__, 3) . '/components/portfolio.php'; require dirname(__DIR__, 3) . '/components/analytics.php'; ?>
+<?php declare(strict_types=1); http_response_code(404); exit('Project not found'); require dirname(__DIR__, 3) . '/components/portfolio.php'; require dirname(__DIR__, 3) . '/components/analytics.php'; ?>
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ninth Form — Interactive Fashion Store | WGS Lab</title><meta name="description" content="A fictional interactive editorial fashion store created by Web Girl Studio.">

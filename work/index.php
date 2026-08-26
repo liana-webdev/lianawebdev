@@ -10,7 +10,7 @@ require dirname(__DIR__) . '/components/analytics.php';
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Selected Work | Web Girl Studio</title>
-    <meta name="description" content="Selected client, founder-built and independent Web Girl Studio projects across cultural worlds and conversion systems.">
+    <meta name="description" content="Fortepiano Academy: founder-built client work by Web Girl Studio, from strategy and identity through design and development.">
     <meta name="theme-color" content="#080808">
     <link rel="icon" href="<?= portfolio_asset('assets/favicon.svg') ?>" type="image/svg+xml">
     <link rel="canonical" href="https://webgirl.studio/work/">
@@ -27,7 +27,7 @@ require dirname(__DIR__) . '/components/analytics.php';
         <div class="section-shell portfolio-hero__grid">
             <p class="section-index reveal">Work / Proof in the browser</p>
             <h1 class="reveal">Selected Work</h1>
-            <p class="portfolio-hero__intro reveal">Live client work first. Then complete self-directed studies that show how strategy, interface and development work together.</p>
+            <p class="portfolio-hero__intro reveal">A live founder-built project showing how strategy, identity, interface and development work together.</p>
         </div>
     </section>
 
@@ -38,19 +38,6 @@ require dirname(__DIR__) . '/components/analytics.php';
                 <p>Commissioned and founder-built work for operating businesses.</p>
             </div>
             <div class="project-grid project-grid--client"><?php project_card($projects['fortepiano-academy'], true); ?></div>
-        </div>
-    </section>
-
-    <section class="work-index work-index--studies section-light" aria-labelledby="study-index-title">
-        <div class="section-shell">
-            <div class="work-index__heading">
-                <div><p class="section-index">Independent studies</p><h2 id="study-index-title">Built to explore.<br><em>Finished to prove.</em></h2></div>
-                <p>Self-directed projects exploring industries, interfaces and digital systems beyond commissioned work. Only complete interactive studies are shown.</p>
-            </div>
-            <div class="project-grid">
-                <?php project_card($projects['mira-silt'], true); ?>
-                <?php project_card($projects['ninth-form'], true); ?>
-            </div>
         </div>
     </section>
 

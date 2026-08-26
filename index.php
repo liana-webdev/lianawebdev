@@ -180,14 +180,12 @@ $formMessage = match ($formStatus) {
         <div class="section-shell">
             <div class="section-heading reveal">
                 <div><p class="section-index">01 / Selected work</p><h2 id="home-work-title">Proof before<br><em>the pitch.</em></h2></div>
-                <p>Live client work and complete interactive studies. Open the websites, use the interfaces, then read the thinking behind them.</p>
+                <p>Founder-built client work, shown through the live website and the thinking behind it.</p>
             </div>
             <div class="project-grid home-proof-grid">
                 <?php project_card($projects['fortepiano-academy']); ?>
-                <?php project_card($projects['mira-silt']); ?>
-                <?php project_card($projects['ninth-form']); ?>
             </div>
-            <div class="home-work-footer reveal"><p>Real work appears first. Independent studies are labelled clearly.</p><a class="button button-dark" href="/work/">View all work →</a></div>
+            <div class="home-work-footer reveal"><p>One real business, one working website, and a clear account of the decisions behind it.</p><a class="button button-dark" href="/work/">View the case study →</a></div>
         </div>
     </section>
 

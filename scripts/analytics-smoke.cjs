@@ -8,13 +8,6 @@ const routes = [
   "/work/",
   "/culture/",
   "/projects/fortepiano-academy/",
-  "/projects/mira-silt/",
-  "/projects/ninth-form/",
-  "/projects/second-weather/",
-  "/projects/sasha-mirev/",
-  "/projects/quiet-signal/",
-  "/projects/mira-silt/site/",
-  "/projects/ninth-form/site/",
 ];
 
 const fail = (message) => {
