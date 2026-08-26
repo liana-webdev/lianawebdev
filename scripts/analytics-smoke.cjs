@@ -85,7 +85,7 @@ async function analyticsEvents(page, eventName) {
       booking.click();
     });
 
-    const expectedEvents = ["click_email", "click_phone", "contact_cta_click", "view_case_study", "book_call"];
+    const expectedEvents = ["click_email", "click_phone", "contact_cta_click", "view_case_study", "booking_link_click"];
     for (const eventName of expectedEvents) {
       const events = await analyticsEvents(page, eventName);
       if (events.length !== 1) fail(`${eventName} fired ${events.length} times instead of once`);
@@ -95,7 +95,7 @@ async function analyticsEvents(page, eventName) {
       .map((entry) => Array.from(entry))
       .filter((entry) => entry[0] === "event")
       .map((entry) => entry[2]));
-    const allowedParameters = new Set(["link_location", "cta_text", "form_type", "case_study_slug", "page_path"]);
+    const allowedParameters = new Set(["link_location", "cta_text", "form_name", "case_study_slug", "page_path", "project_type", "investment_band", "lead_source", "lead_id"]);
     for (const payload of customEventPayloads) {
       for (const parameter of Object.keys(payload)) {
         if (!allowedParameters.has(parameter)) fail(`Unexpected analytics parameter: ${parameter}`);
@@ -116,6 +116,7 @@ async function analyticsEvents(page, eventName) {
     await leadPage.selectOption('[name="project_type"]', { label: "Website Diagnosis" });
     await leadPage.selectOption('[name="budget"]', { label: "$400 audit" });
     await leadPage.fill('[name="message"]', "Automated analytics success-state verification only.");
+    await leadPage.waitForTimeout(3100);
     await Promise.all([
       leadPage.waitForURL(/status=sent&lead=[a-f0-9]+#contact$/),
       leadPage.locator(".enquiry-form").evaluate((form) => form.requestSubmit()),
@@ -127,7 +128,7 @@ async function analyticsEvents(page, eventName) {
     for (const personalValue of ["Analytics Test Lead", "analytics-test@example.com", "Example Test Business", "Automated analytics success-state verification only."]) {
       if (leadPayload.includes(personalValue)) fail("Personal form data appeared in generate_lead");
     }
-    if (Object.keys(leadEvents[0]).sort().join(",") !== "form_type,page_path") fail("generate_lead contains unexpected parameters");
+    if (Object.keys(leadEvents[0]).sort().join(",") !== "form_name,investment_band,lead_id,lead_source,page_path,project_type") fail("generate_lead contains unexpected parameters");
 
     await leadPage.reload({ waitUntil: "networkidle" });
     if ((await analyticsEvents(leadPage, "generate_lead")).length !== 0) fail("generate_lead fired again after refresh");

@@ -1,126 +1,40 @@
 <?php
 declare(strict_types=1);
 session_start();
+require __DIR__ . '/lib/enquiry.php';
 
-function redirect_with_status(string $status, ?string $leadReceipt = null): never
+function redirect_with_status(string $status, ?string $receipt = null): never
 {
-    $query = ['status' => $status];
-    if ($leadReceipt !== null) {
-        $query['lead'] = $leadReceipt;
-    }
-    header('Location: ./?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986) . '#contact', true, 303);
-    exit;
+    $query = ['status' => $status]; if ($receipt) $query['lead'] = $receipt;
+    header('Location: ./?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986) . '#contact', true, 303); exit;
 }
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') redirect_with_status('invalid');
+if (!empty($_POST['company_website'] ?? '')) redirect_with_status('invalid');
 
-function text_length(string $value): int
-{
-    return function_exists('mb_strlen') ? mb_strlen($value, 'UTF-8') : strlen($value);
-}
-
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    redirect_with_status('invalid');
-}
-
-if (!empty($_POST['company_website'] ?? '')) {
-    redirect_with_status('sent');
-}
-
-$sessionToken = (string) ($_SESSION['wgs_csrf'] ?? '');
-$requestToken = (string) ($_POST['csrf'] ?? '');
-if ($sessionToken === '' || !hash_equals($sessionToken, $requestToken)) {
-    redirect_with_status('invalid');
-}
-
-$lastSubmission = (int) ($_SESSION['wgs_last_submission'] ?? 0);
-if ($lastSubmission > 0 && time() - $lastSubmission < 20) {
-    redirect_with_status('invalid');
-}
-
-$name = trim((string) ($_POST['name'] ?? ''));
-$email = trim((string) ($_POST['email'] ?? ''));
-$business = trim((string) ($_POST['business'] ?? ''));
-$projectType = trim((string) ($_POST['project_type'] ?? ''));
-$budget = trim((string) ($_POST['budget'] ?? ''));
-$message = trim((string) ($_POST['message'] ?? ''));
-
-$valid =
-    $name !== '' &&
-    text_length($name) <= 100 &&
-    filter_var($email, FILTER_VALIDATE_EMAIL) !== false &&
-    text_length($email) <= 160 &&
-    text_length($business) <= 220 &&
-    $projectType !== '' &&
-    text_length($projectType) <= 100 &&
-    $budget !== '' &&
-    text_length($budget) <= 60 &&
-    text_length($message) >= 20 &&
-    text_length($message) <= 4000;
-
-if (!$valid) {
-    redirect_with_status('invalid');
-}
-
-$cleanName = preg_replace('/[\r\n]+/', ' ', $name) ?: 'Website lead';
-$cleanEmail = str_replace(["\r", "\n"], '', $email);
-$recipient = 'hello@webgirl.studio';
-$subject = 'Web Girl Studio enquiry — ' . $projectType;
-$body = implode("\n", [
-    'New Web Girl Studio project enquiry',
-    '',
-    'Name: ' . $cleanName,
-    'Email: ' . $cleanEmail,
-    'Business / website: ' . ($business !== '' ? $business : 'Not supplied'),
-    'Project type: ' . $projectType,
-    'Investment range: ' . $budget,
-    '',
-    'Project:',
-    $message,
-    '',
-    'Submitted: ' . gmdate('c'),
-]);
-
-$host = preg_replace('/[^a-z0-9.-]/i', '', (string) ($_SERVER['HTTP_HOST'] ?? 'localhost'));
-$fromDomain = $host !== '' && $host !== 'localhost' ? $host : 'example.com';
-$headers = [
-    'From: Web Girl Studio Website <website@' . $fromDomain . '>',
-    'Reply-To: ' . $cleanName . ' <' . $cleanEmail . '>',
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    'X-Mailer: PHP/' . PHP_VERSION,
-];
+$csrf = (string) ($_SESSION['wgs_csrf'] ?? '');
+if ($csrf === '' || !hash_equals($csrf, (string) ($_POST['csrf'] ?? ''))) redirect_with_status('invalid');
+$started = (int) ($_POST['form_started'] ?? 0);
+if ($started < 1 || !hash_equals((string) ($_SESSION['wgs_form_started'] ?? ''), (string) $started) || time() - $started < 3 || time() - $started > 86400) redirect_with_status('invalid');
 
 $testMode = getenv('WGS_TEST_MODE') === '1';
-$mailSent = $testMode || @mail($recipient, $subject, $body, implode("\r\n", $headers));
-$_SESSION['wgs_last_submission'] = time();
-$_SESSION['wgs_csrf'] = bin2hex(random_bytes(24));
+$turnstileOk = $testMode || wgs_verify_turnstile((string) ($_POST['cf-turnstile-response'] ?? ''), (string) getenv('WGS_TURNSTILE_SECRET_KEY'), (string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+if (!$turnstileOk) redirect_with_status('invalid');
 
-if ($mailSent) {
-    $leadReceipt = bin2hex(random_bytes(16));
-    $_SESSION['wgs_lead_receipt'] = $leadReceipt;
-    redirect_with_status('sent', $leadReceipt);
-}
+[$valid, $data] = wgs_validate_enquiry($_POST);
+if (!$valid || wgs_is_obvious_spam($data)) redirect_with_status('invalid');
+$rateKey = ($_SERVER['REMOTE_ADDR'] ?? 'unknown') . '|' . $data['email'];
+if (!wgs_rate_limit(__DIR__ . '/storage', $rateKey, time())) redirect_with_status('invalid');
 
-$storageDirectory = __DIR__ . '/storage';
-$saved = is_dir($storageDirectory) &&
-    is_writable($storageDirectory) &&
-    file_put_contents(
-        $storageDirectory . '/enquiries.jsonl',
-        json_encode([
-            'submitted_at' => gmdate('c'),
-            'name' => $cleanName,
-            'email' => $cleanEmail,
-            'business' => $business,
-            'project_type' => $projectType,
-            'budget' => $budget,
-            'message' => $message,
-        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . PHP_EOL,
-        FILE_APPEND | LOCK_EX
-    ) !== false;
+$attribution = wgs_attribution($_POST);
+$submissionId = 'WGS-' . gmdate('Ymd') . '-' . strtoupper(bin2hex(random_bytes(5)));
+$payload = wgs_mail_payload($data, $attribution, $submissionId, new DateTimeImmutable('now', new DateTimeZone('UTC')));
+$fromEmail = getenv('WGS_FORM_FROM_EMAIL') ?: 'website@webgirl.studio';
+if (filter_var($fromEmail, FILTER_VALIDATE_EMAIL) === false || !str_ends_with(strtolower($fromEmail), '@webgirl.studio')) redirect_with_status('error');
+$headers = ['From: Liana | Web Girl Studio <' . $fromEmail . '>', 'Reply-To: ' . str_replace(["\r", "\n"], '', $data['email']), 'MIME-Version: 1.0', 'Content-Type: text/plain; charset=UTF-8'];
+$sent = $testMode || @mail($payload['recipient'], $payload['subject'], $payload['body'], implode("\r\n", $headers), '-f' . $fromEmail);
+if (!$sent) redirect_with_status('error');
 
-if ($saved) {
-    $leadReceipt = bin2hex(random_bytes(16));
-    $_SESSION['wgs_lead_receipt'] = $leadReceipt;
-    redirect_with_status('saved', $leadReceipt);
-}
-
-redirect_with_status('error');
+$_SESSION['wgs_last_lead_context'] = ['project_type' => $data['project_type'], 'budget' => $data['budget'], 'lead_source' => $attribution['utm_source'], 'lead_id' => $attribution['lead_id']];
+$receipt = bin2hex(random_bytes(16)); $_SESSION['wgs_lead_receipt'] = $receipt;
+$_SESSION['wgs_csrf'] = bin2hex(random_bytes(24)); unset($_SESSION['wgs_form_started']);
+redirect_with_status('sent', $receipt);
