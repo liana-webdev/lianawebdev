@@ -531,7 +531,7 @@
   max-width: 650px;
   margin-top: 28px;
   color: rgba(242, 236, 225, 0.76);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-editorial);
   font-size: clamp(18px, 1.55vw, 25px);
   line-height: 1.48;
 }
