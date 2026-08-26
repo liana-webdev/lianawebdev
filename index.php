@@ -6,6 +6,7 @@ header('Cache-Control: no-cache, must-revalidate');
 if (empty($_SESSION['wgs_csrf'])) {
     $_SESSION['wgs_csrf'] = bin2hex(random_bytes(24));
 }
+$_SESSION['wgs_form_started'] = time();
 
 function e(string $value): string
 {
@@ -93,6 +94,8 @@ $leadConfirmed = in_array($formStatus, ['sent', 'saved'], true) &&
 if ($leadConfirmed) {
     unset($_SESSION['wgs_lead_receipt']);
 }
+$leadContext = $leadConfirmed && is_array($_SESSION['wgs_last_lead_context'] ?? null) ? $_SESSION['wgs_last_lead_context'] : [];
+if ($leadConfirmed) unset($_SESSION['wgs_last_lead_context']);
 $formMessage = match ($formStatus) {
     'sent' => 'Thank you. Your project enquiry has been received.',
     'saved' => 'Thank you. Your enquiry has been securely received for follow-up.',
@@ -114,6 +117,7 @@ $formMessage = match ($formStatus) {
     <meta property="og:description" content="Sharp, memorable website systems built to move people from attention to enquiry.">
     <meta property="og:type" content="website">
     <?php wgs_analytics_head(); ?>
+    <?php if ((string) getenv('WGS_TURNSTILE_SITE_KEY') !== ''): ?><script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script><?php endif; ?>
     <link rel="preload" as="image" href="<?= asset_url('img/wgs-liana-founder-red-signal-closeup-looking-right-sideview.jpg') ?>" fetchpriority="high">
     <link rel="stylesheet" href="<?= asset_url('assets/styles.css') ?>">
     <link rel="stylesheet" href="<?= asset_url('assets/clarity-engine.css') ?>">
@@ -130,6 +134,7 @@ $formMessage = match ($formStatus) {
       "@type": "ProfessionalService",
       "name": "Web Girl Studio",
       "telephone": "+61 482 176 777",
+      "email": "hello@webgirl.studio",
       "description": "Sydney web design and digital growth studio creating conversion-led websites, brand systems and SEO foundations.",
       "areaServed": ["Sydney", "Australia"],
       "founder": {"@type": "Person", "name": "Liana Pavlicheva"},
@@ -430,8 +435,10 @@ $formMessage = match ($formStatus) {
                     <p>Sydney, Australia<br>Working Australia-wide</p>
                     <div class="contact-note"><i class="status-dot"></i>New project enquiries welcome</div>
                 </div>
-                <form class="enquiry-form reveal" action="contact.php" method="post">
+                <form class="enquiry-form reveal" action="contact.php" method="post" aria-describedby="enquiry-status">
                     <input type="hidden" name="csrf" value="<?= e($_SESSION['wgs_csrf']) ?>">
+                    <input type="hidden" name="form_started" value="<?= e((string) $_SESSION['wgs_form_started']) ?>">
+                    <?php foreach (['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'landing_path', 'initial_referrer'] as $field): ?><input type="hidden" name="<?= e($field) ?>" data-attribution-field="<?= e($field) ?>" value=""><?php endforeach; ?>
                     <label class="honeypot" aria-hidden="true" tabindex="-1">
                         Leave this field empty
                         <input name="company_website" type="text" tabindex="-1" autocomplete="off">
@@ -460,9 +467,10 @@ $formMessage = match ($formStatus) {
                         </label>
                     </div>
                     <label><span>What is not working now? *</span><textarea name="message" rows="5" minlength="20" maxlength="4000" required placeholder="The current problem, the outcome you want, and anything I should know..."></textarea></label>
+                    <div class="cf-turnstile" data-sitekey="<?= e((string) (getenv('WGS_TURNSTILE_SITE_KEY') ?: '')) ?>" data-theme="dark"></div>
                     <button class="button button-red form-submit" type="submit">Send project enquiry <span>↗</span></button>
-                    <p class="form-status" aria-live="polite"><?= e($formMessage) ?></p>
-                    <?php if ($leadConfirmed): ?><span data-wgs-lead-success="<?= e($leadReceipt) ?>" hidden></span><?php endif; ?>
+                    <p class="form-status" id="enquiry-status" role="status" aria-live="polite"><?= e($formMessage) ?></p>
+                    <?php if ($leadConfirmed): ?><span data-wgs-lead-success="<?= e($leadReceipt) ?>" data-lead-context="<?= e((string) json_encode($leadContext)) ?>" hidden></span><?php endif; ?>
                     <p class="form-privacy">Your information is used only to respond to this project enquiry.</p>
                 </form>
             </div>
