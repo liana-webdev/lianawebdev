@@ -4,9 +4,11 @@ const { chromium } = require(path.join(process.env.WGS_NODE_MODULES, "playwright
 
 const base = "http://127.0.0.1:8099";
 const routes = [
-  "/", "/work/", "/culture/", "/projects/fortepiano-academy/", "/projects/mira-silt/", "/projects/ninth-form/",
-  "/projects/second-weather/", "/projects/sasha-mirev/", "/projects/quiet-signal/",
-  "/projects/", "/projects/mira-silt/site/", "/projects/ninth-form/site/",
+  "/", "/work/", "/culture/", "/projects/fortepiano-academy/", "/projects/",
+];
+const hiddenRoutes = [
+  "/projects/mira-silt/", "/projects/ninth-form/",
+  "/projects/mira-silt/site/", "/projects/ninth-form/site/",
 ];
 
 async function settleMedia(page) {
@@ -75,7 +77,7 @@ async function auditImageRatios(page, label, errors) {
       await page.goto(base + "/work/", { waitUntil: "networkidle" });
       if (viewport.width >= 820) {
         const visible = await page.locator("[data-project-card]:visible").count();
-        if (visible !== 3) errors.push(`Work showed ${visible} public projects instead of 3`);
+        if (visible !== 1) errors.push(`Work showed ${visible} public projects instead of 1`);
         if (await page.locator("[data-project-filter]").count()) errors.push("Work still exposes portfolio filters");
         await page.locator("[data-viewer-link]:visible").first().click();
         await page.locator(".case-viewer__close").waitFor({ state: "visible" });
@@ -93,66 +95,15 @@ async function auditImageRatios(page, label, errors) {
       await page.goto(base + "/work/", { waitUntil: "networkidle" });
       await settleMedia(page);
       await auditImageRatios(page, `Work at ${viewport.width}px`, errors);
-      if (viewport.width <= 560) {
-        for (const slug of ["mira-silt", "ninth-form"]) {
-          const currentSource = await page.locator(`[data-project-card][style*="--project-bg"] a[href*="${slug}"] img`).evaluate((image) => image.currentSrc);
-          if (!currentSource.includes("cover-work-mobile-4x5.webp")) errors.push(`${slug} did not use its art-directed mobile cover`);
-        }
-      }
       await page.screenshot({ path: shot, fullPage: true });
       await page.goto(base + "/culture/", { waitUntil: "networkidle" });
       await settleMedia(page);
       await auditImageRatios(page, `Culture at ${viewport.width}px`, errors);
       await page.screenshot({ path: path.join(process.cwd(), "artifacts", `portfolio-culture-${viewport.width}.png`), fullPage: true });
-      await page.goto(base + "/projects/mira-silt/", { waitUntil: "networkidle" });
-      await settleMedia(page);
-      await auditImageRatios(page, `Mira case study at ${viewport.width}px`, errors);
-      const finalMedia = await page.locator('img[src*="/img/portfolio/mira-silt/"]').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0));
-      if (!finalMedia) errors.push(`Mira media did not fully decode at ${viewport.width}px`);
-      await page.screenshot({ path: path.join(process.cwd(), "artifacts", `case-study-mira-silt-${viewport.width}.png`), fullPage: true });
-      await page.goto(base + "/projects/ninth-form/", { waitUntil: "networkidle" });
-      await settleMedia(page);
-      await auditImageRatios(page, `Ninth Form case study at ${viewport.width}px`, errors);
-      const ninthMedia = await page.locator('img[src*="/img/portfolio/ninth-form/"]').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0));
-      if (!ninthMedia) errors.push(`Ninth Form media did not fully decode at ${viewport.width}px`);
-      await page.screenshot({ path: path.join(process.cwd(), "artifacts", `case-study-ninth-form-${viewport.width}.png`), fullPage: true });
-      await page.goto(base + "/projects/mira-silt/site/", { waitUntil: "networkidle" });
-      await settleMedia(page);
-      await auditImageRatios(page, `Mira site at ${viewport.width}px`, errors);
-      await page.screenshot({ path: path.join(process.cwd(), "artifacts", `lab-mira-silt-${viewport.width}.png`), fullPage: true });
-      await page.locator('[data-era="tour"]').click();
-      if ((await page.locator("[data-era-label]").textContent()) !== "Salt Memory — Live") errors.push("Mira campaign switcher failed");
-      await page.locator("[data-player]").click();
-      if ((await page.locator("[data-player]").getAttribute("aria-label")) !== "Pause album preview") errors.push("Mira player failed");
-      await page.locator('[data-open-dialog="mira-epk"]:visible').first().click();
-      if (!(await page.locator("#mira-epk").isVisible())) errors.push("Mira EPK failed to open");
-      await auditImageRatios(page, `Mira EPK at ${viewport.width}px`, errors);
-      const epkColumns = await page.locator(".epk-grid").evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(/\s+/).length);
-      const expectedEpkColumns = viewport.width <= 900 ? 1 : 2;
-      if (epkColumns !== expectedEpkColumns) errors.push(`Mira EPK uses ${epkColumns} columns instead of ${expectedEpkColumns} at ${viewport.width}px`);
-      await page.keyboard.press("Escape");
-      if (await page.locator("#mira-epk").isVisible()) errors.push("Mira EPK failed to close with Escape");
-      await page.goto(base + "/projects/ninth-form/site/", { waitUntil: "networkidle" });
-      await settleMedia(page);
-      await auditImageRatios(page, `Ninth Form World at ${viewport.width}px`, errors);
-      await page.screenshot({ path: path.join(process.cwd(), "artifacts", `lab-ninth-form-${viewport.width}.png`), fullPage: true });
-      await page.locator('[data-mode="shop"]').click();
-      if (!(await page.locator("[data-shop-view]").isVisible())) errors.push("Ninth Form Shop mode failed");
-      await auditImageRatios(page, `Ninth Form Shop at ${viewport.width}px`, errors);
-      const shopOverflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
-      if (shopOverflow) errors.push(`Ninth Form Shop mode overflows at ${viewport.width}px`);
-      await page.locator('[data-size="S"]').click();
-      await page.locator("[data-add-bag]").click();
-      if (!(await page.locator("#bag-drawer").isVisible())) errors.push("Ninth Form bag failed to open");
-      if ((await page.locator("[data-bag-count]").textContent()) !== "1") errors.push("Ninth Form bag count failed");
-      await page.locator("[data-qty-plus]").click();
-      if ((await page.locator("[data-bag-count]").textContent()) !== "2") errors.push("Ninth Form bag quantity failed");
-      await page.keyboard.press("Escape");
-      if (await page.locator("#bag-drawer").isVisible()) errors.push("Ninth Form bag failed to close with Escape");
-      await page.locator("[data-open-drawer=\"fit-drawer\"]").click();
-      const expectedFitSurface = viewport.width <= 600 ? ".measurement-cards" : ".measurements";
-      if (!(await page.locator(expectedFitSurface).isVisible())) errors.push(`Ninth Form fit guide is not mobile-safe at ${viewport.width}px`);
-      await page.keyboard.press("Escape");
+      for (const route of hiddenRoutes) {
+        const response = await page.goto(base + route, { waitUntil: "networkidle" });
+        if (response?.status() !== 404) errors.push(`${route} returned ${response?.status()} instead of 404`);
+      }
       await page.goto(base + "/", { waitUntil: "networkidle" });
       await settleMedia(page);
       const pearlCanvases = await page.locator("#top > .pearl-sand-canvas").count();

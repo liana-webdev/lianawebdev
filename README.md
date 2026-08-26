@@ -18,21 +18,21 @@ session rate limiting, mail delivery and a locked JSONL fallback.
 
 ## Portfolio routes
 
-- `/work/` - proof-led index split into Client Work and completed Independent Studies
+- `/work/` - proof-led index featuring the live Fortepiano Academy project
 - `/culture/` - Creative Industries niche landing page (route retained for compatibility)
 - `/projects/fortepiano-academy/` - live founder-built client case study
-- `/projects/mira-silt/`
-- `/projects/ninth-form/`
+- `/projects/mira-silt/` - retained but intentionally unpublished
+- `/projects/ninth-form/` - retained but intentionally unpublished
 - `/projects/second-weather/`
 - `/projects/sasha-mirev/`
 - `/projects/quiet-signal/`
-- `/projects/mira-silt/site/` - complete interactive fictional artist website
-- `/projects/ninth-form/site/` - complete interactive fictional fashion store
+- `/projects/mira-silt/site/` - retained but intentionally unpublished
+- `/projects/ninth-form/site/` - retained but intentionally unpublished
 
 Portfolio copy, metadata, placeholder testimonials and the non-public Face Not
-Fake case-study pipeline live in `content/projects.php`. Only Fortepiano Academy,
-Mira Silt and Ninth Form are listed publicly. Other concept routes remain intact
-for compatibility but are deliberately absent from Work until final media exists.
+Fake case-study pipeline live in `content/projects.php`. Only Fortepiano Academy
+is listed publicly. Concept routes remain intact for compatibility but return a
+not-found response and are deliberately absent from the public portfolio.
 
 Mira Silt and Ninth Form campaign/editorial assets are integrated under their
 respective `img/portfolio/` directories. Both now have classic-PHP interactive

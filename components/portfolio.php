@@ -107,6 +107,8 @@ function project_media_frame(array $project, string $key, string $class = ''): v
 
 function project_card(array $project, bool $viewer = false): void
 {
+    if (($project['public'] ?? false) !== true) return;
+
     $tagValue = implode(' ', $project['tags']);
     $viewerAttr = $viewer ? ' data-viewer-link' : '';
     echo '<article class="project-card reveal" data-project-card data-tags="' . e($tagValue) . '" style="' . project_palette_style($project) . '">';

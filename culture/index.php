@@ -65,8 +65,7 @@ $offers = ['Artist and creator websites', 'Release and campaign sites', 'Digital
 
     <section class="culture-work section-offwhite" aria-labelledby="culture-work-title">
         <div class="section-shell">
-            <div class="culture-section-heading"><p class="section-index">Relevant proof</p><h2 id="culture-work-title">See the systems<br><em>working in the browser.</em></h2></div>
-            <div class="project-grid"><?php project_card($projects['mira-silt']); ?><?php project_card($projects['ninth-form']); ?></div>
+            <div class="culture-section-heading"><p class="section-index">Bring the work into focus</p><h2 id="culture-work-title">Make the experience<br><em>as distinctive as the work.</em></h2></div>
             <div class="culture-single-cta"><a class="button button-dark" href="/#contact">Start a creative project →</a></div>
         </div>
     </section>
