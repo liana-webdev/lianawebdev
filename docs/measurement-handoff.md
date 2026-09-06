@@ -48,12 +48,23 @@ clicks are now `booking_link_click`, not conversions. When a booking provider is
 chosen, its signed server webhook or confirmed callback must create a unique
 booking receipt before emitting a documented booked-call event.
 
-## Proof-first approval item
+## Proof-first status (checked 6 September 2026)
 
-Current rendered evidence in `artifacts/site-audit/homepage-desktop-viewport.png`
-and `artifacts/site-audit/homepage-mobile.png` shows selected work below several
-extended explanatory sections. For cold-email visitors this delays concrete
-proof. Subject to Liana's creative approval, the minimal change is to move the
-existing selected-work block (unchanged copy, imagery and interaction) directly
-after the opening category/offer section. No restructuring is included in this
-repair.
+Current `index.php` already places `#work` immediately after the hero. The older
+screenshots above are not current evidence of section order. Retain the existing
+placement and art direction; deployment is still a separate verification step.
+
+The research implementation names the existing AUD $400 entry offer Decision &
+Conversion Diagnosis and defines one priority journey, evidence-led findings,
+ranked improvements and a scope recommendation. The fee is credited toward a
+WGS website project if the client proceeds. HTML option labels are updated while
+their existing `Website Diagnosis` and `$400 audit` values are preserved for
+server validation and analytics compatibility.
+
+Fortepiano is explicitly disclosed as Liana's own founder-built business. Its
+case demonstrates delivered work, not an unverified conversion uplift.
+
+Hostinger Mail read access to `hello@webgirl.studio` was verified on 6 September.
+That access does not prove authenticated PHP delivery or supply DNS/GA4 Admin
+access. The deployment, Turnstile, inbox-delivery and GA4 checks above remain
+open until evidence is recorded. Do not send external QA email from local tests.
