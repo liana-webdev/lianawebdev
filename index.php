@@ -79,7 +79,7 @@ $packages = [
 $faqs = [
     ['Do you only make websites?', 'Websites are the core offer. Branding, SEO and connected business tools are added only when the project needs them.'],
     ['What if I already have branding?', 'I preserve usable brand assets and recommend refinement only when the existing system weakens the website.'],
-    ['Can you improve a site without rebuilding it?', 'Sometimes. The $400 Website Diagnosis shows whether targeted fixes or a full rebuild make more sense.'],
+    ['Can you improve a site without rebuilding it?', 'Yes, when the evidence supports it. The AUD $400 Decision & Conversion Diagnosis reviews one priority customer journey, identifies the main obstacles and recommends targeted fixes or a build. The fee is credited toward a WGS website project if you proceed.'],
     ['How long does a project take?', 'Most WGS builds take around 2 to 4 weeks. Larger or unusually complex projects may take longer.'],
     ['Will I be able to edit the site?', 'Yes, when editing is part of the agreed build. The right setup depends on how often you need to change content.'],
 ];
@@ -224,9 +224,9 @@ $formMessage = match ($formStatus) {
     <section class="diagnosis-section section-red" id="diagnosis">
         <div class="section-shell">
             <div class="diagnosis-header reveal">
-                <p class="section-index">03 / Website Diagnosis</p>
-                <h2>See what’s actually holding the site back.</h2>
-                <p>A focused review for the buyer who knows something is wrong but does not yet know what to fix.</p>
+                <p class="section-index">03 / Decision &amp; Conversion Diagnosis</p>
+                <h2>Know what to improve before you invest.</h2>
+                <p>A focused review of one customer journey, from first visit to enquiry, booking or enrolment. You get a prioritised recommendation, not an automatic prescription for a rebuild.</p>
             </div>
             <div class="diagnosis-grid">
                 <div class="diagnosis-options" role="tablist" aria-label="Business website situation">
@@ -236,10 +236,11 @@ $formMessage = match ($formStatus) {
                 </div>
                 <div class="diagnosis-result reveal" role="tabpanel" aria-live="polite">
                     <span class="result-label">Your diagnosis deliverable</span>
-                    <h3 data-diagnostic-title>Find the leak before rebuilding.</h3>
-                    <p data-diagnostic-body>An audit separates surface-level visual issues from deeper problems in messaging, trust, mobile experience and conversion flow.</p>
-                    <ul class="diagnosis-deliverables"><li>UX + hierarchy</li><li>Messaging</li><li>Trust</li><li>Conversion path</li><li>Priority fixes</li></ul>
+                    <h3 data-diagnostic-title>Separate the visible issue from the real priority.</h3>
+                    <p data-diagnostic-body>Review the message, supporting proof and next step. We distinguish observed friction from assumptions and recommend what to test or change first.</p>
+                    <ul class="diagnosis-deliverables"><li>One priority journey</li><li>Evidence-led findings</li><li>Messaging + trust</li><li>Ranked improvements</li><li>Scope recommendation</li></ul>
                     <div><span>Fixed price</span><strong data-diagnostic-route>$400 AUD</strong></div>
+                    <p>The diagnosis fee is credited toward your WGS website project if you proceed. No obligation to commission a build.</p>
                     <a href="#contact">Request Diagnosis <span>↗</span></a>
                 </div>
             </div>
@@ -293,7 +294,7 @@ $formMessage = match ($formStatus) {
 
     <section class="deliverables-section section-offwhite" id="deliverables">
         <div class="section-shell">
-            <div class="section-heading reveal"><div><p class="section-index">05 / What you get</p><h2>A finished website.<br><em>Ready to work.</em></h2></div><p>The exact scope changes, but every item below is a real deliverable—not an abstract agency promise.</p></div>
+            <div class="section-heading reveal"><div><p class="section-index">05 / What you get</p><h2>A finished website.<br><em>Ready to work.</em></h2></div><p>Your proposal defines the pages, systems and launch support included in your project.</p></div>
             <div class="deliverables-grid reveal">
                 <?php foreach (['Custom website', 'Responsive design', 'Domain setup', 'Professional business email', 'Service pages', 'Booking or enquiry flow', 'Analytics', 'SEO foundations', 'Launch setup'] as $index => $deliverable): ?>
                     <div><span><?= str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) ?></span><strong><?= e($deliverable) ?></strong></div>
@@ -336,10 +337,10 @@ $formMessage = match ($formStatus) {
                 <?php endforeach; ?>
             </div>
             <div class="audit-strip reveal">
-                <div><span>Not sure what needs fixing?</span><h3>Website Diagnosis</h3></div>
-                <p>A focused review of message, trust, structure, mobile experience and conversion flow.</p>
+                <div><span>Not sure what needs fixing?</span><h3>Decision &amp; Conversion Diagnosis</h3></div>
+                <p>One customer journey, evidence-led priorities and a scope recommendation. Credited toward your WGS website project if you proceed.</p>
                 <strong>AUD $400</strong>
-                <a href="#contact">Request audit <span>↗</span></a>
+                <a href="#contact">Request diagnosis <span>↗</span></a>
             </div>
         </div>
     </section>
@@ -453,7 +454,7 @@ $formMessage = match ($formStatus) {
                             <span>What do you need? *</span>
                             <select name="project_type" required>
                                 <option value="" disabled selected>Select a route</option>
-                                <option>Website Diagnosis</option><option>New website</option><option>Website redesign</option>
+                                <option value="Website Diagnosis">Decision &amp; Conversion Diagnosis</option><option>New website</option><option>Website redesign</option>
                                 <option>Brand + website</option><option>Landing page</option><option>Something more unusual</option>
                             </select>
                         </label>
@@ -461,7 +462,7 @@ $formMessage = match ($formStatus) {
                             <span>Investment range *</span>
                             <select name="budget" required>
                                 <option value="" disabled selected>Select a range</option>
-                                <option>$400 audit</option><option>$2.5–4k</option><option>$5–8k</option>
+                                <option value="$400 audit">AUD $400 diagnosis</option><option>$2.5–4k</option><option>$5–8k</option>
                                 <option>$9–12k+</option><option>Not sure yet</option>
                             </select>
                         </label>
