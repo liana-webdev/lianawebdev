@@ -55,18 +55,18 @@
 
   const diagnosticContent = {
     none: {
-      title: "Build the foundation.",
-      body: "You need a clear offer, trust structure and a direct path from discovery to enquiry—without adding complexity before it earns its place.",
+      title: "Decide whether a website is the right next investment.",
+      body: "Review how customers currently find and choose the business, the offer and the practical next step. Recommend a website only where it has a clear role.",
       route: "$400 AUD",
     },
     weak: {
-      title: "Find the leak before rebuilding.",
-      body: "An audit separates surface-level visual issues from deeper problems in messaging, trust, mobile experience and conversion flow.",
+      title: "Separate the visible issue from the real priority.",
+      body: "Review the message, supporting proof and next step. We distinguish observed friction from assumptions and recommend what to test or change first.",
       route: "$400 AUD",
     },
     quiet: {
       title: "The issue may not be the design.",
-      body: "A good-looking site can still fail when the offer is vague, proof arrives too late or the visitor has no compelling reason to act now.",
+      body: "Review traffic quality, offer clarity and the enquiry path using the evidence available. If measurement is missing, establish a baseline before attributing the problem to design.",
       route: "$400 AUD",
     },
   };
